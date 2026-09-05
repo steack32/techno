@@ -1,6 +1,6 @@
 # 5e - Un objet, un besoin, des solutions
 
-Première séance de 55 minutes, prévue pour la semaine du 7 au 11 septembre 2026.
+Séance introductive - durée indicative : 55 minutes.
 
 Comment expliquer les choix de conception d'un objet du quotidien ?
 
@@ -12,7 +12,7 @@ Comment expliquer les choix de conception d'un objet du quotidien ?
 
 Matériel : un PC par élève ou binôme. Tous les documents nécessaires sont inclus. Les élèves téléchargent leurs réponses en texte puis les remettent au professeur.
 
-[Vue d'ensemble de la semaine](../../semaines/2026-09-07/README.md)
+[Vue d'ensemble des séances](../../supports/premieres-seances/README.md)
 
 ## Cours illustré
 

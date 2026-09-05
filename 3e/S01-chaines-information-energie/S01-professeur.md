@@ -2,13 +2,13 @@
 
 ## Un portail, deux chaînes
 
-**55 minutes ; une séance pour la semaine du 7 au 11 septembre 2026.**
+**Durée indicative : 55 minutes.**
 
 **Objectif :** Distinguer les deux chaînes, associer des composants à leurs fonctions et expliquer le lien entre ordre et action.
 
 **Prérequis :** Reconnaître un moteur et une forme d'énergie électrique ou mécanique. Ne pas supposer les sept fonctions déjà mémorisées.
 
-**Programme :** Rattachement de contenu au programme du cycle 4 de 2020 : analyse du fonctionnement d'un objet, de ses entrées/sorties et de ses flux d'énergie et d'information. Le déploiement local du programme 2024 atteint la 4e en 2026 ; cette séance de 3e utilise le vocabulaire du programme antérieur, également présent dans le nouveau.
+**Programme :** Rattachement de contenu au programme du cycle 4 de 2020 : analyse du fonctionnement d'un objet, de ses entrées/sorties et de ses flux d'énergie et d'information. Ces notions permettent d’étudier un système automatisé. Adapter le rattachement réglementaire au programme applicable à la classe.
 
 ## Préparation
 

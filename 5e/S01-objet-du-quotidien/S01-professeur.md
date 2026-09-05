@@ -2,7 +2,7 @@
 
 ## Un objet, un besoin, des solutions
 
-**55 minutes ; une séance pour la semaine du 7 au 11 septembre 2026.**
+**Durée indicative : 55 minutes.**
 
 **Objectif :** Identifier l'usage d'un objet, relier trois composants à leur rôle et justifier une amélioration.
 

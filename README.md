@@ -4,15 +4,15 @@ Ressources pédagogiques pour les classes de **5e, 4e et 3e**, dans le contexte 
 
 Ce dépôt rassemble les progressions, les séquences, les supports élèves, les corrigés et les évaluations.
 
-## Séances à utiliser la semaine prochaine
+## Séances introductives
 
-**[Semaine du 7 au 11 septembre 2026](semaines/2026-09-07/README.md)** : une première séance de 55 minutes par niveau, avec uniquement des PC.
+**[Trois séances de technologie](supports/premieres-seances/README.md)** : une première séance de 55 minutes par niveau, avec uniquement des PC.
 
 - 5e : étudier un objet du quotidien au choix.
 - 4e : simuler et corriger la commande d'un éclairage automatique.
 - 3e : comprendre les chaînes d'information et d'énergie d'un portail automatique.
 
-[Dossier complet à télécharger](semaines/2026-09-07/seances-technologie-2026-09-07.zip) · [Guide professeur et corrigés](semaines/2026-09-07/guide-professeur.pdf) · [Cours illustrés et traces écrites](semaines/2026-09-07/cours-illustres.pdf)
+[Dossier complet à télécharger](supports/premieres-seances/seances-technologie-college.zip) · [Guide professeur et corrigés](supports/premieres-seances/guide-professeur.pdf) · [Cours illustrés et traces écrites](supports/premieres-seances/cours-illustres.pdf)
 
 Chaque séance commence par une accroche de 5 minutes et un cours explicite de 7 minutes, suivi de 25 minutes d’activité, 10 minutes de correction, 5 minutes de trace écrite et 3 minutes de bilan. Les PDF AVANT et APRÈS sont séparés pour distribuer les documents au bon moment. Les élèves peuvent les consulter sur leur PC ; la projection est facultative. Le guide contient les explications à donner et les réponses attendues aux questions orales.
 
@@ -54,7 +54,7 @@ Les fichiers Markdown constituent les versions modifiables. Des versions PDF ou 
 
 ## Régénérer les supports
 
-Avec Python et ReportLab : `python scripts/generer_semaine.py`. Les contenus d’activité sont dans `scripts/contenus_semaine.py` ; les cours, dessins et déroulements révisés dans `scripts/introductions.py`. L’option `--reuse-student-pdfs` conserve les fiches élèves PDF déjà générées lorsque seuls les cours et le guide changent.
+Avec Python et ReportLab : `python scripts/generer_supports.py`. Les contenus d’activité sont dans `scripts/contenus.py` ; les cours, dessins et déroulements révisés dans `scripts/introductions.py`. L’option `--reuse-student-pdfs` conserve les fiches élèves PDF déjà générées lorsque seuls les cours et le guide changent.
 
 ## Principes de conception
 

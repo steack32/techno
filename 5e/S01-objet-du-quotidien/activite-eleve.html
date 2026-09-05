@@ -33,7 +33,7 @@ document.getElementById('paired').addEventListener('change',e=>{
  document.querySelectorAll('.extra-person').forEach(el=>el.hidden=!e.target.checked);
 });
 document.getElementById('export').addEventListener('click',()=>{
- const lines=[document.title,'Semaine du 7 au 11 septembre 2026',''];
+ const lines=[document.title,'Technologie au collège',''];
  fields().forEach(el=>{
   if(el.closest('.extra-person')?.hidden)return;
   lines.push((el.dataset.answer||el.id)+' : '+(el.value.trim()||'[non renseigné]'),'');

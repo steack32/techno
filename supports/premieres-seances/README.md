@@ -1,4 +1,4 @@
-# Semaine du 7 au 11 septembre 2026
+# Séances introductives de technologie
 
 Trois premières séances de 55 minutes, utilisables avec des PC uniquement.
 
@@ -8,7 +8,7 @@ Trois premières séances de 55 minutes, utilisables avec des PC uniquement.
 | 4e | [Allumer seulement quand c'est utile](../../4e/S01-eclairage-automatique/README.md) | Modifier une règle de commande et vérifier son comportement à l'aide de plusieurs essais, y compris au seuil. |
 | 3e | [Un portail, deux chaînes](../../3e/S01-chaines-information-energie/README.md) | Distinguer les deux chaînes, associer des composants à leurs fonctions et expliquer le lien entre ordre et action. |
 
-[Télécharger le dossier complet](seances-technologie-2026-09-07.zip) · [Guide professeur](guide-professeur.pdf) · [Tous les cours illustrés](cours-illustres.pdf)
+[Télécharger le dossier complet](seances-technologie-college.zip) · [Guide professeur](guide-professeur.pdf) · [Tous les cours illustrés](cours-illustres.pdf)
 
 ## Utilisation immédiate
 

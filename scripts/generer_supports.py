@@ -1,6 +1,6 @@
-"""Génère les supports Markdown, HTML et PDF pour la semaine du 7 septembre.
+"""Génère les supports Markdown, HTML et PDF pour le collège.
 
-Exécution : python scripts/generer_semaine.py
+Exécution : python scripts/generer_supports.py
 Dépendance pour les PDF : reportlab. Les activités produites sont autonomes.
 """
 from pathlib import Path
@@ -12,16 +12,16 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak, KeepTogether, Flowable
-from contenus_semaine import LESSONS, SOURCES
+from contenus import LESSONS, SOURCES
 from activites import make_html, diagram_svg
 from introductions import INTRO, adapt_lessons, course_story, script_story, intro_markdown
 adapt_lessons(LESSONS)
 
 ROOT=Path(__file__).resolve().parents[1]
-WEEK=ROOT/'semaines'/'2026-09-07'
+PACK=ROOT/'supports'/'premieres-seances'
 OUT=ROOT/'output'/'pdf'
-BUNDLE=ROOT/'output'/'semaine-2026-09-07'
-for path in (WEEK,OUT,BUNDLE): path.mkdir(parents=True,exist_ok=True)
+BUNDLE=ROOT/'output'/'seances-technologie-college'
+for path in (PACK,OUT,BUNDLE): path.mkdir(parents=True,exist_ok=True)
 
 fontdir=Path(reportlab.__file__).resolve().parent/'fonts'
 fallback=Path('/usr/share/fonts/truetype/dejavu')
@@ -99,7 +99,7 @@ def table(headers,rows,ratios=None,answer=False):
 def header(canvas,doc):
     canvas.setStrokeColor(LINE);canvas.setLineWidth(.6);canvas.line(40,35,PAGE_W-40,35)
     canvas.setFont('Lesson',8);canvas.setFillColor(INK)
-    canvas.drawString(40,22,'Technologie - semaine du 7 au 11 septembre 2026')
+    canvas.drawString(40,22,'Technologie au collège')
     canvas.drawRightString(PAGE_W-40,22,f'{doc.page}')
 
 def build_pdf(path,story,title):
@@ -159,7 +159,7 @@ def md_student(lesson):
     return s
 
 def md_teacher(lesson):
-    s=f"# {lesson['level']} - Fiche professeur\n\n## {lesson['title']}\n\n**55 minutes ; une séance pour la semaine du 7 au 11 septembre 2026.**\n\n"
+    s=f"# {lesson['level']} - Fiche professeur\n\n## {lesson['title']}\n\n**Durée indicative : 55 minutes.**\n\n"
     s+='**Objectif :** '+lesson['objective']+'\n\n**Prérequis :** '+lesson['prerequisites']+'\n\n**Programme :** '+lesson['programme']+'\n\n'
     s+='## Préparation\n\nDéposer `activite-eleve.html` sur les PC ou dans un espace de distribution habituel. Le fichier peut être copié par clé USB ou dossier partagé et ouvert par double-clic. Un PC par élève ou par binôme suffit. Les documents ne demandent aucun téléchargement pendant la séance. Vérifier une fois que le navigateur autorise l’ouverture du fichier et le téléchargement des réponses. Prévoir le fichier PDF en solution de repli.\n\n'
     s+='Les élèves téléchargent un fichier texte et le remettent par le canal habituel de la classe ; aucun envoi automatique ni compte n’est prévu. En binôme, alterner le clavier et demander deux billets de sortie distincts.\n\n'
@@ -175,7 +175,7 @@ def md_correction(lesson):
     return '# '+lesson['level']+' - Corrigé\n\n'+''.join('## '+label+'\n\n'+answer+'\n\n' for label,answer in lesson['correction'])+'## Évaluation formative\n\n'+lesson['assessment']+'\n'
 
 def guide_pdf(path):
-    story=[P('TECHNOLOGIE  |  GUIDE PROFESSEUR','meta'),P('Trois séances prêtes pour la semaine','title'),P('Du 7 au 11 septembre 2026 - 5e, 4e et 3e - 55 minutes par niveau'),P('PC uniquement. Les trois activités numériques sont autonomes : un navigateur suffit. Aucun compte, logiciel spécialisé ou connexion Internet n’est nécessaire une fois les fichiers distribués.'),table(['Niveau','Séance','Production attendue'],[[x['level'],x['title'],x['objective']] for x in LESSONS],[.5,1.5,2.4]),Spacer(1,12),P('Avant le premier cours','h')]
+    story=[P('TECHNOLOGIE  |  GUIDE PROFESSEUR','meta'),P('Trois séances de technologie','title'),P('5e, 4e et 3e - 55 minutes par niveau'),P('PC uniquement. Les trois activités numériques sont autonomes : un navigateur suffit. Aucun compte, logiciel spécialisé ou connexion Internet n’est nécessaire une fois les fichiers distribués.'),table(['Niveau','Séance','Production attendue'],[[x['level'],x['title'],x['objective']] for x in LESSONS],[.5,1.5,2.4]),Spacer(1,12),P('Avant le premier cours','h')]
     for text in [
         'Extraire le dossier ZIP. Dans eleves/, copier le fichier HTML du niveau sur les PC, ou le distribuer dans un dossier partagé. Un double-clic ouvre l’activité dans le navigateur.',
         'Dans cours/, ouvrir le PDF du niveau marqué AVANT. Le professeur explique pendant sept minutes, les élèves suivent sur leur PC ; la projection est facultative. Distribuer la trace APRÈS au moment de la correction. Le dossier professeur/ contient les corrigés ; le dépôt public les rend également accessibles.',
@@ -195,10 +195,10 @@ def guide_pdf(path):
         story += [P('Billet de sortie : barème facultatif','h'),P(lesson['assessment'])]
     story += [PageBreak(),P('3e  |  SCHÉMA DE RÉFÉRENCE','meta'),P('Deux chaînes qui coopèrent','title'),Chain(True),Spacer(1,12),P('Lire le schéma','h'),P('La chaîne d’information envoie un ordre au bloc distribuer de la chaîne d’énergie. Les deux chaînes ont besoin d’énergie pour fonctionner : elles sont distinguées selon les fonctions étudiées. Les pertes d’énergie et les alimentations des capteurs ne sont pas détaillées.'),P('Rattachement pédagogique','h')]
     for lesson in LESSONS:story.append(P(lesson['level']+' : '+lesson['programme'],'small'))
-    story += [P('Sources officielles consultées le 5 septembre 2026','h')]
+    story += [P('Références pédagogiques','h')]
     for title,url in SOURCES:story.append(P('<link href="'+escape(url,quote=True)+'" color="#175b9a">'+escape(title)+'</link>','small',True))
     story.append(P('Les contextes techniques, tableaux, questions, simulations et schémas de ce dossier sont des créations pédagogiques originales. Les modèles sont simplifiés et ne décrivent pas un produit commercial précis.','small'))
-    build_pdf(path,story,'Guide professeur - Technologie - 7 septembre 2026')
+    build_pdf(path,story,'Guide professeur - Technologie au collège')
 
 def main(rebuild_student=True):
     (BUNDLE/'eleves').mkdir(parents=True,exist_ok=True);(BUNDLE/'professeur').mkdir(exist_ok=True)
@@ -223,14 +223,14 @@ def main(rebuild_student=True):
         shutil.copyfile(folder/'S01-cours.md',BUNDLE/'professeur'/(lesson['level']+'-cours.md'))
         shutil.copyfile(pdf,BUNDLE/'eleves'/name);shutil.copyfile(folder/'activite-eleve.html',BUNDLE/'eleves'/(lesson['level']+'-activite.html'))
         shutil.copyfile(folder/'S01-professeur.md',BUNDLE/'professeur'/(lesson['level']+'-professeur.md'));shutil.copyfile(folder/'S01-corrige.md',BUNDLE/'professeur'/(lesson['level']+'-corrige.md'))
-        folder.joinpath('README.md').write_text(f"# {lesson['level']} - {lesson['title']}\n\nPremière séance de 55 minutes, prévue pour la semaine du 7 au 11 septembre 2026.\n\n{lesson['question']}\n\n- [Activité élève autonome sur PC](activite-eleve.html) : télécharger le fichier, puis l'ouvrir dans le navigateur. GitHub affiche son code lorsque l'on clique directement dessus.\n- [Fiche élève imprimable](exports/{name})\n- [Fiche élève modifiable](S01-eleve.md)\n- [Déroulement professeur](S01-professeur.md)\n- [Corrigé](S01-corrige.md)\n\nMatériel : un PC par élève ou binôme. Tous les documents nécessaires sont inclus. Les élèves téléchargent leurs réponses en texte puis les remettent au professeur.\n\n[Vue d'ensemble de la semaine](../../semaines/2026-09-07/README.md)\n",encoding='utf-8')
+        folder.joinpath('README.md').write_text(f"# {lesson['level']} - {lesson['title']}\n\nSéance introductive - durée indicative : 55 minutes.\n\n{lesson['question']}\n\n- [Activité élève autonome sur PC](activite-eleve.html) : télécharger le fichier, puis l'ouvrir dans le navigateur. GitHub affiche son code lorsque l'on clique directement dessus.\n- [Fiche élève imprimable](exports/{name})\n- [Fiche élève modifiable](S01-eleve.md)\n- [Déroulement professeur](S01-professeur.md)\n- [Corrigé](S01-corrige.md)\n\nMatériel : un PC par élève ou binôme. Tous les documents nécessaires sont inclus. Les élèves téléchargent leurs réponses en texte puis les remettent au professeur.\n\n[Vue d'ensemble des séances](../../supports/premieres-seances/README.md)\n",encoding='utf-8')
         with (folder/'README.md').open('a',encoding='utf-8') as f:
             f.write(f"\n## Cours illustré\n\n- [Cours à expliquer avant l’activité](exports/{lesson['level']}-cours-avant.pdf)\n- [Trace écrite à distribuer après correction](exports/{lesson['level']}-trace-apres.pdf)\n- [Explications et questions à poser](S01-cours.md)\n")
     build_pdf(OUT/'cours-illustres.pdf',combined,'Technologie - Cours illustrés et traces écrites - 5e, 4e, 3e')
-    shutil.copyfile(OUT/'cours-illustres.pdf',WEEK/'cours-illustres.pdf')
+    shutil.copyfile(OUT/'cours-illustres.pdf',PACK/'cours-illustres.pdf')
     shutil.copyfile(OUT/'cours-illustres.pdf',BUNDLE/'professeur'/'cours-illustres.pdf')
-    guide=OUT/'guide-professeur.pdf';guide_pdf(guide);shutil.copyfile(guide,BUNDLE/'professeur'/'guide-professeur.pdf');shutil.copyfile(guide,WEEK/'guide-professeur.pdf')
-    readme="""# Séances de technologie - semaine du 7 au 11 septembre 2026
+    guide=OUT/'guide-professeur.pdf';guide_pdf(guide);shutil.copyfile(guide,BUNDLE/'professeur'/'guide-professeur.pdf');shutil.copyfile(guide,PACK/'guide-professeur.pdf')
+    readme="""# Séances de technologie au collège
 
 Une séance de 55 minutes pour chaque niveau, avec uniquement des PC.
 
@@ -255,15 +255,15 @@ Les PDF élèves peuvent être imprimés ou consultés à l’écran. Distribuer
 Le navigateur conserve les réponses uniquement tant que la page reste ouverte. Les simulations ne nécessitent pas Internet. Les modèles techniques sont volontairement simplifiés.
 """
     (BUNDLE/'LIRE-MOI.md').write_text(readme,encoding='utf-8')
-    index='# Semaine du 7 au 11 septembre 2026\n\nTrois premières séances de 55 minutes, utilisables avec des PC uniquement.\n\n'
+    index='# Séances introductives de technologie\n\nTrois premières séances de 55 minutes, utilisables avec des PC uniquement.\n\n'
     index+=md_table(['Niveau','Séance et documents','Priorité'],[[x['level'],f"[{x['title']}](../../{x['level']}/S01-{x['slug']}/README.md)",x['objective']] for x in LESSONS])
-    index+='[Télécharger le dossier complet](seances-technologie-2026-09-07.zip) · [Guide professeur](guide-professeur.pdf) · [Tous les cours illustrés](cours-illustres.pdf)\n\n## Utilisation immédiate\n\n'+readme.split('## Utilisation immédiate',1)[1]
-    (WEEK/'README.md').write_text(index,encoding='utf-8')
-    archive=ROOT/'output'/'seances-technologie-2026-09-07.zip'
+    index+='[Télécharger le dossier complet](seances-technologie-college.zip) · [Guide professeur](guide-professeur.pdf) · [Tous les cours illustrés](cours-illustres.pdf)\n\n## Utilisation immédiate\n\n'+readme.split('## Utilisation immédiate',1)[1]
+    (PACK/'README.md').write_text(index,encoding='utf-8')
+    archive=ROOT/'output'/'seances-technologie-college.zip'
     with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as z:
         for path in sorted(BUNDLE.rglob('*')):
-            if path.is_file():z.write(path,Path('semaine-2026-09-07')/path.relative_to(BUNDLE))
-    shutil.copyfile(archive,WEEK/archive.name)
+            if path.is_file():z.write(path,Path('seances-technologie-college')/path.relative_to(BUNDLE))
+    shutil.copyfile(archive,PACK/archive.name)
     print(json.dumps({'pdfs':[str(p) for p in sorted(OUT.glob('*.pdf'))],'zip':str(archive)},ensure_ascii=False))
 
 if __name__=='__main__':

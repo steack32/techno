@@ -2,7 +2,7 @@
 
 ## Allumer seulement quand c'est utile
 
-**55 minutes ; une séance pour la semaine du 7 au 11 septembre 2026.**
+**Durée indicative : 55 minutes.**
 
 **Objectif :** Modifier une règle de commande et vérifier son comportement à l'aide de plusieurs essais, y compris au seuil.
 

@@ -6,7 +6,7 @@
 
 | Séquence | Problématique | Compétences visées | Durée | État | Documents |
 | --- | --- | --- | --- | --- | --- |
-| S01 - Un objet, un besoin, des solutions | Comment expliquer les choix de conception d'un objet ? | Besoin, usage, composants, matériaux, contraintes | 1 × 55 min | Séance préparée pour le 7-11 septembre 2026 | [Documents](S01-objet-du-quotidien/README.md) |
+| S01 - Un objet, un besoin, des solutions | Comment expliquer les choix de conception d'un objet ? | Besoin, usage, composants, matériaux, contraintes | 1 × 55 min | Séance disponible | [Documents](S01-objet-du-quotidien/README.md) |
 
 ## Piste proposée
 

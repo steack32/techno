@@ -6,7 +6,7 @@
 
 | Séquence | Problématique | Compétences visées | Durée | État | Documents |
 | --- | --- | --- | --- | --- | --- |
-| S01 - Chaînes d'information et d'énergie | Qui commande le portail et qu'est-ce qui le met en mouvement ? | Fonctions des deux chaînes, ordre, conversion, diagnostic | 1 × 55 min | Priorité ; séance préparée pour le 7-11 septembre 2026 | [Documents](S01-chaines-information-energie/README.md) |
+| S01 - Chaînes d'information et d'énergie | Qui commande le portail et qu'est-ce qui le met en mouvement ? | Fonctions des deux chaînes, ordre, conversion, diagnostic | 1 × 55 min | Priorité ; séance disponible | [Documents](S01-chaines-information-energie/README.md) |
 
 ## Priorité retenue
 
