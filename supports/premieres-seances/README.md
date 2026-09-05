@@ -1,4 +1,4 @@
-# Semaine du 7 au 11 septembre 2026
+# Premières séances de technologie
 
 Trois premières séances de 55 minutes, utilisables avec des PC uniquement.
 
@@ -8,17 +8,17 @@ Trois premières séances de 55 minutes, utilisables avec des PC uniquement.
 | 4e | [Allumer seulement quand c'est utile](../../4e/S01-eclairage-automatique/README.md) | Modifier une règle de commande et vérifier son comportement à l'aide de plusieurs essais, y compris au seuil. |
 | 3e | [Un portail, deux chaînes](../../3e/S01-chaines-information-energie/README.md) | Distinguer les deux chaînes, associer des composants à leurs fonctions et expliquer le lien entre ordre et action. |
 
-[Télécharger le dossier complet](seances-technologie-2026-09-07.zip) · [Guide professeur](guide-professeur.pdf)
+[Guide professeur](guide-professeur.pdf)
 
 
 
-1. Extraire ce dossier ZIP.
-2. Ouvrir le guide professeur dans professeur/ pour le déroulement et les corrigés.
-3. Distribuer le fichier HTML du niveau, situé dans eleves/. Un double-clic l'ouvre dans un navigateur ; aucun compte ni installation n'est nécessaire.
+1. Ouvrir le dossier du niveau dans le tableau ci-dessus.
+2. Consulter le guide professeur ci-dessus pour le déroulement et les corrigés.
+3. Distribuer le fichier HTML du niveau, situé dans le dossier de la séance. Un double-clic l'ouvre dans un navigateur ; aucun compte ni installation n'est nécessaire.
 4. Les élèves complètent les cases et cliquent sur « Télécharger mes réponses ». Ils remettent ensuite le fichier texte par le canal habituel. Aucune réponse n'est envoyée automatiquement. Télécharger avant de fermer la page.
 5. À deux sur un PC, cocher le travail en binôme, alterner le clavier et répondre chacun au bilan individuel.
 
-Les PDF élèves peuvent être imprimés. Ne distribuer aux élèves que leur activité ; le dossier professeur/ contient les corrigés.
+Les PDF élèves peuvent être imprimés. Ne distribuer aux élèves que leur activité ; les fichiers S01-corrige.md et le guide professeur contiennent les corrigés.
 
 ## Séances
 

@@ -4,15 +4,15 @@ Ressources pédagogiques pour les classes de **5e, 4e et 3e**, dans le contexte 
 
 Ce dépôt rassemble les progressions, les séquences, les supports élèves, les corrigés et les évaluations.
 
-## Séances à utiliser la semaine prochaine
+## Premières séances
 
-**[Semaine du 7 au 11 septembre 2026](semaines/2026-09-07/README.md)** : une première séance de 55 minutes par niveau, avec uniquement des PC.
+**[Premières séances par niveau](supports/premieres-seances/README.md)** : une première séance de 55 minutes par niveau, avec uniquement des PC.
 
 - 5e : étudier un objet du quotidien au choix.
 - 4e : simuler et corriger la commande d'un éclairage automatique.
 - 3e : comprendre les chaînes d'information et d'énergie d'un portail automatique.
 
-[Dossier complet à télécharger](semaines/2026-09-07/seances-technologie-2026-09-07.zip) · [Guide professeur et corrigés](semaines/2026-09-07/guide-professeur.pdf)
+[Guide professeur et corrigés](supports/premieres-seances/guide-professeur.pdf)
 
 Les activités HTML s'ouvrent localement dans un navigateur, sans compte ni installation. Les fiches PDF sont imprimables et les fichiers Markdown modifiables.
 
@@ -35,7 +35,7 @@ Les activités HTML s'ouvrent localement dans un navigateur, sans compte ni inst
 
 ## Organisation d'une séquence
 
-Chaque séquence est rangée dans le dossier de son niveau, avec un nom comme `5e/S01-objet-du-quotidien/`. Il s'agit d'un exemple de nom, pas d'une séquence déjà créée.
+Chaque séquence est rangée dans le dossier de son niveau, avec un nom comme `5e/S01-objet-du-quotidien/`. Les trois premières séances sont disponibles dans les dossiers ci-dessus.
 
 | Fichier ou dossier | Contenu |
 | --- | --- |
@@ -60,4 +60,14 @@ Les fichiers Markdown constituent les versions modifiables. Des versions PDF ou 
 
 ## Contexte de préparation
 
-Matériel confirmé : des PC pour les élèves. Priorité indiquée pour les 3e : chaînes d'information et d'énergie. La durée de 55 minutes est une hypothèse de préparation. Les créneaux exacts et les acquis déjà travaillés pourront guider les séances suivantes.
+Séances de 55 minutes ; deux élèves par PC ; Internet et impression disponibles. Les élèves ont déjà travaillé les réseaux, la programmation mBot et SketchUp ou Sweet Home 3D. Les documents imprimés sont conservés dans un porte-vues ; maximum deux feuilles recto verso par élève et par séance. Prévoir un parcours très guidé pour les deux élèves de 5e en grande difficulté.
+
+## Rangement des fichiers
+
+- `5e/`, `4e/`, `3e/` : séances classées par niveau ; activités numériques, sources modifiables, corrigés et PDF dans chaque séance.
+- `supports/premieres-seances/` : guide professeur commun et index des premières séances.
+- `modeles/` : modèles réutilisables de préparation et d'évaluation.
+- `ressources/` : références et ressources communes.
+- `scripts/` : outils de génération des supports.
+
+Aucun fichier ZIP ne doit être ajouté au dépôt. Chaque document doit être accessible individuellement et référencé dans le README de sa séance. Conserver des noms de dossiers et de fichiers indépendants du calendrier.

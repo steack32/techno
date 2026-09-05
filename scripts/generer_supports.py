@@ -5,21 +5,20 @@ Dépendance pour les PDF : reportlab. Les activités produites sont autonomes.
 """
 from pathlib import Path
 from html import escape
-import json, shutil, zipfile, reportlab
+import json, shutil, reportlab
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak, KeepTogether, Flowable
-from contenus_semaine import LESSONS, SOURCES
+from contenus import LESSONS, SOURCES
 from activites import make_html, diagram_svg
 
 ROOT=Path(__file__).resolve().parents[1]
-WEEK=ROOT/'semaines'/'2026-09-07'
+SUPPORTS=ROOT/'supports'/'premieres-seances'
 OUT=ROOT/'output'/'pdf'
-BUNDLE=ROOT/'output'/'semaine-2026-09-07'
-for path in (WEEK,OUT,BUNDLE): path.mkdir(parents=True,exist_ok=True)
+for path in (SUPPORTS,OUT): path.mkdir(parents=True,exist_ok=True)
 
 fontdir=Path(reportlab.__file__).resolve().parent/'fonts'
 fallback=Path('/usr/share/fonts/truetype/dejavu')
@@ -174,7 +173,7 @@ def md_correction(lesson):
 def guide_pdf(path):
     story=[P('TECHNOLOGIE  |  GUIDE PROFESSEUR','meta'),P('Trois séances prêtes pour la semaine','title'),P('Du 7 au 11 septembre 2026 - 5e, 4e et 3e - 55 minutes par niveau'),P('PC uniquement. Les trois activités numériques sont autonomes : un navigateur suffit. Aucun compte, logiciel spécialisé ou connexion Internet n’est nécessaire une fois les fichiers distribués.'),table(['Niveau','Séance','Production attendue'],[[x['level'],x['title'],x['objective']] for x in LESSONS],[.5,1.5,2.4]),Spacer(1,12),P('Avant le premier cours','h')]
     for text in [
-        'Extraire le dossier ZIP. Dans eleves/, copier le fichier HTML du niveau sur les PC, ou le distribuer dans un dossier partagé. Un double-clic ouvre l’activité dans le navigateur.',
+        'Depuis le dossier du niveau et de la séance sur GitHub, télécharger activite-eleve.html et le copier sur les PC, ou le distribuer dans un dossier partagé. Un double-clic ouvre l’activité dans le navigateur.',
         'Distribuer seulement le fichier du niveau concerné aux élèves. Le dossier professeur/ contient les corrigés. Le dépôt GitHub étant public, ses corrigés sont également accessibles publiquement.',
         'Prévoir un PC par élève ou par binôme. À deux, faire alterner le clavier ; la case de travail en binôme fait apparaître un second bilan individuel.',
         'En fin de séance, faire cliquer sur « Télécharger mes réponses », puis vérifier la remise du fichier texte par le canal habituel. La page ne transmet rien automatiquement et ne conserve pas de réponse après fermeture.',
@@ -196,7 +195,6 @@ def guide_pdf(path):
     build_pdf(path,story,'Guide professeur - Technologie - 7 septembre 2026')
 
 def main():
-    (BUNDLE/'eleves').mkdir(parents=True,exist_ok=True);(BUNDLE/'professeur').mkdir(exist_ok=True)
     for lesson in LESSONS:
         folder=ROOT/lesson['level']/('S01-'+lesson['slug']);folder.mkdir(parents=True,exist_ok=True)
         for name,contents in [('activite-eleve.html',make_html(lesson)),('S01-eleve.md',md_student(lesson)),('S01-professeur.md',md_teacher(lesson)),('S01-corrige.md',md_correction(lesson))]:(folder/name).write_text(contents,encoding='utf-8')
@@ -204,42 +202,10 @@ def main():
             (folder/'documents').mkdir(exist_ok=True);(folder/'documents'/'chaines-a-completer.svg').write_text(diagram_svg(),encoding='utf-8')
         name=f"{lesson['level']}-fiche-eleve.pdf";pdf=OUT/name;student_pdf(lesson,pdf)
         (folder/'exports').mkdir(exist_ok=True);shutil.copyfile(pdf,folder/'exports'/name)
-        shutil.copyfile(pdf,BUNDLE/'eleves'/name);shutil.copyfile(folder/'activite-eleve.html',BUNDLE/'eleves'/(lesson['level']+'-activite.html'))
-        shutil.copyfile(folder/'S01-professeur.md',BUNDLE/'professeur'/(lesson['level']+'-professeur.md'));shutil.copyfile(folder/'S01-corrige.md',BUNDLE/'professeur'/(lesson['level']+'-corrige.md'))
-        folder.joinpath('README.md').write_text(f"# {lesson['level']} - {lesson['title']}\n\nPremière séance de 55 minutes, prévue pour la semaine du 7 au 11 septembre 2026.\n\n{lesson['question']}\n\n- [Activité élève autonome sur PC](activite-eleve.html) : télécharger le fichier, puis l'ouvrir dans le navigateur. GitHub affiche son code lorsque l'on clique directement dessus.\n- [Fiche élève imprimable](exports/{name})\n- [Fiche élève modifiable](S01-eleve.md)\n- [Déroulement professeur](S01-professeur.md)\n- [Corrigé](S01-corrige.md)\n\nMatériel : un PC par élève ou binôme. Tous les documents nécessaires sont inclus. Les élèves téléchargent leurs réponses en texte puis les remettent au professeur.\n\n[Vue d'ensemble de la semaine](../../semaines/2026-09-07/README.md)\n",encoding='utf-8')
-    guide=OUT/'guide-professeur.pdf';guide_pdf(guide);shutil.copyfile(guide,BUNDLE/'professeur'/'guide-professeur.pdf');shutil.copyfile(guide,WEEK/'guide-professeur.pdf')
-    readme="""# Séances de technologie - semaine du 7 au 11 septembre 2026
-
-Une séance de 55 minutes pour chaque niveau, avec uniquement des PC.
-
-## Utilisation immédiate
-
-1. Extraire ce dossier ZIP.
-2. Ouvrir le guide professeur dans professeur/ pour le déroulement et les corrigés.
-3. Distribuer le fichier HTML du niveau, situé dans eleves/. Un double-clic l'ouvre dans un navigateur ; aucun compte ni installation n'est nécessaire.
-4. Les élèves complètent les cases et cliquent sur « Télécharger mes réponses ». Ils remettent ensuite le fichier texte par le canal habituel. Aucune réponse n'est envoyée automatiquement. Télécharger avant de fermer la page.
-5. À deux sur un PC, cocher le travail en binôme, alterner le clavier et répondre chacun au bilan individuel.
-
-Les PDF élèves peuvent être imprimés. Ne distribuer aux élèves que leur activité ; le dossier professeur/ contient les corrigés.
-
-## Séances
-
-- 5e : Un objet, un besoin, des solutions. Choisir un objet, identifier ses composants et justifier une amélioration.
-- 4e : Allumer seulement quand c'est utile. Tester une règle avec OU, la corriger avec ET et vérifier le cas limite.
-- 3e : Un portail, deux chaînes. Étudier les chaînes d'information et d'énergie d'un portail automatique.
-
-Le navigateur conserve les réponses uniquement tant que la page reste ouverte. Les simulations ne nécessitent pas Internet. Les modèles techniques sont volontairement simplifiés.
-"""
-    (BUNDLE/'LIRE-MOI.md').write_text(readme,encoding='utf-8')
-    index='# Semaine du 7 au 11 septembre 2026\n\nTrois premières séances de 55 minutes, utilisables avec des PC uniquement.\n\n'
-    index+=md_table(['Niveau','Séance et documents','Priorité'],[[x['level'],f"[{x['title']}](../../{x['level']}/S01-{x['slug']}/README.md)",x['objective']] for x in LESSONS])
-    index+='[Télécharger le dossier complet](seances-technologie-2026-09-07.zip) · [Guide professeur](guide-professeur.pdf)\n\n'+readme.split('## Utilisation immédiate',1)[1]
-    (WEEK/'README.md').write_text(index,encoding='utf-8')
-    archive=ROOT/'output'/'seances-technologie-2026-09-07.zip'
-    with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as z:
-        for path in sorted(BUNDLE.rglob('*')):
-            if path.is_file():z.write(path,Path('semaine-2026-09-07')/path.relative_to(BUNDLE))
-    shutil.copyfile(archive,WEEK/archive.name)
-    print(json.dumps({'pdfs':[str(OUT/(x['level']+'-fiche-eleve.pdf')) for x in LESSONS]+[str(guide)],'zip':str(archive)},ensure_ascii=False))
+        folder.joinpath('README.md').write_text(f"# {lesson['level']} - {lesson['title']}\n\nPremière séance de 55 minutes.\n\n{lesson['question']}\n\n- [Activité élève autonome sur PC](activite-eleve.html) : télécharger le fichier, puis l'ouvrir dans le navigateur. GitHub affiche son code lorsque l'on clique directement dessus.\n- [Fiche élève imprimable](exports/{name})\n- [Fiche élève modifiable](S01-eleve.md)\n- [Déroulement professeur](S01-professeur.md)\n- [Corrigé](S01-corrige.md)\n\nMatériel : un PC par élève ou binôme. Tous les documents nécessaires sont inclus. Les élèves téléchargent leurs réponses en texte puis les remettent au professeur.\n\n[Vue d'ensemble des séances](../../supports/premieres-seances/README.md)\n",encoding='utf-8')
+    guide=OUT/'guide-professeur.pdf'
+    guide_pdf(guide)
+    shutil.copyfile(guide,SUPPORTS/'guide-professeur.pdf')
+    print(json.dumps({'pdfs':[str(OUT/(x['level']+'-fiche-eleve.pdf')) for x in LESSONS]+[str(guide)]},ensure_ascii=False))
 
 if __name__=='__main__':main()
