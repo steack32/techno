@@ -2,6 +2,7 @@
 from html import escape as esc
 import json
 from portail import portal_svg, COMPONENTS
+from visuels import visual_svg
 
 CSS = '''
 :root{--ink:#16283e;--blue:#175b9a;--energy:#b65b12;--line:#cfdae5;--paper:#fff;--bg:#edf2f6}
@@ -18,7 +19,7 @@ table{width:100%;border-collapse:collapse;font-size:15px;margin:12px 0 22px}th,t
 .step{border-top:2px solid var(--line);padding-top:10px;margin-top:30px}.step:first-of-type{border:0;margin-top:0;padding:0}.small{font-size:14px;color:#43556a}
 .sim{margin:24px 0;padding:20px;border:2px solid #bdd0e1;background:#f5f9fd}.controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.controls label{display:block}.controls input[type=range]{width:100%}
 .rule{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:16px 0}.rule select{width:auto;min-width:76px}.rule input{width:88px}.live{display:flex;gap:18px;align-items:center;padding:16px 0}.lamp{display:inline-block;flex:none;width:48px;height:48px;background:#9eacb8;border:3px solid #6d7e8e;border-radius:50%}.lamp.on{background:#ffd245;border-color:#a46500}
-.state{font-size:21px;font-weight:bold}.active-rule{font-family:monospace;font-size:16px;overflow-wrap:anywhere}.chain{width:100%;height:auto}.portal-view svg{width:100%;height:auto}.portal-labels{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}.toolbar{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0}.feedback{min-height:28px;color:#164f28;font-weight:bold}
+.state{font-size:21px;font-weight:bold}.active-rule{font-family:monospace;font-size:16px;overflow-wrap:anywhere}.chain{width:100%;height:auto}.portal-view svg,.lesson-visual svg{width:100%;height:auto}.lesson-visual{margin:16px 0}.lesson-visual:has(svg[viewBox="0 0 320 220"]){max-width:400px}.portal-labels{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}.toolbar{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0}.feedback{min-height:28px;color:#164f28;font-weight:bold}
 .exit{border:2px solid var(--blue);padding:15px;margin:22px 0}.exit textarea{margin-bottom:5px}.extra-person[hidden]{display:none}
 @media(max-width:650px){main{margin:0;padding:22px 16px}.controls{grid-template-columns:1fr}h1{font-size:26px}table{font-size:14px}}
 @media print{body{background:white;font-size:11pt}main{max-width:none;margin:0;padding:0;border:0}.toolbar,button,.sim{display:none}textarea{border:0;border-bottom:1px solid #777;min-height:55px}.step{break-before:page}header{break-after:avoid}table{font-size:9pt}.exit{break-inside:avoid}}
@@ -53,7 +54,7 @@ LIGHT_HTML = '''
 <section class="sim" aria-labelledby="light-title"><h2 id="light-title">Laboratoire : éclairage du couloir</h2>
 <div class="controls"><label for="lum">Luminosité : <output id="lum-out">80</output> / 100<input id="lum" type="range" min="0" max="100" value="80" step="1"></label>
 <label for="presence"><input type="checkbox" id="presence"> Une personne est présente</label></div>
-<p>Modifie la règle de commande, puis applique-la.</p>
+<p><strong>Commence avec OU :</strong> prévois et teste les cinq cas. Modifie la règle seulement à la question 4, puis clique sur Appliquer.</p>
 <div class="rule"><span>SI luminosité</span><label><span class="small">Comparaison</span><select id="cmp" aria-label="Comparaison"><option value="lt">&lt;</option><option value="le">≤</option><option value="gt">&gt;</option></select></label>
 <label><span class="small">Seuil</span><input id="threshold" aria-label="Seuil" type="number" min="0" max="100" step="1" value="30"></label>
 <label><span class="small">Liaison logique</span><select id="logic" aria-label="Liaison logique"><option value="or">OU</option><option value="and">ET</option></select></label><span>présence</span><button type="button" id="apply">Appliquer</button></div>
@@ -121,6 +122,7 @@ def field(identifier,label,lines=2):
 
 def block_html(b):
     t=b['type']
+    if t=='visual': return '<figure class="lesson-visual">'+visual_svg(b['name'])+'</figure>'
     if t=='p': return '<p>'+esc(b['text'])+'</p>'
     if t=='h': return '<h2>'+esc(b['text'])+'</h2>'
     if t=='q': return field(b['id'],b['label'],b['lines'])
@@ -151,14 +153,19 @@ def make_html(lesson):
     if lesson['level']=='3e':
         svg=portal_svg(False,legend=False)
         svg=svg[svg.index('<svg '):]
-        fields=''.join(field('repere-'+n,'Repère '+n+' : nom du composant',1) for n,_,_ in COMPONENTS)
+        fields=''.join('<label>Repère '+n+' : nom du composant<input type="text" id="repere-'+n+'" data-answer="Repère '+n+' : nom du composant"></label>' for n,_,_ in COMPONENTS)
         content='<section class="step"><h2>Observer et légender le portail</h2><p>Identifie les neuf repères à l’aide du tableau des composants ci-dessous. Le dessin est une vue pédagogique simplifiée, sans échelle. Le faisceau passe devant le vantail. La cible mobile rejoint le capteur fixe en fin de fermeture.</p><div class="portal-view">'+svg+'</div><div class="portal-labels">'+fields+'</div></section>'+content
+    section_links='<nav aria-label="Étapes de l’activité"><p><strong>Parcours :</strong> '+ ' · '.join('<a href="#etape-'+str(i+1)+'">Étape '+str(i+1)+'</a>' for i in range(content.count('<section class="step">')))+'</p></nav>'
+    counter=iter(range(1,20))
+    import re
+    content=re.sub(r'<section class="step">',lambda m:'<section class="step" id="etape-'+str(next(counter))+'">',content)
+    content=section_links+content
     js=BASE_JS + (LIGHT_JS if lesson['level']=='4e' else GATE_JS if lesson['level']=='3e' else '')
     return f'''<!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{esc(lesson['level'])} - {esc(lesson['title'])}</title><style>{CSS}</style></head>
 <body><main><header><div class="meta">TECHNOLOGIE · {esc(lesson['level'].upper())} · SÉANCE 1 · 55 MIN</div><h1>{esc(lesson['title'])}</h1><p>{esc(lesson['question'])}</p><p class="objective">Objectif : {esc(lesson['objective'])}</p>
 <div class="identity"><label for="student">Prénom et nom<input id="student" type="text" autocomplete="off" data-answer="Élève 1"></label><label for="classe">Classe<input id="classe" type="text" autocomplete="off" data-answer="Classe"></label></div>
 <p><label><input id="paired" type="checkbox"> Nous travaillons à deux sur ce PC</label></p><div class="extra-person" hidden><label for="student2">Prénom et nom du second élève<input id="student2" type="text" autocomplete="off" data-answer="Élève 2"></label></div>
-<p class="small">Écris tes réponses dans les cases. Télécharge-les avant de fermer la page ; rien n'est envoyé automatiquement au professeur. En binôme, alternez le clavier et répondez chacun au bilan individuel.</p></header>
+<p class="small">Le professeur choisit le support de réponse : papier ou PC. Sur PC, écris dans les cases ; sur papier, utilise le navigateur uniquement pour les simulations. Ne recopie pas deux fois les mêmes réponses. Télécharge-les avant de fermer la page ; rien n'est envoyé automatiquement au professeur. En binôme, alternez le clavier et répondez chacun au bilan individuel.</p></header>
 {content}<div class="toolbar"><button type="button" id="export">Télécharger mes réponses</button><button class="secondary" type="button" id="print">Imprimer mon travail</button></div><p id="saved" class="feedback" role="status"></p></main>
 <script>const LEVEL={json.dumps(lesson['level'])};{js}</script></body></html>'''

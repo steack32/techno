@@ -79,7 +79,7 @@ Ouvrir [l’activité numérique](activite-eleve.html) pour utiliser le laborato
 
 Réponse :
 
-**7. Un élève dit : « Tout ce qui utilise de l'électricité appartient à la chaîne d'énergie. » Explique pourquoi ce raisonnement est faux avec l'exemple de la carte programmable.**
+**7. Approfondissement facultatif : un élève dit « Tout ce qui utilise de l’électricité appartient à la chaîne d’énergie. » Explique pourquoi ce raisonnement est faux avec la carte programmable.**
 
 Réponse :
 

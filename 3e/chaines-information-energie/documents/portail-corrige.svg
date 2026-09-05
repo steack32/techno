@@ -113,13 +113,13 @@
 				<circle cx="690" cy="408" r="12" style="stroke: rgb(12%,19%,27%); stroke-linecap: butt; stroke-width: 2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
 				<text x="686" y="403" style="font-family: Helvetica; font-size: 15px;fill: rgb(12%,19%,27%); stroke:none;" transform="translate(0,806) scale(1,-1)">9</text>
 				<rect x="603" y="376" width="12" height="19" style="stroke: rgb(12%,19%,27%); stroke-linecap: butt; stroke-width: 1.5; fill: rgb(91%,92%,94%); fill-rule: evenodd;"/>
-				<rect x="725" y="377" width="14" height="12" style="stroke: rgb(12%,19%,27%); stroke-linecap: butt; stroke-width: 1.5; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+				<rect x="751" y="377" width="14" height="12" style="stroke: rgb(12%,19%,27%); stroke-linecap: butt; stroke-width: 1.5; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
 				<path d="M 610,499 L 609,389 Z" style="stroke: rgb(12%,19%,27%); stroke-linecap: butt; stroke-width: 1.5;"/>
 				<circle cx="610" cy="499" r="12" style="stroke: rgb(12%,19%,27%); stroke-linecap: butt; stroke-width: 2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
 				<text x="606" y="494" style="font-family: Helvetica; font-size: 15px;fill: rgb(12%,19%,27%); stroke:none;" transform="translate(0,988) scale(1,-1)">3</text>
 				<text x="603" y="470" style="font-family: Helvetica; font-size: 14px;fill: rgb(12%,19%,27%); stroke:none;" transform="translate(0,940) scale(1,-1)">Capteur fixe</text>
 				<text x="726" y="446" style="font-family: Helvetica; font-size: 14px;fill: rgb(12%,19%,27%); stroke:none;" transform="translate(0,892) scale(1,-1)">Cible mobile</text>
-				<path d="M 749,440 L 732,389 Z" style="stroke: rgb(12%,19%,27%); stroke-linecap: butt; stroke-width: 1.5;"/>
+				<path d="M 765,440 L 758,389 Z" style="stroke: rgb(12%,19%,27%); stroke-linecap: butt; stroke-width: 1.5;"/>
 				<rect x="805" y="377" width="64" height="106" style="stroke: rgb(12%,19%,27%); stroke-linecap: butt; stroke-width: 1.5; fill: rgb(91%,92%,94%); fill-rule: evenodd;"/>
 				<text x="800" y="495" style="font-family: Helvetica; font-size: 14px;fill: rgb(12%,19%,27%); stroke:none;" transform="translate(0,990) scale(1,-1)">Coffret</text>
 				<path d="M 805,377 L 875,283 Z" style="stroke: rgb(12%,19%,27%); stroke-linecap: butt; stroke-width: 1.5; stroke-dasharray: 4, 4;"/>

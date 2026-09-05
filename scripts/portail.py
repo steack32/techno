@@ -57,9 +57,9 @@ def portal_drawing(corrected=False):
  rect(527,331,74,61,white);gear(555,369);txt(569,374,'M',17)
  tag(8,626,324,589,352);tag(9,690,408,662,400)
  # limit sensor fixed near motor, target fixed to moving leaf, displaced to right while open
- rect(603,376,12,19,gray);rect(725,377,14,12,white)
+ rect(603,376,12,19,gray);rect(751,377,14,12,white)
  tag(3,610,499,609,389);txt(603,470,'Capteur fixe',14)
- txt(726,446,'Cible mobile',14);line(749,440,732,389)
+ txt(726,446,'Cible mobile',14);line(765,440,758,389)
  # cabinet separate inset
  rect(805,377,64,106,gray);txt(800,495,'Coffret',14);line(805,377,875,283,dash=[4,4]);line(869,377,888,283,dash=[4,4])
  txt(16,285,'B. COFFRET DE COMMANDE - BLOCS SÉPARÉS POUR LA LECTURE',18)

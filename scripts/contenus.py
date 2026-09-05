@@ -192,3 +192,38 @@ for lesson in LESSONS:
         lesson['timeline'][1][2]='Observer la vue du portail et légender les neuf repères avec le tableau des composants. Faire repérer la cellule fixe, la cible mobile de fin de course et le pignon sous la crémaillère. Reformuler le modèle de fermeture uniquement.'
         lesson['correction'].insert(0,['Repérage du portail',' ; '.join(n+' : '+name+' ('+function+')' for n,name,function in COMPONENTS)+'.'])
         lesson['aides'].insert(0,'Projeter la vue du portail ; suivre physiquement le mouvement du vantail puis le chemin du signal. Les repères sont identiques dans les deux chaînes.')
+
+# Ajustements pour l'autonomie, le vocabulaire et le rythme de la séance.
+for lesson in LESSONS:
+    if lesson['level']=='5e':
+        lesson['pages'][0].insert(2,{'type':'visual','name':'objets'})
+        lesson['pages'][0][-1]['text']='Le besoin est ce qui est nécessaire ou souhaité. La fonction d’usage dit à quoi sert l’objet. Un composant est une pièce ; un matériau est sa matière. Une contrainte est une exigence à respecter : masse limitée, stabilité ou protection, par exemple.'
+        lesson['aides'].insert(0,'Pour les deux élèves en grande difficulté : utiliser activite-guidee.html ou 5e-parcours-guide.pdf à la place de la fiche ordinaire. Une seule lampe, quatre choix guidés et un bilan à compléter ; lire les consignes avec eux et accepter une réponse orale. Corrigé dans S01-guide-corrige.md.')
+    elif lesson['level']=='4e':
+        lesson['pages'][0].insert(1,{'type':'visual','name':'eclairage'})
+        lesson['pages'][0].insert(2,{'type':'p','text':'Un capteur fournit une information ; la carte la traite ; un actionneur réalise une action. Une condition est une affirmation vraie ou fausse. Ce schéma représente la commande ; l’alimentation électrique n’est pas dessinée.'})
+        for b in lesson['pages'][1]:
+            if b.get('id')=='q6':b['label']='6. Garde ET et le signe <. Change uniquement le seuil de 30 à 50. À une luminosité de 40 avec présence, que devient la lampe ? Après l’essai, remets le seuil à 30 et clique sur Appliquer.'
+    elif lesson['level']=='3e':
+        for b in lesson['pages'][2]:
+            if b.get('id')=='q7':b['label']='7. Approfondissement facultatif : un élève dit « Tout ce qui utilise de l’électricité appartient à la chaîne d’énergie. » Explique pourquoi ce raisonnement est faux avec la carte programmable.'
+        lesson['timeline'][4][2]='Traiter en priorité la panne Q6 et la synthèse. Réserver Q7 et le défi aux élèves en avance ; ne pas retarder le bilan individuel.'
+
+# Répartir les tâches sur deux pages imprimées, sans page de débordement.
+for lesson in LESSONS:
+    if lesson['level']=='5e':
+        questions=[b for b in lesson['pages'][0] if b.get('id') in ('q1','q2')]
+        lesson['pages'][0]=[b for b in lesson['pages'][0] if b.get('id') not in ('q1','q2')]
+        lesson['pages'][1][1:1]=questions
+    elif lesson['level']=='4e':
+        trials=[b for b in lesson['pages'][0] if b.get('id')=='essais']
+        lesson['pages'][0]=[b for b in lesson['pages'][0] if b.get('id')!='essais']
+        lesson['pages'][1][0]['text']='Tester, corriger et expliquer'
+        lesson['pages'][1][1:1]=trials
+
+# Placer le laboratoire immédiatement avant la grille d'essais.
+for lesson in LESSONS:
+    if lesson['level']=='4e':
+        sim=[b for b in lesson['pages'][0] if b.get('type')=='sim']
+        lesson['pages'][0]=[b for b in lesson['pages'][0] if b.get('type')!='sim']
+        lesson['pages'][1][1:1]=sim

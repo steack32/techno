@@ -10,6 +10,10 @@
 
 **Programme :** Compétences travaillées : analyse du fonctionnement d’un objet, de ses entrées et sorties et de ses flux d’énergie et d’information. Vérifier le rattachement au programme applicable au niveau concerné.
 
+## Support de réponse
+
+Choisir le papier OU le numérique pour les réponses, sans double saisie. Sur papier, utiliser les simulations sur PC et écrire dans la fiche. Sur PC, compléter les champs et télécharger le travail. Conserver la fiche papier dans le porte-vues.
+
 ## Préparation
 
 Déposer `activite-eleve.html` sur les PC ou dans un espace de distribution habituel. Le fichier peut être copié par clé USB ou dossier partagé et ouvert par double-clic. Un PC par élève ou par binôme suffit. Les documents ne demandent aucun téléchargement pendant la séance. Vérifier une fois que le navigateur autorise l’ouverture du fichier et le téléchargement des réponses. Prévoir le fichier PDF en solution de repli.
@@ -24,7 +28,7 @@ Les élèves téléchargent un fichier texte et le remettent par le canal habitu
 | 7-14 min | Lecture du système | Observer la vue du portail et légender les neuf repères avec le tableau des composants. Faire repérer la cellule fixe, la cible mobile de fin de course et le pignon sous la crémaillère. Reformuler le modèle de fermeture uniquement. |
 | 14-27 min | Deux chaînes | Répondre à Q1-Q3 et associer les composants aux fonctions. Donner la banque des fonctions ; laisser chercher les associations. |
 | 27-37 min | Essais sur PC | Tester les quatre situations, relever l'ordre et expliquer un arrêt. En binôme, changer de pilote après deux essais. |
-| 37-46 min | Diagnostic et synthèse | Analyser la panne de transmission et la confusion entre courant et information. Compléter la synthèse. |
+| 37-46 min | Diagnostic et synthèse | Traiter en priorité la panne Q6 et la synthèse. Réserver Q7 et le défi aux élèves en avance ; ne pas retarder le bilan individuel. |
 | 46-50 min | Correction ciblée | Reprendre le schéma complet et le trajet de l'ordre. Le schéma est fourni dans le guide professeur. |
 | 50-55 min | Bilan individuel | Traiter le billet de sortie, puis télécharger les réponses. |
 

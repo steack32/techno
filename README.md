@@ -47,3 +47,13 @@ Séances de 55 minutes ; deux élèves par PC ; Internet et impression disponibl
 - Ne pas inscrire de dates dans les documents, leurs titres, leurs noms ou les réponses exportées. Ne pas ajouter de champ « date » à remplir.
 - Conserver les liens exacts vers les références officielles, même si leur adresse technique contient une année ; utiliser des intitulés sans date.
 - Vérifier les liens et les PDF après modification, et maintenir les sources de génération en cohérence.
+
+## Supports élèves et impression
+
+| Niveau | Parcours ordinaire | Adaptation |
+| --- | --- | --- |
+| 5e | 2 pages, soit une feuille recto verso | Parcours très guidé : 1 page, à utiliser à la place du parcours ordinaire |
+| 4e | 2 pages, soit une feuille recto verso | Aides dans le guide professeur |
+| 3e | 4 pages, soit deux feuilles recto verso | Q7 et défi facultatifs pour préserver le bilan individuel |
+
+Choisir un seul support de réponse : papier ou PC. Les simulations peuvent être utilisées avec une fiche papier. Sur PC, télécharger les réponses avant de fermer la page. Distribuer les activités et fiches élèves, en conservant les guides et corrigés pour la correction.

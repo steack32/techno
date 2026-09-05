@@ -1,0 +1,30 @@
+<svg role="img" aria-label="Capteurs, traitement et commande de la lampe" width="900" height="145" preserveAspectRatio="xMinYMin meet" viewBox="0 0 900 145" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="900" height="145"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-145)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="10" y="89" width="225" height="42" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="22" y="105.0" style="font-family: Helvetica; font-size: 16px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,210) scale(1,-1)">Capteur de luminosité</text>
+			<rect x="10" y="12" width="225" height="42" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="22" y="28.0" style="font-family: Helvetica; font-size: 16px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,56) scale(1,-1)">Capteur de présence</text>
+			<rect x="368" y="51" width="230" height="52" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="380" y="72.0" style="font-family: Helvetica; font-size: 16px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,144) scale(1,-1)">Carte programmable</text>
+			<rect x="705" y="51" width="180" height="52" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="717" y="72.0" style="font-family: Helvetica; font-size: 16px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,144) scale(1,-1)">Lampe LED</text>
+			<path d="M 235,110 L 290,110 Z" style="stroke: rgb(9%,35%,60%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 290,110 L 290,77 Z" style="stroke: rgb(9%,35%,60%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 235,33 L 290,33 Z" style="stroke: rgb(9%,35%,60%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 290,33 L 290,77 Z" style="stroke: rgb(9%,35%,60%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 290,77 L 368,77 Z" style="stroke: rgb(9%,35%,60%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="368 77, 359 82, 359 72" style="stroke: rgb(9%,35%,60%); stroke-linecap: butt; stroke-width: 1; fill: rgb(9%,35%,60%); fill-rule: evenodd;"/>
+			<path d="M 598,77 L 705,77 Z" style="stroke: rgb(9%,35%,60%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="705 77, 696 82, 696 72" style="stroke: rgb(9%,35%,60%); stroke-linecap: butt; stroke-width: 1; fill: rgb(9%,35%,60%); fill-rule: evenodd;"/>
+			<text x="251" y="134" style="font-family: Helvetica; font-size: 14px;fill: rgb(9%,35%,60%); stroke:none;" transform="translate(0,268) scale(1,-1)">Informations</text>
+			<text x="619" y="105" style="font-family: Helvetica; font-size: 14px;fill: rgb(9%,35%,60%); stroke:none;" transform="translate(0,210) scale(1,-1)">Ordre</text>
+			<text x="366" y="20" style="font-family: Helvetica; font-size: 14px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,40) scale(1,-1)">Appliquer une règle</text>
+		</g>
+	</g>
+</svg>

@@ -15,3 +15,12 @@ Pour utiliser l'activité HTML, télécharger le fichier puis l'ouvrir dans un n
 Les PDF sont rangés dans `exports/` et les documents complémentaires dans `documents/` lorsqu'ils sont nécessaires.
 
 [Autres séquences du niveau](../README.md) · [Accueil](../../README.md)
+
+## Parcours très guidé
+
+Pour les élèves en grande difficulté : choisir ce parcours à la place du parcours ordinaire.
+
+- [Activité numérique guidée](activite-guidee.html)
+- [Fiche guidée à imprimer](exports/5e-parcours-guide.pdf)
+- [Corrigé du parcours guidé](S01-guide-corrige.md)
+- [Vue des objets](documents/objets.svg)

@@ -1,0 +1,25 @@
+<svg role="img" aria-label="Composants des objets étudiés" width="320" height="220" preserveAspectRatio="xMinYMin meet" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="320" height="220"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-220)" style="clip-path: url(#clip)">
+		<g transform="">
+			<g transform=" matrix(1,0,0,1,-330,0)">
+				<text x="335" y="198" style="font-family: Helvetica; font-size: 15px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,396) scale(1,-1)">LAMPE RECHARGEABLE</text>
+				<polygon points="425 45, 506 45, 521 34, 409 34" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2; fill: rgb(92%,94%,96%); fill-rule: evenodd;"/>
+				<path d="M 463,45 L 463,146 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+				<path d="M 463,146 L 495,154 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+				<polygon points="463 160, 515 160, 530 142, 453 142" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2; fill: rgb(92%,94%,96%); fill-rule: evenodd;"/>
+				<path d="M 457,137 L 526,137 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+				<text x="343" y="17" style="font-family: Helvetica; font-size: 15px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,34) scale(1,-1)">Socle</text>
+				<path d="M 390,27 L 427,37 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+				<text x="524" y="175" style="font-family: Helvetica; font-size: 15px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,350) scale(1,-1)">Coque</text>
+				<path d="M 537,164 L 515,153 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+				<text x="527" y="109" style="font-family: Helvetica; font-size: 15px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,218) scale(1,-1)">Diffuseur</text>
+				<path d="M 555,123 L 513,137 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			</g>
+		</g>
+	</g>
+</svg>

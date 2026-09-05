@@ -15,3 +15,5 @@ Pour utiliser l'activité HTML, télécharger le fichier puis l'ouvrir dans un n
 Les PDF sont rangés dans `exports/` et les documents complémentaires dans `documents/` lorsqu'ils sont nécessaires.
 
 [Autres séquences du niveau](../README.md) · [Accueil](../../README.md)
+
+[Schéma de la commande de l’éclairage](documents/eclairage.svg)

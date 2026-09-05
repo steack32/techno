@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>5e - Une lampe pour éclairer</title><style>
+:root{--ink:#16283e;--blue:#175b9a;--energy:#b65b12;--line:#cfdae5;--paper:#fff;--bg:#edf2f6}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Arial,sans-serif}
+main{max-width:1000px;margin:26px auto;padding:30px 38px;background:var(--paper);border-top:8px solid var(--blue)}
+header{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:24px}.meta{font-size:14px;font-weight:bold;letter-spacing:.06em;color:var(--blue)}
+h1{font-size:30px;line-height:1.18;margin:8px 0 14px}h2{font-size:23px;line-height:1.25;margin:22px 0 12px}p{margin:12px 0}
+.objective{background:#edf5fc;padding:12px 16px;border-left:4px solid var(--blue)}.identity{display:flex;gap:16px;flex-wrap:wrap}.identity label{flex:1;min-width:200px}
+input,select,textarea,button{font:inherit}input[type=text],input[type=number],select,textarea{width:100%;padding:9px;border:1px solid #8399ad;border-radius:4px;background:white;color:var(--ink)}
+input[type=checkbox]{width:20px;height:20px;vertical-align:middle}textarea{display:block;margin:7px 0 20px;min-height:86px;resize:vertical}
+label.question{display:block;font-weight:bold;margin-top:17px}input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid #1583bf;outline-offset:3px}
+button{padding:10px 17px;cursor:pointer;border:1px solid var(--blue);border-radius:4px;background:var(--blue);color:#fff;font-weight:bold}button.secondary{background:#fff;color:var(--blue)}
+table{width:100%;border-collapse:collapse;font-size:15px;margin:12px 0 22px}th,td{border:1px solid var(--line);padding:10px;vertical-align:top;text-align:left}th{background:#eef3f8}td textarea{font-size:16px;min-width:80px;min-height:65px;margin:0}.table-wrap{overflow-x:auto}
+.step{border-top:2px solid var(--line);padding-top:10px;margin-top:30px}.step:first-of-type{border:0;margin-top:0;padding:0}.small{font-size:14px;color:#43556a}
+.sim{margin:24px 0;padding:20px;border:2px solid #bdd0e1;background:#f5f9fd}.controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.controls label{display:block}.controls input[type=range]{width:100%}
+.rule{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:16px 0}.rule select{width:auto;min-width:76px}.rule input{width:88px}.live{display:flex;gap:18px;align-items:center;padding:16px 0}.lamp{display:inline-block;flex:none;width:48px;height:48px;background:#9eacb8;border:3px solid #6d7e8e;border-radius:50%}.lamp.on{background:#ffd245;border-color:#a46500}
+.state{font-size:21px;font-weight:bold}.active-rule{font-family:monospace;font-size:16px;overflow-wrap:anywhere}.chain{width:100%;height:auto}.portal-view svg,.lesson-visual svg{width:100%;height:auto}.lesson-visual{margin:16px 0}.lesson-visual:has(svg[viewBox="0 0 320 220"]){max-width:400px}.portal-labels{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}.toolbar{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0}.feedback{min-height:28px;color:#164f28;font-weight:bold}
+.exit{border:2px solid var(--blue);padding:15px;margin:22px 0}.exit textarea{margin-bottom:5px}.extra-person[hidden]{display:none}
+@media(max-width:650px){main{margin:0;padding:22px 16px}.controls{grid-template-columns:1fr}h1{font-size:26px}table{font-size:14px}}
+@media print{body{background:white;font-size:11pt}main{max-width:none;margin:0;padding:0;border:0}.toolbar,button,.sim{display:none}textarea{border:0;border-bottom:1px solid #777;min-height:55px}.step{break-before:page}header{break-after:avoid}table{font-size:9pt}.exit{break-inside:avoid}}
+</style></head>
+<body><main><header><div class="meta">TECHNOLOGIE · 5E · SÉANCE 1 · 55 MIN</div><h1>Une lampe pour éclairer</h1><p>À quoi sert une lampe de bureau ?</p><p class="objective">Objectif : Dire à quoi sert la lampe et distinguer une pièce de son matériau.</p>
+<div class="identity"><label for="student">Prénom et nom<input id="student" type="text" autocomplete="off" data-answer="Élève 1"></label><label for="classe">Classe<input id="classe" type="text" autocomplete="off" data-answer="Classe"></label></div>
+<p><label><input id="paired" type="checkbox"> Nous travaillons à deux sur ce PC</label></p><div class="extra-person" hidden><label for="student2">Prénom et nom du second élève<input id="student2" type="text" autocomplete="off" data-answer="Élève 2"></label></div>
+<p class="small">Le professeur choisit le support de réponse : papier ou PC. Sur PC, écris dans les cases ; sur papier, utilise le navigateur uniquement pour les simulations. Ne recopie pas deux fois les mêmes réponses. Télécharge-les avant de fermer la page ; rien n'est envoyé automatiquement au professeur. En binôme, alternez le clavier et répondez chacun au bilan individuel.</p></header>
+<nav aria-label="Étapes de l’activité"><p><strong>Parcours :</strong> <a href="#etape-1">Étape 1</a></p></nav><section class="step" id="etape-1"><figure class="lesson-visual"><svg role="img" aria-label="Composants des objets étudiés" width="320" height="220" preserveAspectRatio="xMinYMin meet" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="320" height="220"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-220)" style="clip-path: url(#clip)">
+		<g transform="">
+			<g transform=" matrix(1,0,0,1,-330,0)">
+				<text x="335" y="198" style="font-family: Helvetica; font-size: 15px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,396) scale(1,-1)">LAMPE RECHARGEABLE</text>
+				<polygon points="425 45, 506 45, 521 34, 409 34" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2; fill: rgb(92%,94%,96%); fill-rule: evenodd;"/>
+				<path d="M 463,45 L 463,146 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+				<path d="M 463,146 L 495,154 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+				<polygon points="463 160, 515 160, 530 142, 453 142" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2; fill: rgb(92%,94%,96%); fill-rule: evenodd;"/>
+				<path d="M 457,137 L 526,137 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+				<text x="343" y="17" style="font-family: Helvetica; font-size: 15px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,34) scale(1,-1)">Socle</text>
+				<path d="M 390,27 L 427,37 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+				<text x="524" y="175" style="font-family: Helvetica; font-size: 15px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,350) scale(1,-1)">Coque</text>
+				<path d="M 537,164 L 515,153 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+				<text x="527" y="109" style="font-family: Helvetica; font-size: 15px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,218) scale(1,-1)">Diffuseur</text>
+				<path d="M 555,123 L 513,137 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			</g>
+		</g>
+	</g>
+</svg>
+</figure><p>La lampe éclaire le bureau. Le socle, en acier, maintient la lampe debout. La coque, en plastique, protège les éléments. Le diffuseur, en plastique translucide, répartit la lumière.</p><label class="question" for="usage">1. La lampe permet de</label><select id="usage" data-answer="1. La lampe permet de"><option>Choisir</option><option>éclairer le bureau</option><option>déplacer une personne</option><option>mettre l’air en mouvement</option></select><label class="question" for="piece">2. Quelle pièce maintient la lampe debout ?</label><select id="piece" data-answer="2. Quelle pièce maintient la lampe debout ?"><option>Choisir</option><option>le diffuseur</option><option>le socle</option><option>la coque</option></select><label class="question" for="matiere">3. Le socle est fabriqué en</label><select id="matiere" data-answer="3. Le socle est fabriqué en"><option>Choisir</option><option>acier</option><option>papier</option><option>caoutchouc</option></select><label class="question" for="amelioration">4. La lampe tombe facilement. Quelle amélioration choisir ?</label><select id="amelioration" data-answer="4. La lampe tombe facilement. Quelle amélioration choisir ?"><option>Choisir</option><option>un socle plus large</option><option>une couleur différente</option></select><p>À retenir : un composant est une pièce, par exemple le socle. Un matériau est la matière de cette pièce, par exemple l’acier.</p><section class="exit"><h2>Bilan individuel</h2><label class="question" for="bilan-a">5. Complète : la lampe permet d’__________. Le socle est une __________. L’acier est un __________. (élève 1)</label><textarea id="bilan-a" data-answer="5. Complète : la lampe permet d’__________. Le socle est une __________. L’acier est un __________. (élève 1)" rows="3"></textarea><div class="extra-person" hidden><label class="question" for="bilan-b">5. Complète : la lampe permet d’__________. Le socle est une __________. L’acier est un __________. (élève 2)</label><textarea id="bilan-b" data-answer="5. Complète : la lampe permet d’__________. Le socle est une __________. L’acier est un __________. (élève 2)" rows="3"></textarea></div></section></section><div class="toolbar"><button type="button" id="export">Télécharger mes réponses</button><button class="secondary" type="button" id="print">Imprimer mon travail</button></div><p id="saved" class="feedback" role="status"></p></main>
+<script>const LEVEL="5e";
+const root = document.querySelector('main');
+const fields = () => [...root.querySelectorAll('[data-answer]')];
+let dirty = false;
+root.addEventListener('input', e => {if(e.target.matches('[data-answer]')) dirty=true;});
+document.getElementById('paired').addEventListener('change',e=>{
+ document.querySelectorAll('.extra-person').forEach(el=>el.hidden=!e.target.checked);
+});
+document.getElementById('export').addEventListener('click',()=>{
+ const lines=[document.title,''];
+ fields().forEach(el=>{
+  if(el.closest('.extra-person')?.hidden)return;
+  lines.push((el.dataset.answer||el.id)+' : '+(el.value.trim()||'[non renseigné]'),'');
+ });
+ const body=lines.join('\n');
+ const blob=new Blob(['\ufeff'+body],{type:'text/plain;charset=utf-8'});
+ const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;
+ const name=document.getElementById('student').value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9_-]+/gi,'-').slice(0,50)||'eleve';
+ a.download=LEVEL+'-seance1-'+name+'.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ dirty=false;document.getElementById('saved').textContent='Téléchargement demandé. Vérifie le fichier dans tes téléchargements et remets-le au professeur.';
+});
+document.getElementById('print').addEventListener('click',()=>window.print());
+window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
+</script></body></html>

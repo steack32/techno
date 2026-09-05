@@ -8,6 +8,10 @@ Comment commander un éclairage avec deux informations ?
 
 Dans un couloir, la lampe doit s'allumer seulement si une présence est détectée ET si le niveau de luminosité est strictement inférieur à 30. Sinon elle doit être éteinte. Le simulateur utilise un indice de luminosité de 0 à 100 : 0 signifie très sombre et 100 très lumineux. Cet indice est une donnée pédagogique, pas une mesure en lux.
 
+![Illustration pédagogique](documents/eclairage.svg)
+
+Un capteur fournit une information ; la carte la traite ; un actionneur réalise une action. Une condition est une affirmation vraie ou fausse. Ce schéma représente la commande ; l’alimentation électrique n’est pas dessinée.
+
 | Élément | Rôle |
 | --- | --- |
 | Capteur de luminosité | Fournir une valeur numérique de 0 à 100. |
@@ -18,6 +22,12 @@ Dans un couloir, la lampe doit s'allumer seulement si une présence est détect�
 **1. Quelles sont les deux informations nécessaires pour décider d'allumer ? Quel élément réalise l'action ?**
 
 Réponse :
+
+Sur papier, déroule mentalement les conditions. Sur PC, règle chaque situation et relève l'état de la lampe. Une seule situation ne suffit pas à valider un programme.
+
+## Partie 2
+
+### Tester, corriger et expliquer
 
 Ouvrir [l’activité numérique](activite-eleve.html) pour utiliser le laboratoire ; sur papier, appliquer la règle décrite pour prévoir le résultat.
 
@@ -31,12 +41,6 @@ Ouvrir [l’activité numérique](activite-eleve.html) pour utiliser le laborato
 | 80 / non |  |  |  |
 | 30 / oui |  |  |  |
 
-Sur papier, déroule mentalement les conditions. Sur PC, règle chaque situation et relève l'état de la lampe. Une seule situation ne suffit pas à valider un programme.
-
-## Partie 2
-
-### Corriger et expliquer
-
 **3. Cite un essai où la règle initiale ne respecte pas le besoin. Explique pourquoi.**
 
 Réponse :
@@ -49,7 +53,7 @@ Réponse :
 
 Réponse :
 
-**6. Si le seuil passe de 30 à 50, que se passe-t-il pour une luminosité de 40 avec une présence ? Explique ce qui change.**
+**6. Garde ET et le signe <. Change uniquement le seuil de 30 à 50. À une luminosité de 40 avec présence, que devient la lampe ? Après l’essai, remets le seuil à 30 et clique sur Appliquer.**
 
 Réponse :
 

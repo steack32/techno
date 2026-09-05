@@ -6,6 +6,8 @@ Dépendances Python : `reportlab` et `pypdf`.
 
 - `contenus.py` : contenus pédagogiques des séquences.
 - `activites.py` : activités HTML et schémas.
+- `visuels.py` : vues des objets et schéma de commande de l’éclairage.
+- `parcours_guide.py` : contenu du parcours très guidé de 5e.
 - `portail.py` : vue vectorielle du portail et repères communs aux documents élèves et corrigés.
 - `generer_supports.py` : sources Markdown et exports PDF.
 

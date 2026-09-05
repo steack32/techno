@@ -10,6 +10,10 @@
 
 **Programme :** Compétences travaillées : étude des besoins et des usages ; description de la constitution d'un objet ; identification de matériaux et de contraintes.
 
+## Support de réponse
+
+Choisir le papier OU le numérique pour les réponses, sans double saisie. Sur papier, utiliser les simulations sur PC et écrire dans la fiche. Sur PC, compléter les champs et télécharger le travail. Conserver la fiche papier dans le porte-vues.
+
 ## Préparation
 
 Déposer `activite-eleve.html` sur les PC ou dans un espace de distribution habituel. Le fichier peut être copié par clé USB ou dossier partagé et ouvert par double-clic. Un PC par élève ou par binôme suffit. Les documents ne demandent aucun téléchargement pendant la séance. Vérifier une fois que le navigateur autorise l’ouverture du fichier et le téléchargement des réponses. Prévoir le fichier PDF en solution de repli.
@@ -35,6 +39,7 @@ Les élèves téléchargent un fichier texte et le remettent par le canal habitu
 
 ## Aides et points de vigilance
 
+- Pour les deux élèves en grande difficulté : utiliser activite-guidee.html ou 5e-parcours-guide.pdf à la place de la fiche ordinaire. Une seule lampe, quatre choix guidés et un bilan à compléter ; lire les consignes avec eux et accepter une réponse orale. Corrigé dans S01-guide-corrige.md.
 - Faire entourer un nom de pièce et souligner un nom de matériau dans la fiche.
 - Donner l'amorce : « La pièce ... sert à ... ; elle est fabriquée en ... ».
 - Pour la contrainte, faire relire la dernière phrase de la fiche choisie.

@@ -10,6 +10,10 @@
 
 **Programme :** Compétences travaillées : données provenant de capteurs, algorithme de commande, modification et mise au point d'un programme. Cette séance prépare un travail ultérieur dans un environnement de programmation par blocs.
 
+## Support de réponse
+
+Choisir le papier OU le numérique pour les réponses, sans double saisie. Sur papier, utiliser les simulations sur PC et écrire dans la fiche. Sur PC, compléter les champs et télécharger le travail. Conserver la fiche papier dans le porte-vues.
+
 ## Préparation
 
 Déposer `activite-eleve.html` sur les PC ou dans un espace de distribution habituel. Le fichier peut être copié par clé USB ou dossier partagé et ouvert par double-clic. Un PC par élève ou par binôme suffit. Les documents ne demandent aucun téléchargement pendant la séance. Vérifier une fois que le navigateur autorise l’ouverture du fichier et le téléchargement des réponses. Prévoir le fichier PDF en solution de repli.

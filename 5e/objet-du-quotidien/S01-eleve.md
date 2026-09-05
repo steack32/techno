@@ -10,6 +10,8 @@ Choisis un objet parmi les trois fiches ci-dessous. Ce sont des modèles d'étud
 
 ### Les trois objets au choix
 
+![Illustration pédagogique](documents/objets.svg)
+
 | Objet | Composants et matériaux du modèle | Fonctionnement et attente |
 | --- | --- | --- |
 | Vélo de ville | Cadre : aluminium. Chaîne : acier. Pneus : caoutchouc. À volume égal, l'aluminium est moins massif que l'acier. | L'utilisateur pédale ; la chaîne transmet le mouvement vers la roue arrière. Le cadre soutient l'ensemble ; les pneus assurent le contact avec le sol. L'utilisateur souhaite un vélo facile à transporter. |
@@ -18,6 +20,12 @@ Choisis un objet parmi les trois fiches ci-dessous. Ce sont des modèles d'étud
 
 **Mon objet d'étude :** Vélo de ville, Lampe de bureau rechargeable, Ventilateur USB.
 
+Le besoin est ce qui est nécessaire ou souhaité. La fonction d’usage dit à quoi sert l’objet. Un composant est une pièce ; un matériau est sa matière. Une contrainte est une exigence à respecter : masse limitée, stabilité ou protection, par exemple.
+
+## Partie 2
+
+### Expliquer et améliorer
+
 **1. À quel besoin répond cet objet ? Qui l'utilise ?**
 
 Réponse :
@@ -25,12 +33,6 @@ Réponse :
 **2. Écris sa fonction d'usage avec un verbe à l'infinitif : « Cet objet permet de... »**
 
 Réponse :
-
-Un composant est une pièce ou un élément de l'objet. Un matériau est la matière qui le constitue : par exemple, le pneu est un composant et le caoutchouc est son matériau.
-
-## Partie 2
-
-### Expliquer et améliorer
 
 **3. Analyse trois composants de l'objet choisi.**
 

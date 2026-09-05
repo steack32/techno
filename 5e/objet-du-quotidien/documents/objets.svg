@@ -1,0 +1,67 @@
+<svg role="img" aria-label="Composants des objets étudiés" width="900" height="220" preserveAspectRatio="xMinYMin meet" viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="900" height="220"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-220)" style="clip-path: url(#clip)">
+		<g transform="">
+			<text x="10" y="198" style="font-family: Helvetica; font-size: 15px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,396) scale(1,-1)">VÉLO DE VILLE</text>
+			<circle cx="58" cy="77" r="36" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<circle cx="238" cy="77" r="36" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<path d="M 58,77 L 104,153 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 104,153 L 150,77 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 58,77 L 150,77 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 104,153 L 208,153 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 208,153 L 150,77 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 208,153 L 238,77 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 208,153 L 200,173 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 200,173 L 224,173 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 94,158 L 116,158 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<circle cx="150" cy="77" r="10" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<path d="M 150,77 L 163,61 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 157,60 L 172,60 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 58,83 L 150,86 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 58,72 L 150,68 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<text x="8" y="16" style="font-family: Helvetica; font-size: 15px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,32) scale(1,-1)">Pneu</text>
+			<path d="M 36,30 L 40,43 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<text x="110" y="16" style="font-family: Helvetica; font-size: 15px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,32) scale(1,-1)">Chaîne</text>
+			<path d="M 132,30 L 111,72 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<text x="247" y="164" style="font-family: Helvetica; font-size: 15px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,328) scale(1,-1)">Cadre</text>
+			<path d="M 251,150 L 169,119 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 307,10 L 307,200 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<text x="335" y="198" style="font-family: Helvetica; font-size: 15px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,396) scale(1,-1)">LAMPE RECHARGEABLE</text>
+			<polygon points="425 45, 506 45, 521 34, 409 34" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2; fill: rgb(92%,94%,96%); fill-rule: evenodd;"/>
+			<path d="M 463,45 L 463,146 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 463,146 L 495,154 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="463 160, 515 160, 530 142, 453 142" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2; fill: rgb(92%,94%,96%); fill-rule: evenodd;"/>
+			<path d="M 457,137 L 526,137 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<text x="343" y="17" style="font-family: Helvetica; font-size: 15px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,34) scale(1,-1)">Socle</text>
+			<path d="M 390,27 L 427,37 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<text x="524" y="175" style="font-family: Helvetica; font-size: 15px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,350) scale(1,-1)">Coque</text>
+			<path d="M 537,164 L 515,153 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<text x="527" y="109" style="font-family: Helvetica; font-size: 15px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,218) scale(1,-1)">Diffuseur</text>
+			<path d="M 555,123 L 513,137 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 637,10 L 637,200 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<text x="653" y="198" style="font-family: Helvetica; font-size: 15px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,396) scale(1,-1)">VENTILATEUR USB</text>
+			<circle cx="758" cy="124" r="51" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<polygon points="748 125, 727 151, 752 158, 764 132" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2; fill: rgb(92%,94%,96%); fill-rule: evenodd;"/>
+			<polygon points="759 132, 786 147, 795 119, 772 117" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2; fill: rgb(92%,94%,96%); fill-rule: evenodd;"/>
+			<polygon points="769 116, 758 84, 736 98, 747 120" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2; fill: rgb(92%,94%,96%); fill-rule: evenodd;"/>
+			<circle cx="758" cy="124" r="7" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<path d="M 732,88 L 732,160 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 746,88 L 746,160 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 760,88 L 760,160 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 774,88 L 774,160 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 788,88 L 788,160 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 758,73 L 758,47 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<polygon points="726 36, 790 36, 784 46, 732 46" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2; fill: rgb(92%,94%,96%); fill-rule: evenodd;"/>
+			<text x="817" y="167" style="font-family: Helvetica; font-size: 15px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,334) scale(1,-1)">Grille</text>
+			<path d="M 820,156 L 801,144 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<text x="817" y="100" style="font-family: Helvetica; font-size: 15px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,200) scale(1,-1)">Pales</text>
+			<path d="M 817,108 L 780,124 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+			<text x="811" y="28" style="font-family: Helvetica; font-size: 15px;fill: rgb(14%,21%,29%); stroke:none;" transform="translate(0,56) scale(1,-1)">Socle</text>
+			<path d="M 812,39 L 782,40 Z" style="stroke: rgb(14%,21%,29%); stroke-linecap: butt; stroke-width: 2;"/>
+		</g>
+	</g>
+</svg>
