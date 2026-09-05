@@ -1,73 +1,49 @@
 # Technologie au collège
 
-Ressources pédagogiques pour les classes de **5e, 4e et 3e**, dans le contexte de la Nouvelle-Calédonie.
+Ressources pédagogiques classées **par niveau, puis par séquence**. Chaque séquence rassemble ses séances, activités numériques, fiches élèves, corrigés et guides professeur.
 
-Ce dépôt rassemble les progressions, les séquences, les supports élèves, les corrigés et les évaluations.
+## Accès aux séquences
 
-## Premières séances
-
-**[Premières séances par niveau](supports/premieres-seances/README.md)** : une première séance de 55 minutes par niveau, avec uniquement des PC.
-
-- 5e : étudier un objet du quotidien au choix.
-- 4e : simuler et corriger la commande d'un éclairage automatique.
-- 3e : comprendre les chaînes d'information et d'énergie d'un portail automatique.
-
-[Guide professeur et corrigés](supports/premieres-seances/guide-professeur.pdf)
-
-Les activités HTML s'ouvrent localement dans un navigateur, sans compte ni installation. Les fiches PDF sont imprimables et les fichiers Markdown modifiables.
-
-## Accès par niveau
-
-| Niveau | Progression et séquences |
-| --- | --- |
-| 5e | [Ouvrir le dossier de 5e](5e/README.md) |
-| 4e | [Ouvrir le dossier de 4e](4e/README.md) |
-| 3e | [Ouvrir le dossier de 3e](3e/README.md) |
-
-## Modèles communs
-
-- [Fiche de séquence](modeles/sequence.md) : problématique, compétences, articulation des séances et évaluation.
-- [Fiche professeur pour une séance](modeles/seance-professeur.md) : préparation, déroulement, aides et bilan.
-- [Fiche élève](modeles/fiche-eleve.md) : consignes, documents, production attendue et synthèse.
-- [Corrigé](modeles/corrige.md) : réponses attendues, variantes acceptables et erreurs fréquentes.
-- [Évaluation](modeles/evaluation.md) : sujet, critères de réussite et barème ou niveaux de maîtrise.
-- [Références et ressources](ressources/README.md) : textes officiels et suivi des sources.
+| Niveau | Séquence | Ensemble du niveau |
+| --- | --- | --- |
+| 5e | [Un objet, un besoin, des solutions](5e/objet-du-quotidien/README.md) | [Toutes les séquences](5e/README.md) |
+| 4e | [Allumer seulement quand c'est utile](4e/eclairage-automatique/README.md) | [Toutes les séquences](4e/README.md) |
+| 3e | [Un portail, deux chaînes](3e/chaines-information-energie/README.md) | [Toutes les séquences](3e/README.md) |
 
 ## Organisation d'une séquence
 
-Chaque séquence est rangée dans le dossier de son niveau, avec un nom comme `5e/S01-objet-du-quotidien/`. Les trois premières séances sont disponibles dans les dossiers ci-dessus.
+Exemple : `5e/objet-du-quotidien/`.
 
-| Fichier ou dossier | Contenu |
+| Fichier ou dossier | Rôle |
 | --- | --- |
-| `sequence.md` | Vue d'ensemble et objectifs |
-| `S01-professeur.md`, `S02-professeur.md`… | Déroulement de chaque séance |
-| `S01-eleve.md`, `S02-eleve.md`… | Documents distribués aux élèves |
-| `S01-corrige.md`, `S02-corrige.md`… | Corrigés et indications pour le professeur |
-| `evaluation.md` et `evaluation-corrige.md` | Sujet final et correction |
-| `documents/` | Images, documents et fichiers nécessaires à l'activité |
-| `exports/` | Versions finales destinées à l'impression ou à la distribution |
+| `README.md` | Présentation de la séquence et accès à ses séances |
+| `S01-professeur.md` | Déroulement de la séance 1 |
+| `S01-eleve.md` | Support élève modifiable de la séance 1 |
+| `S01-corrige.md` | Corrigé de la séance 1 |
+| `activite-eleve.html` | Activité numérique autonome |
+| `exports/` | PDF élèves et guide professeur de la séquence |
+| `documents/` | Documents et schémas complémentaires, si nécessaires |
 
-Les fichiers Markdown constituent les versions modifiables. Des versions PDF ou Word pourront accompagner les supports finalisés.
+Ajouter les séances suivantes dans la même séquence avec les préfixes `S02`, `S03`, etc. Ces numéros identifient les séances à l'intérieur de la séquence, sans imposer de calendrier.
 
-## Principes de conception
+## Ressources communes
 
-- Partir d'un problème concret et définir une production observable de l'élève.
-- Relier chaque séquence à des compétences du programme applicable au niveau et à l'année scolaire concernés ; conserver le lien vers le texte utilisé.
-- Adapter la durée, les consignes et les activités au matériel réellement disponible.
-- Prévoir une aide progressive et un approfondissement, ainsi qu'un court bilan individuel.
-- Distinguer clairement la fiche élève du corrigé et rendre explicites les critères de réussite.
-- Après utilisation en classe, noter les ajustements utiles pour la prochaine séance.
+- [Modèle de séquence](modeles/sequence.md)
+- [Modèle de séance professeur](modeles/seance-professeur.md)
+- [Modèle de fiche élève](modeles/fiche-eleve.md)
+- [Modèle de corrigé](modeles/corrige.md)
+- [Modèle d'évaluation](modeles/evaluation.md)
+- [Références pédagogiques](ressources/README.md)
+- [Génération des supports](scripts/README.md)
 
-## Contexte de préparation
+## Conditions d'utilisation
 
 Séances de 55 minutes ; deux élèves par PC ; Internet et impression disponibles. Les élèves ont déjà travaillé les réseaux, la programmation mBot et SketchUp ou Sweet Home 3D. Les documents imprimés sont conservés dans un porte-vues ; maximum deux feuilles recto verso par élève et par séance. Prévoir un parcours très guidé pour les deux élèves de 5e en grande difficulté.
 
-## Rangement des fichiers
+## Règles de rangement et de rédaction
 
-- `5e/`, `4e/`, `3e/` : séances classées par niveau ; activités numériques, sources modifiables, corrigés et PDF dans chaque séance.
-- `supports/premieres-seances/` : guide professeur commun et index des premières séances.
-- `modeles/` : modèles réutilisables de préparation et d'évaluation.
-- `ressources/` : références et ressources communes.
-- `scripts/` : outils de génération des supports.
-
-Aucun fichier ZIP ne doit être ajouté au dépôt. Chaque document doit être accessible individuellement et référencé dans le README de sa séance. Conserver des noms de dossiers et de fichiers indépendants du calendrier.
+- Organiser les contenus exclusivement par niveau et par séquence, sans regroupement par semaine, mois ou année.
+- Conserver chaque document accessible individuellement ; aucun fichier ZIP.
+- Ne pas inscrire de dates dans les documents, leurs titres, leurs noms ou les réponses exportées. Ne pas ajouter de champ « date » à remplir.
+- Conserver les liens exacts vers les références officielles, même si leur adresse technique contient une année ; utiliser des intitulés sans date.
+- Vérifier les liens et les PDF après modification, et maintenir les sources de génération en cohérence.

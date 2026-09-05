@@ -1,7 +1,7 @@
 # Technologie — [Titre de la séance]
 
 **Nom et prénom :** ____________________  
-**Classe :** __________ **Date :** __________
+**Classe :** __________
 
 ## Notre question
 

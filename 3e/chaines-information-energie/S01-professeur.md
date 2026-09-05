@@ -2,13 +2,13 @@
 
 ## Un portail, deux chaînes
 
-**55 minutes ; une séance pour la semaine du 7 au 11 septembre 2026.**
+**Durée de la séance : 55 minutes.**
 
 **Objectif :** Distinguer les deux chaînes, associer des composants à leurs fonctions et expliquer le lien entre ordre et action.
 
 **Prérequis :** Reconnaître un moteur et une forme d'énergie électrique ou mécanique. Ne pas supposer les sept fonctions déjà mémorisées.
 
-**Programme :** Rattachement de contenu au programme du cycle 4 de 2020 : analyse du fonctionnement d'un objet, de ses entrées/sorties et de ses flux d'énergie et d'information. Le déploiement local du programme 2024 atteint la 4e en 2026 ; cette séance de 3e utilise le vocabulaire du programme antérieur, également présent dans le nouveau.
+**Programme :** Compétences travaillées : analyse du fonctionnement d’un objet, de ses entrées et sorties et de ses flux d’énergie et d’information. Vérifier le rattachement au programme applicable au niveau concerné.
 
 ## Préparation
 
@@ -50,9 +50,9 @@ Suite possible : Réinvestir les deux chaînes sur un autre système et réalise
 
 ## Références
 
-- [Programme de technologie, BO du 29 février 2024](https://www.education.gouv.fr/sites/default/files/document/Annexe%20%E2%80%94%20Programme%20de%20technologie%20du%20cycle%204-368016.pdf)
-- [Lettre de rentrée STI, Nouvelle-Calédonie, février 2025](https://www.ac-noumea.nc/IMG/pdf/2025_lettre_de_rentree_sti.pdf)
-- [Lettre de rentrée STI, Nouvelle-Calédonie, février 2026](https://s2i2a.ac-noumea.nc/spip.php?article112=)
+- [Programme de technologie du cycle 4](https://www.education.gouv.fr/sites/default/files/document/Annexe%20%E2%80%94%20Programme%20de%20technologie%20du%20cycle%204-368016.pdf)
+- [Lettre de rentrée STI, Nouvelle-Calédonie : accompagnement](https://www.ac-noumea.nc/IMG/pdf/2025_lettre_de_rentree_sti.pdf)
+- [Lettre de rentrée STI, Nouvelle-Calédonie : mise en œuvre](https://s2i2a.ac-noumea.nc/spip.php?article112=)
 - [Ressources nationales de technologie au cycle 4](https://eduscol.education.gouv.fr/5745/ressources-d-accompagnement-du-programme-de-technologie-au-cycle-4)
-- [DEPP, CEDRE technologie 2024 : compétences du programme 2020](https://www.education.gouv.fr/sites/default/files/document/cedre-sciences-coll-ge-technologie-2024-518699.pdf)
+- [DEPP, CEDRE technologie : compétences et évaluation](https://www.education.gouv.fr/sites/default/files/document/cedre-sciences-coll-ge-technologie-2024-518699.pdf)
 

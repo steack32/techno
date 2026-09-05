@@ -1,9 +1,15 @@
 # Génération des supports
 
-`generer_supports.py` utilise les contenus de `contenus.py` et les activités de `activites.py`.
-
 Depuis la racine du dépôt : `python scripts/generer_supports.py`.
 
-Dépendance : ReportLab. Les PDF sont produits dans `output/pdf/`, puis copiés dans le dossier `exports/` de chaque séance. Le guide commun est rangé dans `supports/premieres-seances/`. Le script ne crée aucune archive.
+Dépendances Python : `reportlab` et `pypdf`.
 
-Attention : la génération remplace les supports des premières séances. Modifier les sources Python avant de régénérer. Les README de niveau et l'index commun se maintiennent directement en Markdown.
+- `contenus.py` : contenus pédagogiques des séquences.
+- `activites.py` : activités HTML et schémas.
+- `generer_supports.py` : sources Markdown et exports PDF.
+
+Chaque séquence est générée dans le dossier de son niveau, sous son nom thématique. Son guide professeur et ses PDF élèves sont rangés dans son dossier `exports/`. Les PDF élèves intermédiaires sont produits dans `output/pdf/`, ignoré par Git.
+
+Le script ne crée ni archive ni dossier temporel. Les titres, pieds de page, champs élèves et réponses exportées restent sans dates. Les métadonnées de création et de modification des PDF sont supprimées. Les adresses des sources officielles sont conservées intactes.
+
+La génération remplace les supports des séquences concernées : modifier les sources Python avant de régénérer. Les index de niveau se maintiennent directement en Markdown.

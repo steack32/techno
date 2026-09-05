@@ -9,7 +9,7 @@
 | Durée totale | [Nombre de séances et durée de chacune] |
 | Place dans la progression | [Ce qui précède et ce qui suivra] |
 | État | [Brouillon / prêt pour la classe / expérimenté / révisé] |
-| Programme de référence | [Titre du texte, date, lien et passage pertinent] |
+| Programme de référence | [Titre du texte, lien et passage pertinent] |
 
 ## Problématique
 
@@ -61,5 +61,5 @@
 
 ## Sources et bilan
 
-- Sources des documents : [auteur, titre, lien, date de consultation ; conditions de réutilisation des illustrations].
+- Sources des documents : [auteur, titre, lien ; conditions de réutilisation des illustrations].
 - Bilan après utilisation : [durées réelles, difficultés observées, réussites et modifications à apporter].

@@ -1,17 +1,11 @@
-# Technologie — 5e
+# Technologie - 5e
 
-## Progression
+## Séquences
 
-À construire à partir du programme applicable, des acquis des élèves, du calendrier et du matériel disponible.
+| Séquence | Problématique | Objectif | Documents |
+| --- | --- | --- | --- |
+| Un objet, un besoin, des solutions | Comment expliquer les choix de conception d'un objet du quotidien ? | Identifier l'usage d'un objet, relier trois composants à leur rôle et justifier une amélioration. | [Ouvrir la séquence](objet-du-quotidien/README.md) |
 
-| Séquence | Problématique | Compétences visées | Durée | État | Documents |
-| --- | --- | --- | --- | --- | --- |
-| S01 - Un objet, un besoin, des solutions | Comment expliquer les choix de conception d'un objet ? | Besoin, usage, composants, matériaux, contraintes | 1 × 55 min | Séance préparée pour le 7-11 septembre 2026 | [Documents](S01-objet-du-quotidien/README.md) |
-
-## Piste proposée
-
-**Comment fonctionne un objet du quotidien ?** Observer un objet, identifier le besoin auquel il répond, décrire ses principaux composants et expliquer leur rôle. Le choix des objets et le degré de guidage restent à préciser.
-
-Cette piste est une proposition pédagogique ; elle ne constitue pas une progression annuelle complète.
+Chaque dossier regroupe les séances d'une même séquence, avec leurs activités, documents élèves, corrigés et exports PDF. Le choix de l'ordre de travail appartient au professeur.
 
 [Modèle de séquence](../modeles/sequence.md) · [Références](../ressources/README.md) · [Accueil](../README.md)

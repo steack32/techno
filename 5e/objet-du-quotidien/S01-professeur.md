@@ -2,13 +2,13 @@
 
 ## Un objet, un besoin, des solutions
 
-**55 minutes ; une séance pour la semaine du 7 au 11 septembre 2026.**
+**Durée de la séance : 55 minutes.**
 
 **Objectif :** Identifier l'usage d'un objet, relier trois composants à leur rôle et justifier une amélioration.
 
 **Prérequis :** Savoir ouvrir un fichier et écrire quelques phrases. La distinction entre objet et matériau est reprise au lancement.
 
-**Programme :** Rattachement au programme 2024 : étude des besoins et des usages ; description de la constitution d'un objet ; identification de matériaux et de contraintes.
+**Programme :** Compétences travaillées : étude des besoins et des usages ; description de la constitution d'un objet ; identification de matériaux et de contraintes.
 
 ## Préparation
 
@@ -49,9 +49,9 @@ Suite possible : Comparer deux solutions répondant au même besoin à l'aide de
 
 ## Références
 
-- [Programme de technologie, BO du 29 février 2024](https://www.education.gouv.fr/sites/default/files/document/Annexe%20%E2%80%94%20Programme%20de%20technologie%20du%20cycle%204-368016.pdf)
-- [Lettre de rentrée STI, Nouvelle-Calédonie, février 2025](https://www.ac-noumea.nc/IMG/pdf/2025_lettre_de_rentree_sti.pdf)
-- [Lettre de rentrée STI, Nouvelle-Calédonie, février 2026](https://s2i2a.ac-noumea.nc/spip.php?article112=)
+- [Programme de technologie du cycle 4](https://www.education.gouv.fr/sites/default/files/document/Annexe%20%E2%80%94%20Programme%20de%20technologie%20du%20cycle%204-368016.pdf)
+- [Lettre de rentrée STI, Nouvelle-Calédonie : accompagnement](https://www.ac-noumea.nc/IMG/pdf/2025_lettre_de_rentree_sti.pdf)
+- [Lettre de rentrée STI, Nouvelle-Calédonie : mise en œuvre](https://s2i2a.ac-noumea.nc/spip.php?article112=)
 - [Ressources nationales de technologie au cycle 4](https://eduscol.education.gouv.fr/5745/ressources-d-accompagnement-du-programme-de-technologie-au-cycle-4)
-- [DEPP, CEDRE technologie 2024 : compétences du programme 2020](https://www.education.gouv.fr/sites/default/files/document/cedre-sciences-coll-ge-technologie-2024-518699.pdf)
+- [DEPP, CEDRE technologie : compétences et évaluation](https://www.education.gouv.fr/sites/default/files/document/cedre-sciences-coll-ge-technologie-2024-518699.pdf)
 

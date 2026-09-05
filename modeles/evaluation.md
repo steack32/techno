@@ -3,7 +3,7 @@
 > Modèle à compléter. Préparer le corrigé dans un fichier distinct avec le modèle de corrigé, puis retirer cette indication avant distribution.
 
 **Nom et prénom :** ____________________  
-**Classe :** __________ **Date :** __________  
+**Classe :** __________
 **Durée :** [à préciser]  
 **Documents et matériel autorisés :** [à préciser]
 

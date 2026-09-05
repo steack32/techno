@@ -1,17 +1,11 @@
-# Technologie — 3e
+# Technologie - 3e
 
-## Progression
+## Séquences
 
-À construire à partir du programme applicable, des acquis des élèves, du calendrier et du matériel disponible. Les éventuels entraînements au DNB seront rattachés au cadrage de la session concernée en Nouvelle-Calédonie.
+| Séquence | Problématique | Objectif | Documents |
+| --- | --- | --- | --- |
+| Un portail, deux chaînes | Comment les chaînes d'information et d'énergie coopèrent-elles dans un portail automatique ? | Distinguer les deux chaînes, associer des composants à leurs fonctions et expliquer le lien entre ordre et action. | [Ouvrir la séquence](chaines-information-energie/README.md) |
 
-| Séquence | Problématique | Compétences visées | Durée | État | Documents |
-| --- | --- | --- | --- | --- | --- |
-| S01 - Chaînes d'information et d'énergie | Qui commande le portail et qu'est-ce qui le met en mouvement ? | Fonctions des deux chaînes, ordre, conversion, diagnostic | 1 × 55 min | Priorité ; séance préparée pour le 7-11 septembre 2026 | [Documents](S01-chaines-information-energie/README.md) |
-
-## Priorité retenue
-
-**Chaînes d'information et d'énergie.** La première séance analyse un portail automatique simplifié avec une activité numérique autonome. Les séances suivantes pourront transférer les acquis sur un autre système et approfondir les diagnostics.
-
-Cette piste est une proposition pédagogique ; elle ne constitue pas une progression annuelle complète.
+Chaque dossier regroupe les séances d'une même séquence, avec leurs activités, documents élèves, corrigés et exports PDF. Le choix de l'ordre de travail appartient au professeur.
 
 [Modèle de séquence](../modeles/sequence.md) · [Références](../ressources/README.md) · [Accueil](../README.md)

@@ -1,17 +1,11 @@
-# Technologie — 4e
+# Technologie - 4e
 
-## Progression
+## Séquences
 
-À construire à partir du programme applicable, des acquis des élèves, du calendrier et du matériel disponible.
+| Séquence | Problématique | Objectif | Documents |
+| --- | --- | --- | --- |
+| Allumer seulement quand c'est utile | Comment commander un éclairage avec deux informations ? | Modifier une règle de commande et vérifier son comportement à l'aide de plusieurs essais, y compris au seuil. | [Ouvrir la séquence](eclairage-automatique/README.md) |
 
-| Séquence | Problématique | Compétences visées | Durée | État | Documents |
-| --- | --- | --- | --- | --- | --- |
-| S01 - Allumer seulement quand c'est utile | Comment commander un éclairage avec deux informations ? | Capteurs, conditions, algorithme, essais | 1 × 55 min | Séance préparée pour le 7-11 septembre 2026 | [Documents](S01-eclairage-automatique/README.md) |
-
-## Piste proposée
-
-**Comment automatiser un éclairage ?** Étudier le rôle d'un capteur, modifier un programme et tester les conditions d'allumage. La réalisation pourra s'appuyer sur une maquette ou une simulation, selon les équipements accessibles.
-
-Cette piste est une proposition pédagogique ; elle ne constitue pas une progression annuelle complète.
+Chaque dossier regroupe les séances d'une même séquence, avec leurs activités, documents élèves, corrigés et exports PDF. Le choix de l'ordre de travail appartient au professeur.
 
 [Modèle de séquence](../modeles/sequence.md) · [Références](../ressources/README.md) · [Accueil](../README.md)
