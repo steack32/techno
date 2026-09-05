@@ -16,16 +16,22 @@ Déposer `activite-eleve.html` sur les PC ou dans un espace de distribution habi
 
 Les élèves téléchargent un fichier texte et le remettent par le canal habituel de la classe ; aucun envoi automatique ni compte n’est prévu. En binôme, alterner le clavier et demander deux billets de sortie distincts.
 
+## Cours avant activité et trace écrite
+
+Ouvrir le PDF `5e-cours-avant.pdf` avec les élèves pendant les sept minutes de cours. Un vidéoprojecteur est facultatif : chacun peut consulter le document sur son PC et écouter les explications. Distribuer `5e-trace-apres.pdf` à la correction. Le schéma complété se conserve sans être recopié intégralement.
+
+[Script détaillé du cours](S01-cours.md)
+
 ## Déroulement
 
 | Temps | Étape | Conduite de séance |
 | --- | --- | --- |
-| 0-5 min | Lancement | Demander : « Une selle est-elle un matériau ? À quoi sert un vélo ? » Faire distinguer besoin, composant et matériau. |
-| 5-10 min | Choix et lecture | Ouvrir l'activité 5e, choisir un des trois objets et lire sa fiche. Faire reformuler la production attendue. |
-| 10-28 min | Analyse | Répondre aux questions 1 à 3. En binôme, changer de secrétaire à mi-parcours. Questionner les élèves sur le rôle des pièces. |
-| 28-38 min | Conception | Traiter les contraintes et proposer une amélioration. Exiger une justification, pas seulement un goût personnel. |
-| 38-48 min | Mise en commun | Comparer deux choix d'objets ; compléter ensemble la synthèse. |
-| 48-55 min | Bilan individuel | Répondre au billet de sortie, puis télécharger les réponses. Avec un PC par binôme, chacun répond dans sa case personnelle. |
+| 0-5 min | Accroche | Pourquoi un cartable possède-t-il des bretelles, une poignée et une fermeture ? |
+| 5-12 min | Cours illustré | Suivre le script AVANT ; définir le vocabulaire et vérifier oralement la compréhension. |
+| 12-37 min | Activité sur PC | 12-16 : choisir l’objet, lire sa fiche et traiter Q1-Q2. 16-26 : compléter Q3 sur trois composants. 26-37 : traiter Q4-Q5. En binôme, changer de pilote vers 24 minutes. Le défi reste facultatif. |
+| 37-47 min | Correction | 37-41 : faire expliquer une association composant / rôle / matériau. 41-45 : comparer deux améliorations et leurs limites. 45-47 : compléter la synthèse de l’activité. Ne pas lire les trois corrigés en entier. |
+| 47-52 min | Trace écrite | Distribuer la page APRÈS. Faire lire la trace et repérer les cinq mots essentiels. Si les élèves écrivent au clavier, faire produire seulement une phrase associant une pièce, son rôle et son matériau. |
+| 52-55 min | Bilan individuel | Répondre au billet de sortie puis télécharger les réponses. Réserver la dernière minute à l’enregistrement ; en binôme, chacun répond dans sa case. |
 
 ## Critères de réussite
 

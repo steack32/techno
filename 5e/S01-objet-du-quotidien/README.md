@@ -13,3 +13,9 @@ Comment expliquer les choix de conception d'un objet du quotidien ?
 Matériel : un PC par élève ou binôme. Tous les documents nécessaires sont inclus. Les élèves téléchargent leurs réponses en texte puis les remettent au professeur.
 
 [Vue d'ensemble de la semaine](../../semaines/2026-09-07/README.md)
+
+## Cours illustré
+
+- [Cours à expliquer avant l’activité](exports/5e-cours-avant.pdf)
+- [Trace écrite à distribuer après correction](exports/5e-trace-apres.pdf)
+- [Explications et questions à poser](S01-cours.md)

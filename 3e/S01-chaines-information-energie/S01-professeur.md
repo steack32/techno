@@ -16,17 +16,22 @@ Déposer `activite-eleve.html` sur les PC ou dans un espace de distribution habi
 
 Les élèves téléchargent un fichier texte et le remettent par le canal habituel de la classe ; aucun envoi automatique ni compte n’est prévu. En binôme, alterner le clavier et demander deux billets de sortie distincts.
 
+## Cours avant activité et trace écrite
+
+Ouvrir le PDF `3e-cours-avant.pdf` avec les élèves pendant les sept minutes de cours. Un vidéoprojecteur est facultatif : chacun peut consulter le document sur son PC et écouter les explications. Distribuer `3e-trace-apres.pdf` à la correction. Le schéma complété se conserve sans être recopié intégralement.
+
+[Script détaillé du cours](S01-cours.md)
+
 ## Déroulement
 
 | Temps | Étape | Conduite de séance |
 | --- | --- | --- |
-| 0-7 min | Situation-problème | Demander : « Pourquoi le portail ne se ferme-t-il pas toujours quand on appuie ? Le bouton fournit-il l'énergie qui le déplace ? » |
-| 7-14 min | Lecture du système | Lire la description et repérer bouton, capteurs, carte, alimentation et moteur. Faire reformuler le modèle de fermeture uniquement. |
-| 14-27 min | Deux chaînes | Répondre à Q1-Q3 et associer les composants aux fonctions. Donner la banque des fonctions ; laisser chercher les associations. |
-| 27-37 min | Essais sur PC | Tester les quatre situations, relever l'ordre et expliquer un arrêt. En binôme, changer de pilote après deux essais. |
-| 37-46 min | Diagnostic et synthèse | Analyser la panne de transmission et la confusion entre courant et information. Compléter la synthèse. |
-| 46-50 min | Correction ciblée | Reprendre le schéma complet et le trajet de l'ordre. Le schéma est fourni dans le guide professeur. |
-| 50-55 min | Bilan individuel | Traiter le billet de sortie, puis télécharger les réponses. |
+| 0-5 min | Accroche | Un détecteur de présence fournit-il l’énergie qui fait briller une lampe ? |
+| 5-12 min | Cours illustré | Suivre le script AVANT ; définir le vocabulaire et vérifier oralement la compréhension. |
+| 12-37 min | Activité sur PC | 12-17 : lire le modèle et traiter Q1-Q2 en réponses courtes. 17-29 : construire les chaînes (Q3) et traiter Q4 ; fournir les fonctions dans l’ordre aux élèves fragiles. 29-37 : tester les quatre situations de Q5, avec changement de pilote après deux essais. Q6-Q7 sont traitées oralement en correction ; les plus rapides peuvent les rédiger. |
+| 37-47 min | Correction | 37-41 : compléter le schéma et suivre l’ordre vers distribuer. 41-44 : discuter Q6 (transmettre défaillante) et Q7 (carte classée par son rôle). 44-47 : vérifier les quatre ordres, puis compléter la synthèse. Faire citer électrique en entrée et mécanique en sortie du moteur. |
+| 47-52 min | Trace écrite | Distribuer la page APRÈS avec le schéma déjà complété. Ne pas demander de recopier les sept cases en cinq minutes. Faire suivre les flèches et écrire une phrase : « L’ordre arrive au bloc distribuer ; le moteur convertit l’énergie électrique en énergie mécanique. » |
+| 52-55 min | Bilan individuel | Répondre au billet de sortie puis télécharger les réponses. Réserver la dernière minute à l’enregistrement ; en binôme, chacun répond dans sa case. |
 
 ## Critères de réussite
 

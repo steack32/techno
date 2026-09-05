@@ -16,17 +16,22 @@ Déposer `activite-eleve.html` sur les PC ou dans un espace de distribution habi
 
 Les élèves téléchargent un fichier texte et le remettent par le canal habituel de la classe ; aucun envoi automatique ni compte n’est prévu. En binôme, alterner le clavier et demander deux billets de sortie distincts.
 
+## Cours avant activité et trace écrite
+
+Ouvrir le PDF `4e-cours-avant.pdf` avec les élèves pendant les sept minutes de cours. Un vidéoprojecteur est facultatif : chacun peut consulter le document sur son PC et écouter les explications. Distribuer `4e-trace-apres.pdf` à la correction. Le schéma complété se conserve sans être recopié intégralement.
+
+[Script détaillé du cours](S01-cours.md)
+
 ## Déroulement
 
 | Temps | Étape | Conduite de séance |
 | --- | --- | --- |
-| 0-5 min | Situation-problème | Demander : « Faut-il éclairer un couloir vide ? Un couloir déjà très lumineux ? » |
-| 5-10 min | Compréhension | Lire la règle attendue et identifier les deux capteurs et l'actionneur. Montrer l'ouverture du fichier sans résoudre le programme. |
-| 10-22 min | Observer l'erreur | Conserver la règle initiale avec OU ; prévoir puis tester les cinq cas. Chaque binôme identifie au moins un résultat non conforme. |
-| 22-35 min | Corriger et tester | Modifier la règle, cliquer sur Appliquer, recommencer les cinq essais et compléter l'algorithme. |
-| 35-44 min | Justifier | Expliquer ET, étudier exactement 30 puis un seuil à 50. Garder le seuil à 30 pour le bilan. |
-| 44-50 min | Synthèse | Formaliser capteur, traitement, actionneur et condition ; faire justifier un cas limite. |
-| 50-55 min | Bilan individuel | Traiter le billet de sortie sans aide du partenaire puis télécharger le travail. |
+| 0-5 min | Accroche | Pour autoriser une action, faut-il parfois vérifier plusieurs conditions ? |
+| 5-12 min | Cours illustré | Suivre le script AVANT ; définir le vocabulaire et vérifier oralement la compréhension. |
+| 12-37 min | Activité sur PC | 12-16 : lire le besoin, traiter Q1 et prévoir les essais. 16-24 : tester les cinq cas avec OU et expliquer un contre-exemple en Q3. 24-33 : corriger, cliquer sur Appliquer, refaire les cinq essais, rédiger Q4. 33-37 : traiter Q5 à la valeur 30. Q6 et le défi sont des prolongements si le temps le permet. |
+| 37-47 min | Correction | 37-41 : faire présenter un essai qui invalide OU. 41-45 : écrire la règle avec ET et justifier le cas 30. 45-47 : compléter la synthèse et, si possible, expliquer oralement Q6 : à 40 avec présence, seuil 30 donne éteinte, seuil 50 donne allumée. |
+| 47-52 min | Trace écrite | Distribuer la page APRÈS seulement à la correction. Faire lire la trace et écrire ou dicter la règle corrigée. Revenir au seuil 30 avant le bilan. |
+| 52-55 min | Bilan individuel | Répondre au billet de sortie puis télécharger les réponses. Réserver la dernière minute à l’enregistrement ; en binôme, chacun répond dans sa case. |
 
 ## Critères de réussite
 

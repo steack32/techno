@@ -13,3 +13,9 @@ Comment commander un éclairage avec deux informations ?
 Matériel : un PC par élève ou binôme. Tous les documents nécessaires sont inclus. Les élèves téléchargent leurs réponses en texte puis les remettent au professeur.
 
 [Vue d'ensemble de la semaine](../../semaines/2026-09-07/README.md)
+
+## Cours illustré
+
+- [Cours à expliquer avant l’activité](exports/4e-cours-avant.pdf)
+- [Trace écrite à distribuer après correction](exports/4e-trace-apres.pdf)
+- [Explications et questions à poser](S01-cours.md)

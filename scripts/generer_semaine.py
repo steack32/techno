@@ -14,6 +14,8 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak, KeepTogether, Flowable
 from contenus_semaine import LESSONS, SOURCES
 from activites import make_html, diagram_svg
+from introductions import INTRO, adapt_lessons, course_story, script_story, intro_markdown
+adapt_lessons(LESSONS)
 
 ROOT=Path(__file__).resolve().parents[1]
 WEEK=ROOT/'semaines'/'2026-09-07'
@@ -161,6 +163,7 @@ def md_teacher(lesson):
     s+='**Objectif :** '+lesson['objective']+'\n\n**Prérequis :** '+lesson['prerequisites']+'\n\n**Programme :** '+lesson['programme']+'\n\n'
     s+='## Préparation\n\nDéposer `activite-eleve.html` sur les PC ou dans un espace de distribution habituel. Le fichier peut être copié par clé USB ou dossier partagé et ouvert par double-clic. Un PC par élève ou par binôme suffit. Les documents ne demandent aucun téléchargement pendant la séance. Vérifier une fois que le navigateur autorise l’ouverture du fichier et le téléchargement des réponses. Prévoir le fichier PDF en solution de repli.\n\n'
     s+='Les élèves téléchargent un fichier texte et le remettent par le canal habituel de la classe ; aucun envoi automatique ni compte n’est prévu. En binôme, alterner le clavier et demander deux billets de sortie distincts.\n\n'
+    s+='## Cours avant activité et trace écrite\n\nOuvrir le PDF `'+lesson['level']+'-cours-avant.pdf` avec les élèves pendant les sept minutes de cours. Un vidéoprojecteur est facultatif : chacun peut consulter le document sur son PC et écouter les explications. Distribuer `'+lesson['level']+'-trace-apres.pdf` à la correction. Le schéma complété se conserve sans être recopié intégralement.\n\n[Script détaillé du cours](S01-cours.md)\n\n'
     s+='## Déroulement\n\n'+md_table(['Temps','Étape','Conduite de séance'],lesson['timeline'])
     s+='## Critères de réussite\n\n'+''.join('- '+x+'\n' for x in lesson['success'])+'\n'
     s+='## Aides et points de vigilance\n\n'+''.join('- '+x+'\n' for x in lesson['aides'])+'\n'+lesson['vigilance']+'\n\n'
@@ -175,16 +178,18 @@ def guide_pdf(path):
     story=[P('TECHNOLOGIE  |  GUIDE PROFESSEUR','meta'),P('Trois séances prêtes pour la semaine','title'),P('Du 7 au 11 septembre 2026 - 5e, 4e et 3e - 55 minutes par niveau'),P('PC uniquement. Les trois activités numériques sont autonomes : un navigateur suffit. Aucun compte, logiciel spécialisé ou connexion Internet n’est nécessaire une fois les fichiers distribués.'),table(['Niveau','Séance','Production attendue'],[[x['level'],x['title'],x['objective']] for x in LESSONS],[.5,1.5,2.4]),Spacer(1,12),P('Avant le premier cours','h')]
     for text in [
         'Extraire le dossier ZIP. Dans eleves/, copier le fichier HTML du niveau sur les PC, ou le distribuer dans un dossier partagé. Un double-clic ouvre l’activité dans le navigateur.',
-        'Distribuer seulement le fichier du niveau concerné aux élèves. Le dossier professeur/ contient les corrigés. Le dépôt GitHub étant public, ses corrigés sont également accessibles publiquement.',
+        'Dans cours/, ouvrir le PDF du niveau marqué AVANT. Le professeur explique pendant sept minutes, les élèves suivent sur leur PC ; la projection est facultative. Distribuer la trace APRÈS au moment de la correction. Le dossier professeur/ contient les corrigés ; le dépôt public les rend également accessibles.',
         'Prévoir un PC par élève ou par binôme. À deux, faire alterner le clavier ; la case de travail en binôme fait apparaître un second bilan individuel.',
         'En fin de séance, faire cliquer sur « Télécharger mes réponses », puis vérifier la remise du fichier texte par le canal habituel. La page ne transmet rien automatiquement et ne conserve pas de réponse après fermeture.',
         'Les PDF élèves constituent une solution de repli et peuvent être imprimés. Le guide fournit les réponses et un barème facultatif pour le billet de sortie.',
     ]:story.append(P(text))
-    story+=[P('Hypothèses retenues','h'),P('Aucun prérequis logiciel spécialisé ; une séance introductive par niveau ; priorité aux chaînes d’information et d’énergie pour les 3e. Si le créneau ne dure que 50 minutes, réduire la mise en commun de 5 minutes en conservant le bilan individuel.')]
+    story+=[P('Un cours court, puis une application','h'),P('5 minutes d’accroche ; 7 minutes de cours explicite ; 25 minutes d’activité ; 10 minutes de correction ; 5 minutes de trace écrite ; 3 minutes de bilan et d’enregistrement. Ne pas faire recopier les dessins : donner le support après correction. Pour un créneau de 50 minutes, réduire l’accroche de 2 minutes et la correction de 3 minutes ; conserver le cours et le bilan.')]
     for lesson in LESSONS:
         story += [PageBreak(),P(lesson['level'].upper()+'  |  DÉROULEMENT','meta'),P(lesson['title'],'title'),P('Objectif : '+lesson['objective']),P('Prérequis : '+lesson['prerequisites'],'small'),table(['Temps','Étape','Action du professeur'],lesson['timeline'],[.7,1.05,3.35]),Spacer(1,8),P('Aides et différenciation','h')]
         story += [P(x,'small') for x in lesson['aides']]
-        story += [P('Point de vigilance','h'),P(lesson['vigilance'],'small'),P('Suite possible : '+lesson['next'],'small'),PageBreak(),P(lesson['level'].upper()+'  |  CORRIGÉ','meta'),P('Réponses et critères de réussite','title')]
+        story += [P('Point de vigilance','h'),P(lesson['vigilance'],'small'),P('Suite possible : '+lesson['next'],'small'),PageBreak()]
+        story += script_story(lesson,P)
+        story += [PageBreak(),P(lesson['level'].upper()+'  |  CORRIGÉ','meta'),P('Réponses et critères de réussite','title')]
         for label,answer in lesson['correction']:
             story.append(P('<b>'+escape(label)+'</b> - '+escape(answer),'small',True))
         story += [P('Billet de sortie : barème facultatif','h'),P(lesson['assessment'])]
@@ -195,18 +200,35 @@ def guide_pdf(path):
     story.append(P('Les contextes techniques, tableaux, questions, simulations et schémas de ce dossier sont des créations pédagogiques originales. Les modèles sont simplifiés et ne décrivent pas un produit commercial précis.','small'))
     build_pdf(path,story,'Guide professeur - Technologie - 7 septembre 2026')
 
-def main():
+def main(rebuild_student=True):
     (BUNDLE/'eleves').mkdir(parents=True,exist_ok=True);(BUNDLE/'professeur').mkdir(exist_ok=True)
+    (BUNDLE/'cours').mkdir(exist_ok=True)
+    combined=[]
     for lesson in LESSONS:
         folder=ROOT/lesson['level']/('S01-'+lesson['slug']);folder.mkdir(parents=True,exist_ok=True)
         for name,contents in [('activite-eleve.html',make_html(lesson)),('S01-eleve.md',md_student(lesson)),('S01-professeur.md',md_teacher(lesson)),('S01-corrige.md',md_correction(lesson))]:(folder/name).write_text(contents,encoding='utf-8')
         if lesson['level']=='3e':
             (folder/'documents').mkdir(exist_ok=True);(folder/'documents'/'chaines-a-completer.svg').write_text(diagram_svg(),encoding='utf-8')
-        name=f"{lesson['level']}-fiche-eleve.pdf";pdf=OUT/name;student_pdf(lesson,pdf)
+        name=f"{lesson['level']}-fiche-eleve.pdf";pdf=OUT/name
+        if rebuild_student or not pdf.exists():student_pdf(lesson,pdf)
         (folder/'exports').mkdir(exist_ok=True);shutil.copyfile(pdf,folder/'exports'/name)
+        for phase,suffix in [('before','cours-avant'),('after','trace-apres')]:
+            course_name=lesson['level']+'-'+suffix+'.pdf'
+            build_pdf(OUT/course_name,course_story(lesson,P,table,Chain,phase),lesson['level']+' - '+INTRO[lesson['level']]['title']+' - '+suffix)
+            shutil.copyfile(OUT/course_name,folder/'exports'/course_name)
+            shutil.copyfile(OUT/course_name,BUNDLE/'cours'/course_name)
+        if combined:combined.append(PageBreak())
+        combined += course_story(lesson,P,table,Chain)
+        (folder/'S01-cours.md').write_text(intro_markdown(lesson),encoding='utf-8')
+        shutil.copyfile(folder/'S01-cours.md',BUNDLE/'professeur'/(lesson['level']+'-cours.md'))
         shutil.copyfile(pdf,BUNDLE/'eleves'/name);shutil.copyfile(folder/'activite-eleve.html',BUNDLE/'eleves'/(lesson['level']+'-activite.html'))
         shutil.copyfile(folder/'S01-professeur.md',BUNDLE/'professeur'/(lesson['level']+'-professeur.md'));shutil.copyfile(folder/'S01-corrige.md',BUNDLE/'professeur'/(lesson['level']+'-corrige.md'))
         folder.joinpath('README.md').write_text(f"# {lesson['level']} - {lesson['title']}\n\nPremière séance de 55 minutes, prévue pour la semaine du 7 au 11 septembre 2026.\n\n{lesson['question']}\n\n- [Activité élève autonome sur PC](activite-eleve.html) : télécharger le fichier, puis l'ouvrir dans le navigateur. GitHub affiche son code lorsque l'on clique directement dessus.\n- [Fiche élève imprimable](exports/{name})\n- [Fiche élève modifiable](S01-eleve.md)\n- [Déroulement professeur](S01-professeur.md)\n- [Corrigé](S01-corrige.md)\n\nMatériel : un PC par élève ou binôme. Tous les documents nécessaires sont inclus. Les élèves téléchargent leurs réponses en texte puis les remettent au professeur.\n\n[Vue d'ensemble de la semaine](../../semaines/2026-09-07/README.md)\n",encoding='utf-8')
+        with (folder/'README.md').open('a',encoding='utf-8') as f:
+            f.write(f"\n## Cours illustré\n\n- [Cours à expliquer avant l’activité](exports/{lesson['level']}-cours-avant.pdf)\n- [Trace écrite à distribuer après correction](exports/{lesson['level']}-trace-apres.pdf)\n- [Explications et questions à poser](S01-cours.md)\n")
+    build_pdf(OUT/'cours-illustres.pdf',combined,'Technologie - Cours illustrés et traces écrites - 5e, 4e, 3e')
+    shutil.copyfile(OUT/'cours-illustres.pdf',WEEK/'cours-illustres.pdf')
+    shutil.copyfile(OUT/'cours-illustres.pdf',BUNDLE/'professeur'/'cours-illustres.pdf')
     guide=OUT/'guide-professeur.pdf';guide_pdf(guide);shutil.copyfile(guide,BUNDLE/'professeur'/'guide-professeur.pdf');shutil.copyfile(guide,WEEK/'guide-professeur.pdf')
     readme="""# Séances de technologie - semaine du 7 au 11 septembre 2026
 
@@ -215,12 +237,14 @@ Une séance de 55 minutes pour chaque niveau, avec uniquement des PC.
 ## Utilisation immédiate
 
 1. Extraire ce dossier ZIP.
-2. Ouvrir le guide professeur dans professeur/ pour le déroulement et les corrigés.
-3. Distribuer le fichier HTML du niveau, situé dans eleves/. Un double-clic l'ouvre dans un navigateur ; aucun compte ni installation n'est nécessaire.
-4. Les élèves complètent les cases et cliquent sur « Télécharger mes réponses ». Ils remettent ensuite le fichier texte par le canal habituel. Aucune réponse n'est envoyée automatiquement. Télécharger avant de fermer la page.
-5. À deux sur un PC, cocher le travail en binôme, alterner le clavier et répondre chacun au bilan individuel.
+2. Ouvrir le guide professeur dans professeur/ : déroulement de 55 minutes, script du cours, réponses orales et corrigés.
+3. Commencer par 5 minutes d’accroche puis 7 minutes de cours. Faire ouvrir le PDF du niveau cours/*-cours-avant.pdf ; chacun suit sur son PC, sans vidéoprojecteur obligatoire.
+4. Distribuer le fichier HTML du niveau, situé dans eleves/, pour les 25 minutes d’activité. Un double-clic l'ouvre dans un navigateur ; aucun compte ni installation n'est nécessaire.
+5. Faire 10 minutes de correction puis donner cours/*-trace-apres.pdf pour 5 minutes de synthèse. Ne pas demander de recopier les schémas en entier. Terminer par 3 minutes de bilan individuel et d’enregistrement.
+6. Les élèves complètent les cases et cliquent sur « Télécharger mes réponses ». Ils remettent ensuite le fichier texte par le canal habituel. Aucune réponse n'est envoyée automatiquement. Télécharger avant de fermer la page.
+7. À deux sur un PC, cocher le travail en binôme, alterner le clavier et répondre chacun au bilan individuel.
 
-Les PDF élèves peuvent être imprimés. Ne distribuer aux élèves que leur activité ; le dossier professeur/ contient les corrigés.
+Les PDF élèves peuvent être imprimés ou consultés à l’écran. Distribuer le cours AVANT, puis l’activité, puis la trace APRÈS. Le dossier professeur/ contient les corrigés et un PDF réunissant tous les cours. Les dessins sont originaux ; aucune ressource extérieure n’est nécessaire.
 
 ## Séances
 
@@ -233,13 +257,15 @@ Le navigateur conserve les réponses uniquement tant que la page reste ouverte. 
     (BUNDLE/'LIRE-MOI.md').write_text(readme,encoding='utf-8')
     index='# Semaine du 7 au 11 septembre 2026\n\nTrois premières séances de 55 minutes, utilisables avec des PC uniquement.\n\n'
     index+=md_table(['Niveau','Séance et documents','Priorité'],[[x['level'],f"[{x['title']}](../../{x['level']}/S01-{x['slug']}/README.md)",x['objective']] for x in LESSONS])
-    index+='[Télécharger le dossier complet](seances-technologie-2026-09-07.zip) · [Guide professeur](guide-professeur.pdf)\n\n'+readme.split('## Utilisation immédiate',1)[1]
+    index+='[Télécharger le dossier complet](seances-technologie-2026-09-07.zip) · [Guide professeur](guide-professeur.pdf) · [Tous les cours illustrés](cours-illustres.pdf)\n\n## Utilisation immédiate\n\n'+readme.split('## Utilisation immédiate',1)[1]
     (WEEK/'README.md').write_text(index,encoding='utf-8')
     archive=ROOT/'output'/'seances-technologie-2026-09-07.zip'
     with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as z:
         for path in sorted(BUNDLE.rglob('*')):
             if path.is_file():z.write(path,Path('semaine-2026-09-07')/path.relative_to(BUNDLE))
     shutil.copyfile(archive,WEEK/archive.name)
-    print(json.dumps({'pdfs':[str(OUT/(x['level']+'-fiche-eleve.pdf')) for x in LESSONS]+[str(guide)],'zip':str(archive)},ensure_ascii=False))
+    print(json.dumps({'pdfs':[str(p) for p in sorted(OUT.glob('*.pdf'))],'zip':str(archive)},ensure_ascii=False))
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    import sys
+    main(rebuild_student='--reuse-student-pdfs' not in sys.argv)
