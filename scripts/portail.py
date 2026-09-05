@@ -17,79 +17,99 @@ COMPONENTS = [
 ]
 
 def portal_drawing(corrected=False):
- d=Drawing(900,600)
- ink=HexColor('#203247');blue=HexColor('#175b9a');orange=HexColor('#9c4a0b');gray=HexColor('#e9edf0')
- def rect(x,y,w,h,fill=white,stroke=ink):d.add(Rect(x,y,w,h,fillColor=fill,strokeColor=stroke,strokeWidth=1.5))
- def line(x,y,X,Y,color=ink,dash=None,width=1.5):d.add(Line(x,y,X,Y,strokeColor=color,strokeWidth=width,strokeDashArray=dash))
- def txt(x,y,s,size=15,color=ink):d.add(String(x,y,s,fontName='Helvetica',fontSize=size,fillColor=color))
+ # Toutes les positions ci-dessous sont exprimées depuis le haut de la page.
+ H=740;d=Drawing(900,H)
+ ink=HexColor('#203247');blue=HexColor('#175b9a');orange=HexColor('#91460e');gray=HexColor('#edf0f3')
+ def rect(x,y,w,h,fill=white,stroke=ink):d.add(Rect(x,H-y-h,w,h,fillColor=fill,strokeColor=stroke,strokeWidth=1.8))
+ def line(x,y,X,Y,color=ink,dash=None,width=1.8):d.add(Line(x,H-y,X,H-Y,strokeColor=color,strokeWidth=width,strokeDashArray=dash))
+ def txt(x,y,s,size=17,color=ink):d.add(String(x,H-y,s,fontName='Helvetica',fontSize=size,fillColor=color))
+ def circle(x,y,r,fill=white):d.add(Circle(x,H-y,r,fillColor=fill,strokeColor=ink,strokeWidth=1.8))
  def arrow(x,y,X,Y,color=ink,dash=None):
-  line(x,y,X,Y,color,dash,2)
+  line(x,y,X,Y,color,dash,2.3)
   import math
   a=math.atan2(Y-y,X-x)
-  d.add(Polygon([X,Y,X-10*cos(a-.4),Y-10*sin(a-.4),X-10*cos(a+.4),Y-10*sin(a+.4)],fillColor=color,strokeColor=color))
- def tag(n,x,y,X,Y):
-  line(x,y,X,Y);d.add(Circle(x,y,12,fillColor=white,strokeColor=ink,strokeWidth=2));txt(x-4,y-5,str(n),15)
- def gear(x,y):
-  points=[]
+  d.add(Polygon([X,H-Y,X-11*cos(a-.45),H-(Y-11*sin(a-.45)),X-11*cos(a+.45),H-(Y-11*sin(a+.45))],fillColor=color,strokeColor=color))
+ def badge(n,x,y,X=None,Y=None):
+  if X is not None:line(x,y,X,Y)
+  circle(x,y,14);txt(x-5,y+6,str(n),18)
+ def heading(y,title):
+  rect(0,y-23,900,32,gray,gray);txt(12,y,title,18)
+ def gear(x,y,r=31):
+  pts=[]
   for i in range(48):
-   a=i*2*pi/48;rr=18 if i%4 in (0,3) else 23;points.extend([x+rr*cos(a),y+rr*sin(a)])
-  d.add(Polygon(points,fillColor=gray,strokeColor=ink,strokeWidth=1.5));d.add(Circle(x,y,5,fillColor=white,strokeColor=ink))
- txt(16,576,'A. PORTAIL COULISSANT - VUE DE FACE, CÔTÉ INTÉRIEUR',18)
- # opening on left; leaf partly retracted on right; closing moves left.
- rect(65,328,34,188,gray);rect(480,328,34,188,gray)
- txt(30,523,'Pilier',14);txt(457,523,'Pilier',14)
- rect(248,352,520,145,gray)
- for x in range(270,757,27):line(x,362,x,487)
- rect(248,352,520,10,white);rect(248,487,520,10,white)
- for x in (292,724):d.add(Circle(x,343,9,fillColor=white,strokeColor=ink,strokeWidth=2))
- line(30,333,846,333,width=3);txt(697,309,'Rail au sol',14)
- arrow(415,542,260,542);txt(265,558,'Sens de fermeture',15)
- txt(310,511,'Vantail mobile',15)
- # beam parallel to gate in offset plane (front elevation schematic)
- rect(72,404,20,28,white);rect(486,404,20,28,white)
- line(93,418,486,418,blue,[6,5],2);txt(129,432,'Faisceau devant le vantail',14,blue)
- tag(2,149,475,82,418);line(149,463,496,428)
- # button at left
- rect(17,459,24,33,gray);d.add(Circle(29,475,7,fillColor=white,strokeColor=ink));tag(1,29,544,29,492)
- # rack underneath gate, motor fixed near right pillar
- rect(252,396,508,8,white)
- for x in range(256,754,12):rect(x,392,5,4,gray)
- rect(527,331,74,61,white);gear(555,369);txt(569,374,'M',17)
- tag(8,626,324,589,352);tag(9,690,408,662,400)
- # limit sensor fixed near motor, target fixed to moving leaf, displaced to right while open
- rect(603,376,12,19,gray);rect(751,377,14,12,white)
- tag(3,610,499,609,389);txt(603,470,'Capteur fixe',14)
- txt(726,446,'Cible mobile',14);line(765,440,758,389)
- # cabinet separate inset
- rect(805,377,64,106,gray);txt(800,495,'Coffret',14);line(805,377,875,283,dash=[4,4]);line(869,377,888,283,dash=[4,4])
- txt(16,285,'B. COFFRET DE COMMANDE - BLOCS SÉPARÉS POUR LA LECTURE',18)
- txt(16,256,'Les blocs peuvent être réunis dans un même boîtier sur un portail réel.',14)
- rect(200,35,681,197,HexColor('#f8f9fa'))
- # information flows across top
- txt(18,206,'Entrées 1, 2 et 3',15,blue);arrow(155,200,226,200,blue,[5,4])
- rect(230,166,180,57);txt(244,187,'Carte programmable' if corrected else 'Bloc à identifier',15)
- tag(4,250,230,250,222)
- arrow(410,194,632,194,blue,[5,4]);tag(5,511,225,511,194)
- rect(636,164,222,60);txt(650,187,'Module de puissance' if corrected else 'Bloc à identifier',15)
- tag(7,832,236,832,222)
- # energy path on bottom routed to power module then motor
- txt(24,104,'Réseau électrique',15,orange);arrow(166,110,230,110,orange)
- rect(230,72,210,65);txt(244,112,'Alimentation 24 V' if corrected else 'Bloc à identifier',15);txt(244,89,'Sortie : énergie électrique',13)
- tag(6,249,149,249,137)
- line(440,108,745,108,orange,width=2);arrow(745,108,745,164,orange)
- line(858,183,880,183,orange,width=2);line(880,183,880,58,orange,width=2);arrow(880,58,635,58,orange)
- txt(475,51,'Vers le moteur 8',15,orange)
- txt(20,14,'Pointillés : information / ordre. Trait plein fléché : énergie. Traits fins : repérage des pièces.',14)
+   a=i*pi/24;rr=r if i%4 in (0,3) else r-5;pts.extend([x+rr*cos(a),H-y+rr*sin(a)])
+  d.add(Polygon(pts,fillColor=gray,strokeColor=ink,strokeWidth=2));circle(x,y,7)
+ heading(24,'A. VUE D’ENSEMBLE - PORTAIL PARTIELLEMENT OUVERT')
+ # Le vantail ferme le passage en coulissant vers le pilier gauche.
+ rect(105,84,34,147,gray);rect(494,84,34,147,gray)
+ rect(307,99,459,113,white)
+ for x in range(330,758,43):line(x,103,x,207,width=1.2)
+ line(307,110,766,110);line(307,201,766,201)
+ circle(348,222,9);circle(727,222,9);line(60,232,800,232,width=3)
+ txt(333,89,'Vantail mobile',17);arrow(425,58,276,58);txt(270,49,'Fermeture',17)
+ # Capteurs visibles devant le vantail ; un même repère pour la paire.
+ rect(111,140,22,34);circle(122,157,6)
+ rect(500,140,22,34);circle(511,157,6)
+ line(136,157,496,157,blue,[8,6],2.8)
+ rect(192,164,250,25,white,white);txt(202,182,'Faisceau devant le vantail',16,blue)
+ badge(2,170,209,122,166);badge(2,540,66,511,140)
+ rect(27,113,34,48,gray);circle(44,137,10);badge(1,44,77,44,113)
+ # Seulement la zone à observer : ses pièces sont agrandies en B.
+ rect(576,186,62,45,gray);txt(592,215,'M',19)
+ line(564,183,650,183,dash=[5,4]);line(650,183,650,237,dash=[5,4])
+ line(650,237,564,237,dash=[5,4]);line(564,237,564,183,dash=[5,4])
+ txt(671,252,'Détails en B',16);line(667,244,650,221)
+ txt(68,252,'Rail au sol',16)
+ heading(285,'B. AGRANDISSEMENTS - TRANSMISSION ET FIN DE COURSE')
+ line(465,302,465,473,HexColor('#c0c9d2'))
+ # Engrènement : les dents du pignon atteignent celles de la crémaillère.
+ txt(16,315,'Transmission du mouvement',17)
+ rect(57,342,340,13,gray)
+ for x in range(61,392,17):rect(x,355,8,9,gray)
+ gear(199,394,31)
+ arrow(145,333,80,333,orange)
+ line(230,394,279,394,orange,width=4)
+ rect(279,369,108,55,gray);txt(307,403,'M',25)
+ badge(9,31,390,110,351);line(44,399,168,394)
+ badge(8,420,398,387,398)
+ txt(60,452,'Rotation du pignon → translation du vantail',16)
+ # La cible est solidaire du vantail et se déplace vers le capteur fixe.
+ txt(490,315,'Détection de la position fermée',17)
+ rect(659,342,213,13,gray);txt(702,335,'Vantail',16)
+ rect(713,355,33,32,gray)
+ arrow(705,402,605,402,blue);txt(704,422,'Cible mobile',16)
+ rect(546,359,39,42,white);circle(578,380,4)
+ line(546,405,546,438);line(526,438,589,438,width=3)
+ badge(3,513,376,546,380)
+ txt(525,461,'Capteur fixe',16)
+ txt(702,461,'À l’arrivée de la cible :',16);txt(702,481,'position fermée détectée.',16)
+ heading(510,'C. COFFRET DE COMMANDE - BLOCS FONCTIONNELS')
+ # Information : aucun croisement avec les transferts d'énergie.
+ txt(8,570,'Entrées',17,blue);txt(8,590,'1, 2 et 3',17,blue)
+ arrow(98,578,172,578,blue,[7,5])
+ rect(175,550,218,60);txt(190,585,'Carte programmable' if corrected else 'Bloc à identifier',17)
+ badge(4,187,537)
+ arrow(393,578,623,578,blue,[7,5]);badge(5,500,554,500,578)
+ rect(625,550,238,60);txt(639,585,'Module de puissance' if corrected else 'Bloc à identifier',17)
+ badge(7,848,537)
+ # Réseau -> alimentation -> module de puissance -> moteur.
+ txt(8,671,'Réseau',17,orange);arrow(82,671,172,671,orange)
+ rect(175,642,230,55);txt(190,677,'Alimentation 24 V' if corrected else 'Bloc à identifier',17)
+ badge(6,187,628)
+ line(405,670,688,670,orange,width=2.3);arrow(688,670,688,610,orange)
+ line(825,610,825,648,orange,width=2.3);arrow(825,648,775,648,orange)
+ txt(746,681,'Vers moteur 8',17,orange)
+ txt(12,730,'Pointillés : information / ordre. Flèches pleines : énergie ou mouvement. Traits fins : repérage.',16)
  return d
 
 def portal_svg(corrected=False,legend=True):
  d=portal_drawing(corrected)
  if legend:
-  full=Drawing(900,790)
+  full=Drawing(900,d.height+190)
   group=Group(*d.contents);group.translate(0,190);full.add(group)
   for i,(n,name,fn) in enumerate(COMPONENTS):
    col=i//5;row=i%5
    text=n+' - '+(name+' / '+fn if corrected else '_________________________________')
    full.add(String(20+col*450,160-row*31,text,fontName='Helvetica',fontSize=14,fillColor=HexColor('#203247')))
   d=full
- return renderSVG.drawToString(d).replace('<svg ', '<svg role="img" aria-label="Vue du portail coulissant et détail du coffret de commande" ',1)
+ return renderSVG.drawToString(d).replace('<svg ', '<svg role="img" aria-label="Portail coulissant, agrandissements de la transmission et de la fin de course, coffret de commande" ',1)

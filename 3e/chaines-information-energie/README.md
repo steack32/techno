@@ -19,6 +19,6 @@ Les PDF sont rangés dans `exports/` et les documents complémentaires dans `doc
 ## Vues du portail
 
 - [Vue élève à légender](documents/portail-eleve.svg)
-- [Vue du coffret corrigée](documents/portail-corrige.svg) ; légende complète dans le guide professeur.
+- [Vue du portail et détails corrigés](documents/portail-corrige.svg) ; légende complète dans le guide professeur.
 
 La fiche élève comprend quatre pages, soit deux feuilles recto verso. La vue est intégrée à l’activité HTML, utilisable sans fichier image séparé.

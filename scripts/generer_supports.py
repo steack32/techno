@@ -280,7 +280,7 @@ Les PDF sont rangés dans `exports/` et les documents complémentaires dans `doc
             index.write_text(index.read_text()+'\n[Schéma de la commande de l’éclairage](documents/eclairage.svg)\n')
         if lesson['level']=='3e':
             index=folder/'README.md'
-            index.write_text(index.read_text()+'\n## Vues du portail\n\n- [Vue élève à légender](documents/portail-eleve.svg)\n- [Vue du coffret corrigée](documents/portail-corrige.svg) ; légende complète dans le guide professeur.\n\nLa fiche élève comprend quatre pages, soit deux feuilles recto verso. La vue est intégrée à l’activité HTML, utilisable sans fichier image séparé.\n')
+            index.write_text(index.read_text()+'\n## Vues du portail\n\n- [Vue élève à légender](documents/portail-eleve.svg)\n- [Vue du portail et détails corrigés](documents/portail-corrige.svg) ; légende complète dans le guide professeur.\n\nLa fiche élève comprend quatre pages, soit deux feuilles recto verso. La vue est intégrée à l’activité HTML, utilisable sans fichier image séparé.\n')
     print('Supports générés par niveau et par séquence, sans dates ni archives.')
 
 if __name__=='__main__':main()
