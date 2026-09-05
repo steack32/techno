@@ -1,5 +1,11 @@
 # 3e - Corrigé
 
+![Portail corrigé](documents/portail-corrige.svg)
+
+## Repérage du portail
+
+1 : Bouton de fermeture (Acquérir) ; 2 : Paire de cellules de détection (Acquérir) ; 3 : Capteur de fin de course (Acquérir) ; 4 : Carte programmable (Traiter) ; 5 : Liaison de commande (Communiquer) ; 6 : Bloc d’alimentation 24 V (Alimenter) ; 7 : Module de puissance (Distribuer) ; 8 : Moteur électrique (Convertir) ; 9 : Pignon et crémaillère (Transmettre).
+
 ## Q1
 
 Fermer le portail par coulissement. Il faut savoir si le passage est libre et si le portail est déjà complètement fermé.

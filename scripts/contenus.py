@@ -181,3 +181,14 @@ LESSONS = [
  "next":"Réinvestir les deux chaînes sur un autre système et réaliser un diagnostic à partir de mesures ou d'observations.",
 },
 ]
+
+# Repères communs à la vue du portail et aux chaînes fonctionnelles.
+from portail import COMPONENTS
+for lesson in LESSONS:
+    if lesson['level']=='3e':
+        rows=lesson['pages'][0][1]['rows']
+        for row,(number,name,function) in zip(rows,COMPONENTS):
+            row[0]=number+' - '+name
+        lesson['timeline'][1][2]='Observer la vue du portail et légender les neuf repères avec le tableau des composants. Faire repérer la cellule fixe, la cible mobile de fin de course et le pignon sous la crémaillère. Reformuler le modèle de fermeture uniquement.'
+        lesson['correction'].insert(0,['Repérage du portail',' ; '.join(n+' : '+name+' ('+function+')' for n,name,function in COMPONENTS)+'.'])
+        lesson['aides'].insert(0,'Projeter la vue du portail ; suivre physiquement le mouvement du vantail puis le chemin du signal. Les repères sont identiques dans les deux chaînes.')

@@ -14,6 +14,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak, KeepTogether, Flowable
 from contenus import LESSONS, SOURCES
 from activites import make_html, diagram_svg
+from portail import portal_drawing, portal_svg, COMPONENTS
 
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'output'/'pdf'
@@ -71,12 +72,12 @@ class Chain(Flowable):
         top_y=h-64;bottom_y=28;bh=45 if self.filled else 35
         c.setFont('LessonBold',9);c.setFillColor(BLUE);c.drawString(0,h-8,"CHAÎNE D'INFORMATION")
         topx=[34,204,374];topw=112
-        texts=['Bouton + cellule +\ncapteur de fin de course','Carte programmable','Liaison de commande'] if self.filled else ['Composant(s) ?']*3
+        texts=['1 : bouton / 2 : cellules\n3 : fin de course','4 : carte programmable','5 : liaison de commande'] if self.filled else ['Repère(s) + composant(s) ?']*3
         for x,title,detail in zip(topx,['ACQUÉRIR','TRAITER','COMMUNIQUER'],texts): self.box(x,top_y,topw,bh,title,detail,BLUE)
         for a,b in zip(topx,topx[1:]): self.arrow(a+topw,top_y+bh/2,b,top_y+bh/2,BLUE)
         c.setFillColor(ORANGE);c.drawString(0,bottom_y+bh+9,"CHAÎNE D'ÉNERGIE")
         bx=[0,131,262,393];bw=122
-        texts=['Réseau + bloc\nd’alimentation 24 V','Module de puissance','Moteur électrique','Pignon + crémaillère'] if self.filled else ['Composant(s) ?']*4
+        texts=['Réseau + 6 : bloc\nd’alimentation 24 V','7 : module de puissance','8 : moteur électrique','9 : pignon + crémaillère'] if self.filled else ['Repère(s) + composant(s) ?']*4
         for x,title,detail in zip(bx,['ALIMENTER','DISTRIBUER','CONVERTIR','TRANSMETTRE'],texts): self.box(x,bottom_y,bw,bh,title,detail,ORANGE)
         for a,b in zip(bx,bx[1:]): self.arrow(a+bw,bottom_y+bh/2,b,bottom_y+bh/2,ORANGE)
         middle=top_y-13;c.setStrokeColor(BLUE);c.line(topx[2]+56,top_y,topx[2]+56,middle);c.line(topx[2]+56,middle,bx[1]+bw/2,middle);self.arrow(bx[1]+bw/2,middle,bx[1]+bw/2,bottom_y+bh,BLUE)
@@ -132,11 +133,27 @@ def student_block(b):
         return [P(b['label'],'q'),table(b['headers'],rows,ratios,True),Spacer(1,6)]
     raise ValueError(typ)
 
+def portal_page(corrected=False):
+    drawing=portal_drawing(corrected)
+    scale=WIDTH/drawing.width
+    drawing.scale(scale,scale);drawing.width*=scale;drawing.height*=scale
+    rows=[]
+    for i in range(5):
+        cells=[]
+        for j in (i,i+5):
+            if j<len(COMPONENTS):
+                n,name,fn=COMPONENTS[j];cells += [n,(name+' / '+fn) if corrected else '________________________']
+            else:cells += ['','']
+        rows.append(cells)
+    return [P('Repérer les composants du portail','title'),P('Vue pédagogique simplifiée, sans échelle. '+('Corrigé : les numéros sont repris dans les deux chaînes.' if corrected else 'Complète la légende avec le tableau des composants de la page suivante.'),'small'),drawing,Spacer(1,8),table(['Repère','Composant'+(' / fonction' if corrected else ''),'Repère','Composant'+(' / fonction' if corrected else '')],rows,[.6,2.02,.6,2.02]),Spacer(1,6),P('Le faisceau de détection passe devant le vantail. La cible mobile rejoint le capteur fixe à la fin de la fermeture. Le pignon tourne et entraîne la crémaillère solidaire du vantail.','small')]
+
 def student_pdf(lesson,path):
     story=[]
+    if lesson['level']=='3e':
+        story=[P('3E  |  SÉANCE 1  |  FICHE ÉLÈVE  |  1/4','meta')]+portal_page()+[PageBreak()]
     for i,page in enumerate(lesson['pages']):
         if i:story.append(PageBreak())
-        story.append(P(f"{lesson['level'].upper()}  |  SÉANCE 1  |  FICHE ÉLÈVE  |  {i+1}/{len(lesson['pages'])}",'meta'))
+        story.append(P(f"{lesson['level'].upper()}  |  SÉANCE 1  |  FICHE ÉLÈVE  |  {i+1+(lesson['level']=='3e')}/{len(lesson['pages'])+(lesson['level']=='3e')}",'meta'))
         if i==0:
             story += [P(lesson['title'],'title'),P(lesson['question']),P('Nom : __________________________  Classe : __________','small')]
         for b in page:story+=student_block(b)
@@ -148,6 +165,8 @@ def md_table(headers,rows):
 
 def md_student(lesson):
     s=f"# {lesson['level']} - {lesson['title']}\n\n{lesson['question']}\n\n**Durée : 55 minutes.** PC avec navigateur ; aucun compte ni accès Internet nécessaire après distribution du fichier.\n\n"
+    if lesson['level']=='3e':
+        s+='## Observer et légender le portail\n\n![Vue du portail à légender](documents/portail-eleve.svg)\n\nAssocier les repères 1 à 9 aux composants du tableau.\n\n'
     for i,page in enumerate(lesson['pages']):
         s+=f'## Partie {i+1}\n\n'
         for b in page:
@@ -175,7 +194,8 @@ def md_teacher(lesson):
     return s
 
 def md_correction(lesson):
-    return '# '+lesson['level']+' - Corrigé\n\n'+''.join('## '+label+'\n\n'+answer+'\n\n' for label,answer in lesson['correction'])+'## Évaluation formative\n\n'+lesson['assessment']+'\n'
+    illustration='![Portail corrigé](documents/portail-corrige.svg)\n\n' if lesson['level']=='3e' else ''
+    return '# '+lesson['level']+' - Corrigé\n\n'+illustration+''.join('## '+label+'\n\n'+answer+'\n\n' for label,answer in lesson['correction'])+'## Évaluation formative\n\n'+lesson['assessment']+'\n'
 
 def guide_pdf(lesson,path):
     story=[P(lesson['level'].upper()+'  |  GUIDE PROFESSEUR','meta'),P(lesson['title'],'title'),P('Objectif : '+lesson['objective']),P('Séance de 55 minutes. Deux élèves par PC.'),P('Préparation','h'),P('Télécharger activite-eleve.html depuis le dossier de cette séquence et le distribuer aux élèves. Le fichier s’ouvre dans un navigateur. Distribuer uniquement les supports élèves ; ce guide et S01-corrige.md contiennent les réponses.'),P('En binôme, alterner le clavier et demander un bilan individuel à chaque élève. Faire télécharger les réponses avant de fermer la page, puis vérifier leur remise par le canal habituel.'),P('Les documents imprimés sont conservés dans le porte-vues. Ne pas dépasser deux feuilles recto verso par élève et par séance.'),P('Prérequis : '+lesson['prerequisites']),P('Compétences','h'),P(lesson['programme']),PageBreak(),P('Déroulement de la séance','title'),table(['Temps','Étape','Action du professeur'],lesson['timeline'],[.7,1.05,3.35]),Spacer(1,8),P('Aides et différenciation','h')]
@@ -185,6 +205,7 @@ def guide_pdf(lesson,path):
         story.append(P('<b>'+escape(label)+'</b> - '+escape(answer),'small',True))
     story += [P('Billet de sortie : barème facultatif','h'),P(lesson['assessment'])]
     if lesson['level']=='3e':
+        story += [PageBreak()]+portal_page(True)
         story += [PageBreak(),P('Schéma de référence','title'),P('Deux chaînes qui coopèrent','h'),Chain(True),Spacer(1,12),P('La chaîne d’information envoie un ordre au bloc distribuer de la chaîne d’énergie. Les deux chaînes ont besoin d’énergie pour fonctionner. Les pertes et les alimentations des capteurs ne sont pas détaillées.')]
     story += [P('Références pédagogiques','h')]
     for title,url in SOURCES:
@@ -197,7 +218,10 @@ def main():
         folder=ROOT/lesson['level']/lesson['slug'];folder.mkdir(parents=True,exist_ok=True)
         for name,contents in [('activite-eleve.html',make_html(lesson)),('S01-eleve.md',md_student(lesson)),('S01-professeur.md',md_teacher(lesson)),('S01-corrige.md',md_correction(lesson))]:(folder/name).write_text(contents,encoding='utf-8')
         if lesson['level']=='3e':
-            (folder/'documents').mkdir(exist_ok=True);(folder/'documents'/'chaines-a-completer.svg').write_text(diagram_svg(),encoding='utf-8')
+            (folder/'documents').mkdir(exist_ok=True)
+            for corrected,filename in [(False,'portail-eleve.svg'),(True,'portail-corrige.svg')]:
+                (folder/'documents'/filename).write_text(portal_svg(corrected),encoding='utf-8')
+            (folder/'documents'/'chaines-a-completer.svg').write_text(diagram_svg(),encoding='utf-8')
         name=f"{lesson['level']}-fiche-eleve.pdf";pdf=OUT/name;student_pdf(lesson,pdf)
         (folder/'exports').mkdir(exist_ok=True);shutil.copyfile(pdf,folder/'exports'/name)
         guide=folder/'exports'/'guide-professeur.pdf'
@@ -220,6 +244,9 @@ Les PDF sont rangés dans `exports/` et les documents complémentaires dans `doc
 
 [Autres séquences du niveau](../README.md) · [Accueil](../../README.md)
 """,encoding='utf-8')
+        if lesson['level']=='3e':
+            index=folder/'README.md'
+            index.write_text(index.read_text()+'\n## Vues du portail\n\n- [Vue élève à légender](documents/portail-eleve.svg)\n- [Vue du coffret corrigée](documents/portail-corrige.svg) ; légende complète dans le guide professeur.\n\nLa fiche élève comprend quatre pages, soit deux feuilles recto verso. La vue est intégrée à l’activité HTML, utilisable sans fichier image séparé.\n')
     print('Supports générés par niveau et par séquence, sans dates ni archives.')
 
 if __name__=='__main__':main()

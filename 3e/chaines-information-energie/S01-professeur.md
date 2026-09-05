@@ -21,7 +21,7 @@ Les élèves téléchargent un fichier texte et le remettent par le canal habitu
 | Temps | Étape | Conduite de séance |
 | --- | --- | --- |
 | 0-7 min | Situation-problème | Demander : « Pourquoi le portail ne se ferme-t-il pas toujours quand on appuie ? Le bouton fournit-il l'énergie qui le déplace ? » |
-| 7-14 min | Lecture du système | Lire la description et repérer bouton, capteurs, carte, alimentation et moteur. Faire reformuler le modèle de fermeture uniquement. |
+| 7-14 min | Lecture du système | Observer la vue du portail et légender les neuf repères avec le tableau des composants. Faire repérer la cellule fixe, la cible mobile de fin de course et le pignon sous la crémaillère. Reformuler le modèle de fermeture uniquement. |
 | 14-27 min | Deux chaînes | Répondre à Q1-Q3 et associer les composants aux fonctions. Donner la banque des fonctions ; laisser chercher les associations. |
 | 27-37 min | Essais sur PC | Tester les quatre situations, relever l'ordre et expliquer un arrêt. En binôme, changer de pilote après deux essais. |
 | 37-46 min | Diagnostic et synthèse | Analyser la panne de transmission et la confusion entre courant et information. Compléter la synthèse. |
@@ -36,6 +36,7 @@ Les élèves téléchargent un fichier texte et le remettent par le canal habitu
 
 ## Aides et points de vigilance
 
+- Projeter la vue du portail ; suivre physiquement le mouvement du vantail puis le chemin du signal. Les repères sont identiques dans les deux chaînes.
 - Donner les sept fonctions dans l'ordre ; demander uniquement l'association des composants.
 - Faire repérer dans le document les verbes indiquer, décider, transmettre un ordre, fournir l'énergie, transformer et transmettre un mouvement.
 - Pour la panne : partir du constat « le moteur tourne » et suivre le mouvement vers le portail.

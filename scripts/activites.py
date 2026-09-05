@@ -1,6 +1,7 @@
 """Génération des fiches interactives autonomes, sans dépendance réseau."""
 from html import escape as esc
 import json
+from portail import portal_svg, COMPONENTS
 
 CSS = '''
 :root{--ink:#16283e;--blue:#175b9a;--energy:#b65b12;--line:#cfdae5;--paper:#fff;--bg:#edf2f6}
@@ -17,7 +18,7 @@ table{width:100%;border-collapse:collapse;font-size:15px;margin:12px 0 22px}th,t
 .step{border-top:2px solid var(--line);padding-top:10px;margin-top:30px}.step:first-of-type{border:0;margin-top:0;padding:0}.small{font-size:14px;color:#43556a}
 .sim{margin:24px 0;padding:20px;border:2px solid #bdd0e1;background:#f5f9fd}.controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.controls label{display:block}.controls input[type=range]{width:100%}
 .rule{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:16px 0}.rule select{width:auto;min-width:76px}.rule input{width:88px}.live{display:flex;gap:18px;align-items:center;padding:16px 0}.lamp{display:inline-block;flex:none;width:48px;height:48px;background:#9eacb8;border:3px solid #6d7e8e;border-radius:50%}.lamp.on{background:#ffd245;border-color:#a46500}
-.state{font-size:21px;font-weight:bold}.active-rule{font-family:monospace;font-size:16px;overflow-wrap:anywhere}.chain{width:100%;height:auto}.toolbar{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0}.feedback{min-height:28px;color:#164f28;font-weight:bold}
+.state{font-size:21px;font-weight:bold}.active-rule{font-family:monospace;font-size:16px;overflow-wrap:anywhere}.chain{width:100%;height:auto}.portal-view svg{width:100%;height:auto}.portal-labels{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}.toolbar{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0}.feedback{min-height:28px;color:#164f28;font-weight:bold}
 .exit{border:2px solid var(--blue);padding:15px;margin:22px 0}.exit textarea{margin-bottom:5px}.extra-person[hidden]{display:none}
 @media(max-width:650px){main{margin:0;padding:22px 16px}.controls{grid-template-columns:1fr}h1{font-size:26px}table{font-size:14px}}
 @media print{body{background:white;font-size:11pt}main{max-width:none;margin:0;padding:0;border:0}.toolbar,button,.sim{display:none}textarea{border:0;border-bottom:1px solid #777;min-height:55px}.step{break-before:page}header{break-after:avoid}table{font-size:9pt}.exit{break-inside:avoid}}
@@ -110,7 +111,7 @@ def diagram_svg():
         positions=[55,295,535] if row==0 else [10,205,400,595]
         width=170
         for x,label in zip(positions,labels):
-            boxes.append(f'<rect x="{x}" y="{y}" width="{width}" height="58" rx="3" fill="white" stroke="{color}" stroke-width="2"/><text x="{x+width/2}" y="{y+25}" text-anchor="middle" font-size="16" font-weight="bold" fill="{color}">{label}</text><text x="{x+width/2}" y="{y+45}" text-anchor="middle" font-size="14" fill="#405369">composant(s) ?</text>')
+            boxes.append(f'<rect x="{x}" y="{y}" width="{width}" height="58" rx="3" fill="white" stroke="{color}" stroke-width="2"/><text x="{x+width/2}" y="{y+25}" text-anchor="middle" font-size="16" font-weight="bold" fill="{color}">{label}</text><text x="{x+width/2}" y="{y+45}" text-anchor="middle" font-size="11" fill="#405369">repère(s) et composant(s) ?</text>')
         for left,right in zip(positions,positions[1:]):
             boxes.append(f'<path d="M{left+width} {y+29} H{right-9}" stroke="{color}" stroke-width="2" fill="none" marker-end="url(#arrow-{row})"/>')
     return '<svg class="chain" viewBox="0 0 785 280" role="img" aria-label="Chaîne d’information : acquérir, traiter, communiquer. Un ordre va vers distribuer. Chaîne d’énergie : alimenter, distribuer, convertir, transmettre, puis action sur le portail." xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrow-0" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8Z" fill="#175b9a"/></marker><marker id="arrow-1" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8Z" fill="#b65b12"/></marker></defs><text x="10" y="20" font-size="16" fill="#175b9a">INFORMATION</text><text x="10" y="152" font-size="16" fill="#b65b12">ÉNERGIE</text>'+''.join(boxes)+'<path d="M620 90 V115 H290 V155" fill="none" stroke="#175b9a" stroke-width="2" marker-end="url(#arrow-0)"/><text x="400" y="108" font-size="16" fill="#175b9a">ordre</text><path d="M680 223 V244" fill="none" stroke="#b65b12" stroke-width="2" marker-end="url(#arrow-1)"/><text x="550" y="268" font-size="15" fill="#b65b12">Action : déplacement du portail</text></svg>'
@@ -147,6 +148,11 @@ def block_html(b):
 
 def make_html(lesson):
     content=''.join('<section class="step">'+''.join(block_html(b) for b in page)+'</section>' for page in lesson['pages'])
+    if lesson['level']=='3e':
+        svg=portal_svg(False,legend=False)
+        svg=svg[svg.index('<svg '):]
+        fields=''.join(field('repere-'+n,'Repère '+n+' : nom du composant',1) for n,_,_ in COMPONENTS)
+        content='<section class="step"><h2>Observer et légender le portail</h2><p>Identifie les neuf repères à l’aide du tableau des composants ci-dessous. Le dessin est une vue pédagogique simplifiée, sans échelle. Le faisceau passe devant le vantail. La cible mobile rejoint le capteur fixe en fin de fermeture.</p><div class="portal-view">'+svg+'</div><div class="portal-labels">'+fields+'</div></section>'+content
     js=BASE_JS + (LIGHT_JS if lesson['level']=='4e' else GATE_JS if lesson['level']=='3e' else '')
     return f'''<!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{esc(lesson['level'])} - {esc(lesson['title'])}</title><style>{CSS}</style></head>

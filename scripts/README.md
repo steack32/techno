@@ -6,6 +6,7 @@ Dépendances Python : `reportlab` et `pypdf`.
 
 - `contenus.py` : contenus pédagogiques des séquences.
 - `activites.py` : activités HTML et schémas.
+- `portail.py` : vue vectorielle du portail et repères communs aux documents élèves et corrigés.
 - `generer_supports.py` : sources Markdown et exports PDF.
 
 Chaque séquence est générée dans le dossier de son niveau, sous son nom thématique. Son guide professeur et ses PDF élèves sont rangés dans son dossier `exports/`. Les PDF élèves intermédiaires sont produits dans `output/pdf/`, ignoré par Git.

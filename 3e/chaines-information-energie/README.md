@@ -15,3 +15,10 @@ Pour utiliser l'activité HTML, télécharger le fichier puis l'ouvrir dans un n
 Les PDF sont rangés dans `exports/` et les documents complémentaires dans `documents/` lorsqu'ils sont nécessaires.
 
 [Autres séquences du niveau](../README.md) · [Accueil](../../README.md)
+
+## Vues du portail
+
+- [Vue élève à légender](documents/portail-eleve.svg)
+- [Vue du coffret corrigée](documents/portail-corrige.svg) ; légende complète dans le guide professeur.
+
+La fiche élève comprend quatre pages, soit deux feuilles recto verso. La vue est intégrée à l’activité HTML, utilisable sans fichier image séparé.

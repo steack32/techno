@@ -4,21 +4,27 @@ Comment les chaînes d'information et d'énergie coopèrent-elles dans un portai
 
 **Durée : 55 minutes.** PC avec navigateur ; aucun compte ni accès Internet nécessaire après distribution du fichier.
 
+## Observer et légender le portail
+
+![Vue du portail à légender](documents/portail-eleve.svg)
+
+Associer les repères 1 à 9 aux composants du tableau.
+
 ## Partie 1
 
 Nous étudions un modèle simplifié de portail coulissant, uniquement pendant sa fermeture. Le bouton de fermeture doit rester appuyé. La carte autorise le mouvement si le passage est libre et si le portail n'est pas déjà fermé. Dès qu'une de ces conditions n'est plus respectée, elle demande l'arrêt. Tous les composants sont supposés alimentés et en bon état, sauf dans la question de panne.
 
 | Composant du modèle | Ce qu'il fait |
 | --- | --- |
-| Bouton de fermeture | Indique la demande de l'utilisateur. |
-| Cellule de détection | Indique si le passage est occupé. |
-| Capteur de fin de course | Indique si le portail est complètement fermé. |
-| Carte programmable | Examine ces informations et décide de l'ordre. |
-| Liaison de commande | Transmet l'ordre de la carte au module de puissance. |
-| Bloc d'alimentation 24 V | Fournit l'énergie électrique adaptée à partir du réseau. |
-| Module de puissance | Autorise ou coupe l'alimentation électrique du moteur selon l'ordre reçu. |
-| Moteur électrique | Transforme l'énergie électrique en énergie mécanique de rotation. |
-| Pignon et crémaillère | Transmettent le mouvement au portail et transforment une rotation en translation. |
+| 1 - Bouton de fermeture | Indique la demande de l'utilisateur. |
+| 2 - Paire de cellules de détection | Indique si le passage est occupé. |
+| 3 - Capteur de fin de course | Indique si le portail est complètement fermé. |
+| 4 - Carte programmable | Examine ces informations et décide de l'ordre. |
+| 5 - Liaison de commande | Transmet l'ordre de la carte au module de puissance. |
+| 6 - Bloc d’alimentation 24 V | Fournit l'énergie électrique adaptée à partir du réseau. |
+| 7 - Module de puissance | Autorise ou coupe l'alimentation électrique du moteur selon l'ordre reçu. |
+| 8 - Moteur électrique | Transforme l'énergie électrique en énergie mécanique de rotation. |
+| 9 - Pignon et crémaillère | Transmettent le mouvement au portail et transforment une rotation en translation. |
 
 **1. Quelle action attend-on du système ? Cite deux informations, autres que la demande de l'utilisateur, nécessaires pour l'autoriser.**
 
