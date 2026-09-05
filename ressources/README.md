@@ -11,7 +11,9 @@ Références consultées le **5 septembre 2026**.
 | [Lettre de rentrée STI — Nouvelle-Calédonie, 12 février 2026](https://s2i2a.ac-noumea.nc/spip.php?article112=) | Confirme la poursuite du déploiement en 4e en 2026. |
 | [Site disciplinaire S2I2A — Nouvelle-Calédonie](https://s2i2a.ac-noumea.nc/) | Ressources locales, accompagnement et informations de l'inspection. |
 
-Les calendriers métropolitain et calédonien de mise en œuvre sont à distinguer. Pour chaque séquence, renseigner le texte applicable à l'année et au niveau concernés. Les références spécifiques aux 3e de 2026 et à leur session du DNB restent à compléter avant de préparer des supports présentés comme conformes à ce cadrage.
+Les calendriers métropolitain et calédonien de mise en œuvre sont à distinguer. Pour les premières séances du 7 au 11 septembre 2026, les contenus de 5e et 4e sont rattachés au programme 2024. La séance de 3e reprend les compétences relatives aux deux chaînes du programme 2020, citées dans la [publication CEDRE technologie 2024 de la DEPP](https://www.education.gouv.fr/sites/default/files/document/cedre-sciences-coll-ge-technologie-2024-518699.pdf). Les [ressources nationales](https://eduscol.education.gouv.fr/5745/ressources-d-accompagnement-du-programme-de-technologie-au-cycle-4) complètent ce rattachement. Les trois séances sont des créations pédagogiques ; aucun sujet n'est présenté comme une épreuve officielle du DNB.
+
+Le guide professeur et les fiches de séance précisent les objectifs, les modèles simplifiés et les références utilisées.
 
 ## Documents utilisés dans les séquences
 

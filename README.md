@@ -2,7 +2,19 @@
 
 Ressources pédagogiques pour les classes de **5e, 4e et 3e**, dans le contexte de la Nouvelle-Calédonie.
 
-Ce dépôt rassemble les progressions, les séquences, les supports élèves, les corrigés et les évaluations. Il contient pour l'instant la structure de travail et les modèles ; les premières séquences restent à construire.
+Ce dépôt rassemble les progressions, les séquences, les supports élèves, les corrigés et les évaluations.
+
+## Séances à utiliser la semaine prochaine
+
+**[Semaine du 7 au 11 septembre 2026](semaines/2026-09-07/README.md)** : une première séance de 55 minutes par niveau, avec uniquement des PC.
+
+- 5e : étudier un objet du quotidien au choix.
+- 4e : simuler et corriger la commande d'un éclairage automatique.
+- 3e : comprendre les chaînes d'information et d'énergie d'un portail automatique.
+
+[Dossier complet à télécharger](semaines/2026-09-07/seances-technologie-2026-09-07.zip) · [Guide professeur et corrigés](semaines/2026-09-07/guide-professeur.pdf)
+
+Les activités HTML s'ouvrent localement dans un navigateur, sans compte ni installation. Les fiches PDF sont imprimables et les fichiers Markdown modifiables.
 
 ## Accès par niveau
 
@@ -46,6 +58,6 @@ Les fichiers Markdown constituent les versions modifiables. Des versions PDF ou 
 - Distinguer clairement la fiche élève du corrigé et rendre explicites les critères de réussite.
 - Après utilisation en classe, noter les ajustements utiles pour la prochaine séance.
 
-## Informations à préciser pour la première séquence
+## Contexte de préparation
 
-Le niveau, le thème ou le besoin pédagogique, les notions déjà abordées, la durée des séances et le matériel disponible permettront de construire une première proposition adaptée.
+Matériel confirmé : des PC pour les élèves. Priorité indiquée pour les 3e : chaînes d'information et d'énergie. La durée de 55 minutes est une hypothèse de préparation. Les créneaux exacts et les acquis déjà travaillés pourront guider les séances suivantes.

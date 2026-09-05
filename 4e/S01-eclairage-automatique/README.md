@@ -1,0 +1,15 @@
+# 4e - Allumer seulement quand c'est utile
+
+Première séance de 55 minutes, prévue pour la semaine du 7 au 11 septembre 2026.
+
+Comment commander un éclairage avec deux informations ?
+
+- [Activité élève autonome sur PC](activite-eleve.html) : télécharger le fichier, puis l'ouvrir dans le navigateur. GitHub affiche son code lorsque l'on clique directement dessus.
+- [Fiche élève imprimable](exports/4e-fiche-eleve.pdf)
+- [Fiche élève modifiable](S01-eleve.md)
+- [Déroulement professeur](S01-professeur.md)
+- [Corrigé](S01-corrige.md)
+
+Matériel : un PC par élève ou binôme. Tous les documents nécessaires sont inclus. Les élèves téléchargent leurs réponses en texte puis les remettent au professeur.
+
+[Vue d'ensemble de la semaine](../../semaines/2026-09-07/README.md)

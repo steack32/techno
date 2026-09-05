@@ -6,11 +6,11 @@
 
 | Séquence | Problématique | Compétences visées | Durée | État | Documents |
 | --- | --- | --- | --- | --- | --- |
-| À définir | À définir | À renseigner avec leur source | À définir | Non commencée | — |
+| S01 - Chaînes d'information et d'énergie | Qui commande le portail et qu'est-ce qui le met en mouvement ? | Fonctions des deux chaînes, ordre, conversion, diagnostic | 1 × 55 min | Priorité ; séance préparée pour le 7-11 septembre 2026 | [Documents](S01-chaines-information-energie/README.md) |
 
-## Piste proposée
+## Priorité retenue
 
-**Comment concevoir un système répondant à un besoin ?** Définir des contraintes, comparer des solutions, réaliser un prototype ou un modèle, puis vérifier son fonctionnement à l'aide d'un protocole de test.
+**Chaînes d'information et d'énergie.** La première séance analyse un portail automatique simplifié avec une activité numérique autonome. Les séances suivantes pourront transférer les acquis sur un autre système et approfondir les diagnostics.
 
 Cette piste est une proposition pédagogique ; elle ne constitue pas une progression annuelle complète.
 
