@@ -40,14 +40,14 @@ INTRO={
   ('p','À retenir : « bretelle » désigne un élément ; « polyester » désigne sa matière. Les matériaux varient selon les modèles.')
  ],
  'script': [
-  ('0-5 min | Accroche','Afficher ou faire ouvrir le dessin du cartable. Demander : « Pourquoi toutes ces pièces ? » Prendre deux réponses et les reformuler avec un verbe : porter, fermer, contenir. Annoncer : « Vous allez expliquer comment un objet répond au besoin d’un utilisateur. »'),
+  ('0-5 min | Accroche','Faire ouvrir l’illustration du cartable et observer un vrai sac disponible en classe. Demander : « Pourquoi toutes ces pièces ? » Prendre deux réponses et les reformuler avec un verbe : porter, fermer, contenir. Annoncer : « Vous allez expliquer comment un objet répond au besoin d’un utilisateur. »'),
   ('5-8 min | Besoin et fonction','Dire : « Le besoin est de transporter des affaires. Le cartable rend ce service : permettre à un élève de les transporter. Sa fonction ne se résume pas à sa couleur ou à sa marque. Plusieurs objets peuvent répondre à un même besoin. »'),
   ('8-10 min | Composant et matériau','Pointer une bretelle : « Voici un composant. Dans notre modèle, il est fabriqué en tissu de polyester : c’est le matériau. La bretelle est la pièce ; le polyester est sa matière. » Faire répondre : « La poignée, pièce ou matière ? » Réponse : pièce.'),
   ('10-12 min | Contrainte et contrôle','Dire : « Le cartable doit supporter la charge tout en restant transportable. Une poche supplémentaire augmente la capacité mais peut augmenter l’encombrement. » Réponses aux questions orales : composant ; transporter les affaires ; encombrement ou masse possible. Transition : « Appliquez cette méthode à l’un des trois objets de la fiche. »')
  ],
  'activity': '12-16 : choisir l’objet, lire sa fiche et traiter Q1-Q2. 16-26 : compléter Q3 sur trois composants. 26-37 : traiter Q4-Q5. En binôme, changer de pilote vers 24 minutes. Le défi reste facultatif.',
  'correction': '37-41 : faire expliquer une association composant / rôle / matériau. 41-45 : comparer deux améliorations et leurs limites. 45-47 : compléter la synthèse de l’activité. Ne pas lire les trois corrigés en entier.',
- 'trace_use': 'Distribuer la page APRÈS. Faire lire la trace et repérer les cinq mots essentiels. Si les élèves écrivent au clavier, faire produire seulement une phrase associant une pièce, son rôle et son matériau.',
+ 'trace_use': 'Faire lire le verso. Faire lire la trace et repérer les cinq mots essentiels. Si les élèves écrivent au clavier, faire produire seulement une phrase associant une pièce, son rôle et son matériau.',
  'priority': 'Conserver Q1 à Q5. Si nécessaire, fournir les amorces et limiter l’amélioration à deux phrases. Ne pas exiger le défi.'
 },
 '4e': {
@@ -87,7 +87,7 @@ INTRO={
  ],
  'activity': '12-16 : lire le besoin, traiter Q1 et prévoir les essais. 16-24 : tester les cinq cas avec OU et expliquer un contre-exemple en Q3. 24-33 : corriger, cliquer sur Appliquer, refaire les cinq essais, rédiger Q4. 33-37 : traiter Q5 à la valeur 30. Q6 et le défi sont des prolongements si le temps le permet.',
  'correction': '37-41 : faire présenter un essai qui invalide OU. 41-45 : écrire la règle avec ET et justifier le cas 30. 45-47 : compléter la synthèse et, si possible, expliquer oralement Q6 : à 40 avec présence, seuil 30 donne éteinte, seuil 50 donne allumée.',
- 'trace_use': 'Distribuer la page APRÈS seulement à la correction. Faire lire la trace et écrire ou dicter la règle corrigée. Revenir au seuil 30 avant le bilan.',
+ 'trace_use': 'Faire lire le verso seulement à la correction. Faire lire la trace et écrire ou dicter la règle corrigée. Revenir au seuil 30 avant le bilan.',
  'priority': 'Q1 à Q5 et les cinq essais avant/après correction sont prioritaires. Q6 est un prolongement ; ne pas raccourcir les essais pour la terminer.'
 },
 '3e': {
@@ -138,12 +138,12 @@ INTRO={
  'script': [
   ('0-5 min | Accroche','Faire ouvrir la première page du cours. Demander : « Le détecteur fournit-il l’énergie qui fait briller la lampe ? » Accepter les hypothèses. Annoncer : « Nous allons distinguer ce qui informe et commande de ce qui fournit l’énergie nécessaire à l’action. »'),
   ('5-8 min | Lire le modèle d’éclairage','Suivre les flèches bleues : détecteur, carte, liaison, ordre vers distribuer. Puis les flèches orange : alimentation, module de puissance, LED. Dire : « Le module reçoit un ordre et autorise le transfert d’énergie. La LED convertit cette énergie en lumière. » Réponses orales : la carte détermine l’ordre ; la LED réalise l’éclairage.'),
-  ('8-10 min | Nommer les fonctions','Passer à la deuxième page. Lire les trois fonctions d’information puis les quatre fonctions d’énergie. Dire : « Dans la lampe, nous n’isolons pas transmettre. Sur un système motorisé, une transmission peut relier le moteur à la partie mobile. Une fonction n’est pas un nom de pièce. »'),
+  ('8-10 min | Nommer les fonctions','Suivre le tableau de la première page. Lire les trois fonctions d’information puis les quatre fonctions d’énergie. Dire : « Dans la lampe, nous n’isolons pas transmettre. Sur un système motorisé, une transmission peut relier le moteur à la partie mobile. Une fonction n’est pas un nom de pièce. »'),
   ('10-12 min | Vérifier et lancer','Demander : « Une carte alimentée en électricité appartient-elle forcément à la chaîne d’énergie ? » Réponse : non, son rôle est de traiter. « Quel bloc reçoit l’ordre ? » Réponse : distribuer. Transition : « Avec le vocabulaire sous les yeux, identifiez maintenant les composants des deux chaînes du portail. »')
  ],
  'activity': '12-17 : lire le modèle et traiter Q1-Q2 en réponses courtes. 17-29 : construire les chaînes (Q3) et traiter Q4 ; fournir les fonctions dans l’ordre aux élèves fragiles. 29-37 : tester les quatre situations de Q5, avec changement de pilote après deux essais. Q6-Q7 sont traitées oralement en correction ; les plus rapides peuvent les rédiger.',
  'correction': '37-41 : compléter le schéma et suivre l’ordre vers distribuer. 41-44 : discuter Q6 (transmettre défaillante) et Q7 (carte classée par son rôle). 44-47 : vérifier les quatre ordres, puis compléter la synthèse. Faire citer électrique en entrée et mécanique en sortie du moteur.',
- 'trace_use': 'Distribuer la page APRÈS avec le schéma déjà complété. Ne pas demander de recopier les sept cases en cinq minutes. Faire suivre les flèches et écrire une phrase : « L’ordre arrive au bloc distribuer ; le moteur convertit l’énergie électrique en énergie mécanique. »',
+ 'trace_use': 'Faire lire le schéma complété au verso. Ne pas demander de recopier les sept cases en cinq minutes. Faire suivre les flèches et écrire une phrase : « L’ordre arrive au bloc distribuer ; le moteur convertit l’énergie électrique en énergie mécanique. »',
  'priority': 'Priorité à Q1-Q5, au trajet de l’ordre et à la conversion du moteur. Q6-Q7 sont discutées collectivement. La mémorisation exacte des sept fonctions se consolidera après cette séance.'
 }}
 
@@ -156,7 +156,7 @@ def adapt_lessons(lessons):
           ['12-37 min','Activité sur PC',d['activity']],
           ['37-47 min','Correction',d['correction']],
           ['47-52 min','Trace écrite',d['trace_use']],
-          ['52-55 min','Bilan individuel','Répondre au billet de sortie puis télécharger les réponses. Réserver la dernière minute à l’enregistrement ; en binôme, chacun répond dans sa case.']
+          ['52-55 min','Bilan individuel','Répondre au bilan papier puis télécharger les réponses numériques. Réserver la dernière minute à l’enregistrement ; en binôme, chacun répond dans sa case.']
         ]
 
 class Illustration(Flowable):
@@ -176,18 +176,13 @@ class Illustration(Flowable):
     def draw(self):
         c=self.canv;k=self.kind;c.setLineWidth(1.3)
         if k=='bag':
-            c.setStrokeColor(BLUE);c.setFillColor(PALE)
-            c.roundRect(184,30,146,130,15,fill=1,stroke=1)
-            c.roundRect(230,155,53,24,9,fill=0,stroke=1)
-            c.roundRect(181,22,17,128,7,fill=0,stroke=1)
-            c.roundRect(316,22,17,128,7,fill=0,stroke=1)
-            c.roundRect(204,40,105,50,6,fill=0,stroke=1);c.line(203,102,310,102)
-            for x in range(205,311,9):c.line(x,99,x,105)
-            self.text(2,173,158,'Poignée\nSaisir le cartable',10,True);self.arrow(151,149,243,168)
-            self.text(352,169,160,'Bretelle\nPorter sur l’épaule\nTissu de polyester',10);self.arrow(349,135,329,121)
-            self.text(2,99,158,'Fermeture à glissière\nOuvrir et fermer\nDents en plastique',10);self.arrow(154,76,219,102)
-            self.text(352,73,160,'Poche\nRanger de petits objets\nTissu de polyester',10);self.arrow(347,44,301,57)
-            self.text(50,17,415,'Dessin d’un modèle simplifié : les matériaux peuvent varier.',8.2,False,INK,1)
+            from pathlib import Path
+            c.drawImage(str(Path(__file__).resolve().parents[1]/'ressources/images/cartable.png'),165,19,180,180, preserveAspectRatio=True,mask='auto')
+            self.text(0,173,151,'Poignée\nSaisir le cartable',10,True);self.arrow(143,151,239,184)
+            self.text(365,140,148,'Bretelle\nPorter sur l’épaule',10,True);self.arrow(360,115,241,122)
+            self.text(365,75,148,'Fermeture à glissière\nOuvrir et fermer',10,True);self.arrow(361,47,300,105)
+            self.text(0,65,154,'Composant : bretelle\nMatériau du modèle :\ntissu de polyester',9)
+            self.text(25,13,465,'Illustration réaliste générée par IA ; modèle pédagogique, sans marque.',8,False,INK,1)
         elif k=='logic':
             self.box(2,86,235,61,'A : BADGE VALIDE','Une condition vraie ou fausse')
             self.box(278,86,235,61,'B : CODE CORRECT','Une autre condition')
