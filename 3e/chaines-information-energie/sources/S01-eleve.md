@@ -2,11 +2,11 @@
 
 Comment les chaînes d'information et d'énergie coopèrent-elles dans un portail automatique ?
 
-**Durée : 55 minutes.** PC avec navigateur ; aucun compte ni accès Internet nécessaire après distribution du fichier.
+**Durée : 55 minutes.** Toutes les réponses se font sur la fiche papier. Le PC sert à consulter les documents et à faire les essais demandés.
 
 ## Observer et légender le portail
 
-![Vue du portail à légender](documents/portail-eleve.svg)
+![Vue du portail à légender](../documents/portail-eleve.svg)
 
 Associer les repères 1 à 9 aux composants du tableau.
 
@@ -42,7 +42,7 @@ Vocabulaire : un capteur fournit une information ; un actionneur réalise une ac
 
 3. Utilise les composants du document. La chaîne d'information acquiert, traite et communique des informations. La chaîne d'énergie alimente, distribue, convertit et transmet l'énergie nécessaire à l'action.
 
-![Les deux chaînes fonctionnelles](documents/chaines-a-completer.svg)
+![Les deux chaînes fonctionnelles](../documents/chaines-a-completer.svg)
 
 **Associe un ou plusieurs composants à chaque fonction.**
 
@@ -64,7 +64,7 @@ Réponse :
 
 ### Relier l'ordre à l'action
 
-Ouvrir [l’activité numérique](activite-eleve.html) pour utiliser le laboratoire ; sur papier, appliquer la règle décrite pour prévoir le résultat.
+Ouvrir [le laboratoire](../eleves/sur-pc/ressources.html) pour les essais ; répondre sur la fiche papier.
 
 **5. Teste les situations. Indique « fermer » ou « arrêt » et explique un arrêt.**
 

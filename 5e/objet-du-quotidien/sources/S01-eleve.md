@@ -2,7 +2,7 @@
 
 Comment expliquer les choix de conception d'un objet du quotidien ?
 
-**Durée : 55 minutes.** PC avec navigateur ; aucun compte ni accès Internet nécessaire après distribution du fichier.
+**Durée : 55 minutes.** Toutes les réponses se font sur la fiche papier. Le PC sert à consulter les documents et à faire les essais demandés.
 
 ## Partie 1
 
@@ -10,7 +10,7 @@ Choisis un objet parmi les trois fiches ci-dessous. Ce sont des modèles d'étud
 
 ### Les trois objets au choix
 
-![Illustration pédagogique](documents/objets.svg)
+![Illustration pédagogique](../documents/objets.svg)
 
 | Objet | Composants et matériaux du modèle | Fonctionnement et attente |
 | --- | --- | --- |

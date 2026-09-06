@@ -21,11 +21,11 @@ LESSONS = [
  "success":["Une fonction d'usage formulée avec un verbe à l'infinitif.","Trois composants associés à leur rôle et à leur matériau.","Une amélioration justifiée par une contrainte précise."],
  "timeline":[
    ["0-5 min","Lancement","Demander : « Une selle est-elle un matériau ? À quoi sert un vélo ? » Faire distinguer besoin, composant et matériau."],
-   ["5-10 min","Choix et lecture","Ouvrir l'activité 5e, choisir un des trois objets et lire sa fiche. Faire reformuler la production attendue."],
-   ["10-28 min","Analyse","Répondre aux questions 1 à 3. En binôme, changer de secrétaire à mi-parcours. Questionner les élèves sur le rôle des pièces."],
+   ["5-10 min","Choix et lecture","Distribuer la fiche papier, choisir un des trois objets et lire son document. Utiliser l’écran seulement pour agrandir une illustration. Faire reformuler la production attendue."],
+   ["10-28 min","Analyse","Répondre aux questions 1 à 3. Les élèves peuvent échanger ; chacun écrit sur sa propre fiche. Questionner les élèves sur le rôle des pièces."],
    ["28-38 min","Conception","Traiter les contraintes et proposer une amélioration. Exiger une justification, pas seulement un goût personnel."],
    ["38-48 min","Mise en commun","Comparer deux choix d'objets ; compléter ensemble la synthèse."],
-   ["48-55 min","Bilan individuel","Répondre au billet de sortie, puis télécharger les réponses. Avec un PC par binôme, chacun répond dans sa case personnelle."],
+   ["48-55 min","Bilan individuel","Répondre au billet de sortie, puis ranger la fiche dans le porte-vues. Chacun répond seul sur sa propre fiche."],
  ],
  "pages":[
    [
@@ -82,7 +82,7 @@ LESSONS = [
    ["22-35 min","Corriger et tester","Modifier la règle, cliquer sur Appliquer, recommencer les cinq essais et compléter l'algorithme."],
    ["35-44 min","Justifier","Expliquer ET, étudier exactement 30 puis un seuil à 50. Garder le seuil à 30 pour le bilan."],
    ["44-50 min","Synthèse","Formaliser capteur, traitement, actionneur et condition ; faire justifier un cas limite."],
-   ["50-55 min","Bilan individuel","Traiter le billet de sortie sans aide du partenaire puis télécharger le travail."],
+   ["50-55 min","Bilan individuel","Traiter le billet de sortie sans aide du partenaire puis ranger la fiche dans le porte-vues."],
  ],
  "pages":[
    [
@@ -91,7 +91,7 @@ LESSONS = [
     {"type":"q","id":"q1","label":"1. Quelles sont les deux informations nécessaires pour décider d'allumer ? Quel élément réalise l'action ?","lines":2},
     {"type":"sim","name":"light"},
     {"type":"answer_table","id":"essais","label":"2. Avec la règle initiale OU, prévois puis observe le résultat. Après correction, complète la dernière colonne.","headers":["Luminosité / présence","Prévision avec OU","Observation avec OU","Après correction"],"fixed":["10 / oui","10 / non","80 / oui","80 / non","30 / oui"],"rows":5},
-    {"type":"p","text":"Sur papier, déroule mentalement les conditions. Sur PC, règle chaque situation et relève l'état de la lampe. Une seule situation ne suffit pas à valider un programme."},
+    {"type":"p","text":"Écris d’abord ta prévision sur la fiche. Règle ensuite le simulateur et note sur le papier l’état observé de la lampe. Une seule situation ne suffit pas à valider un programme."},
    ],
    [
     {"type":"h","text":"Corriger et expliquer"},
@@ -133,7 +133,7 @@ LESSONS = [
    ["27-37 min","Essais sur PC","Tester les quatre situations, relever l'ordre et expliquer un arrêt. En binôme, changer de pilote après deux essais."],
    ["37-46 min","Diagnostic et synthèse","Analyser la panne de transmission et la confusion entre courant et information. Compléter la synthèse."],
    ["46-50 min","Correction ciblée","Reprendre le schéma complet et le trajet de l'ordre. Le schéma est fourni dans le guide professeur."],
-   ["50-55 min","Bilan individuel","Traiter le billet de sortie, puis télécharger les réponses."],
+   ["50-55 min","Bilan individuel","Traiter le billet de sortie, puis ranger la fiche dans le porte-vues."],
  ],
  "pages":[
    [
@@ -198,7 +198,7 @@ for lesson in LESSONS:
     if lesson['level']=='5e':
         lesson['pages'][0].insert(2,{'type':'visual','name':'objets'})
         lesson['pages'][0][-1]['text']='Le besoin est ce qui est nécessaire ou souhaité. La fonction d’usage dit à quoi sert l’objet. Un composant est une pièce ; un matériau est sa matière. Une contrainte est une exigence à respecter : masse limitée, stabilité ou protection, par exemple.'
-        lesson['aides'].insert(0,'Pour les deux élèves en grande difficulté : utiliser activite-guidee.html ou 5e-parcours-guide.pdf à la place de la fiche ordinaire. Une seule lampe, quatre choix guidés et un bilan à compléter ; lire les consignes avec eux et accepter une réponse orale. Corrigé dans S01-guide-corrige.md.')
+        lesson['aides'].insert(0,'Pour les deux élèves en grande difficulté : utiliser la fiche eleves/a-imprimer/parcours-guide.pdf à la place de la fiche ordinaire. Une seule lampe, quatre choix guidés et un bilan à compléter ; lire les consignes avec eux et accepter une réponse orale. Corrigé dans professeur/corrige-guide.md.')
     elif lesson['level']=='4e':
         lesson['pages'][0].insert(1,{'type':'visual','name':'eclairage'})
         lesson['pages'][0].insert(2,{'type':'p','text':'Un capteur fournit une information ; la carte la traite ; un actionneur réalise une action. Une condition est une affirmation vraie ou fausse. Ce schéma représente la commande ; l’alimentation électrique n’est pas dessinée.'})

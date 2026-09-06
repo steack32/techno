@@ -63,3 +63,7 @@
 
 - Sources des documents : [auteur, titre, lien ; conditions de réutilisation des illustrations].
 - Bilan après utilisation : [durées réelles, difficultés observées, réussites et modifications à apporter].
+
+## Répartition des supports
+
+Réponses, synthèse et bilan individuel sur la fiche papier conservée dans le porte-vues. PC pour observer et expérimenter. Indiquer le nombre de pages à imprimer et les questions nécessitant le PC ; éviter toute double saisie. Ranger les PDF élèves dans eleves/a-imprimer/, les ressources HTML dans eleves/sur-pc/ et les corrigés dans professeur/.

@@ -1,26 +1,30 @@
 # 5e - Un objet, un besoin, des solutions
 
-## Séquence : Un objet, un besoin, des solutions
-
 Comment expliquer les choix de conception d'un objet du quotidien ?
 
-**Objectif :** Identifier l'usage d'un objet, relier trois composants à leur rôle et justifier une amélioration.
+## Préparer la séance
 
-| Séance | Durée | Supports élèves | Supports professeur |
-| --- | --- | --- | --- |
-| Séance 1 : étude et bilan | 55 minutes | [Activité numérique](activite-eleve.html) · [PDF élève](exports/5e-fiche-eleve.pdf) · [Source modifiable](S01-eleve.md) | [Déroulement](S01-professeur.md) · [Corrigé](S01-corrige.md) · [Guide PDF](exports/guide-professeur.pdf) |
+| Usage | Fichier | Consigne |
+| --- | --- | --- |
+| **À imprimer et distribuer** | [Fiche élève](eleves/a-imprimer/fiche-eleve.pdf) | 2 pages. Une feuille recto verso par élève ; bord long. |
+| **À ouvrir sur les PC** | [Ressources et laboratoire](eleves/sur-pc/ressources.html) | Facultatif : vues agrandies des objets. Le papier suffit. |
+| **Pour le professeur** | [Guide PDF](professeur/guide-professeur.pdf) · [Déroulement](professeur/deroulement.md) · [Corrigé](professeur/corrige.md) | Préparer et projeter lors de la correction. Ne pas distribuer. |
 
-Pour utiliser l'activité HTML, télécharger le fichier puis l'ouvrir dans un navigateur. Deux élèves par PC ; chacun répond au bilan individuel. Télécharger les réponses avant de fermer la page.
+Télécharger le fichier HTML puis l'ouvrir par double-clic ; GitHub affiche son code. Il contient toutes ses images et fonctionne hors ligne.
 
-Les PDF sont rangés dans `exports/` et les documents complémentaires dans `documents/` lorsqu'ils sont nécessaires.
+## Pendant la séance
 
-[Autres séquences du niveau](../README.md) · [Accueil](../../README.md)
+1. Distribuer une fiche à chaque élève. Faire écrire nom et classe.
+2. Observer les documents. Utiliser le PC pour les essais indiqués sur la fiche ou pour agrandir une vue. Chaque élève répond uniquement sur sa fiche papier.
+3. Compléter et corriger la synthèse ensemble. Faire répondre seul au billet de sortie.
+4. Ranger la fiche dans le porte-vues : elle contient le travail et la trace du cours.
 
-## Parcours très guidé
+Les fichiers dans `sources/` et `documents/` servent à modifier les supports ou à projeter une image isolée. Ils ne s'ajoutent pas au lot d'impression.
 
-Pour les élèves en grande difficulté : choisir ce parcours à la place du parcours ordinaire.
+## Adaptation très guidée
 
-- [Activité numérique guidée](activite-guidee.html)
-- [Fiche guidée à imprimer](exports/5e-parcours-guide.pdf)
-- [Corrigé du parcours guidé](S01-guide-corrige.md)
-- [Vue des objets](documents/objets.svg)
+Pour les deux élèves concernés, remplacer la fiche ordinaire par [le parcours guidé](eleves/a-imprimer/parcours-guide.pdf) : **une page, recto simple**. Lire les consignes avec eux et accepter les réponses orales avant leur transcription. Le PC est facultatif.
+
+[Corrigé adapté](professeur/corrige-guide.md) · [Vue de la lampe, facultative](eleves/sur-pc/observation-guidee.html)
+
+[Autres séquences du niveau](../README.md) · [Accueil professeur](../../README.md)

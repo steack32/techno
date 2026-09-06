@@ -1,6 +1,6 @@
 # 3e - Corrigé
 
-![Portail corrigé](documents/portail-corrige.svg)
+![Portail corrigé](portail-corrige.svg)
 
 ## Repérage du portail
 

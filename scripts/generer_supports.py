@@ -126,7 +126,7 @@ def student_block(b):
     if typ=='exit':return [P(b['label'],'q'),AnswerLines(b['lines'])]
     if typ=='choice':return [P(b['label'],'q'),P(' / '.join(b['options'][1:])+'  (entoure ton choix)','small')]
     if typ=='sim':
-        text='Sur PC : utilise le laboratoire de la fiche interactive. Sur papier : applique les règles du document pour prévoir les résultats.'
+        text='Sur le PC : utilise le laboratoire. Écris les résultats dans le tableau de ta fiche papier.'
         if b['name']=='light': text+=' Règle initiale : SI luminosité < 30 OU présence ALORS allumer SINON éteindre.'
         return [P(text,'small')]
     if typ=='diagram':return [Chain()]
@@ -162,7 +162,7 @@ def student_pdf(lesson,path):
         if i:story.append(PageBreak())
         story.append(P(f"{lesson['level'].upper()}  |  SÉANCE 1  |  FICHE ÉLÈVE  |  {i+1+(lesson['level']=='3e')}/{len(lesson['pages'])+(lesson['level']=='3e')}",'meta'))
         if i==0:
-            story += [P(lesson['title'],'title'),P(lesson['question']),P('Nom : __________________________  Classe : __________','small')]
+            story += [P(lesson['title'],'title'),P(lesson['question']),P('Nom : __________________________  Classe : __________','small'),P('Écris toutes tes réponses sur cette fiche. Conserve-la dans ton porte-vues.','small')]
         for b in page:story+=student_block(b)
     build_pdf(path,story,lesson['level']+' - '+lesson['title'])
 
@@ -180,7 +180,7 @@ def md_table(headers,rows):
     return '| '+' | '.join(map(safe,headers))+' |\n| '+' | '.join(['---']*len(headers))+' |\n'+''.join('| '+' | '.join(map(safe,r))+' |\n' for r in rows)+'\n'
 
 def md_student(lesson):
-    s=f"# {lesson['level']} - {lesson['title']}\n\n{lesson['question']}\n\n**Durée : 55 minutes.** PC avec navigateur ; aucun compte ni accès Internet nécessaire après distribution du fichier.\n\n"
+    s=f"# {lesson['level']} - {lesson['title']}\n\n{lesson['question']}\n\n**Durée : 55 minutes.** Toutes les réponses se font sur la fiche papier. Le PC sert à consulter les documents et à faire les essais demandés.\n\n"
     if lesson['level']=='3e':
         s+='## Observer et légender le portail\n\n![Vue du portail à légender](documents/portail-eleve.svg)\n\nAssocier les repères 1 à 9 aux composants du tableau.\n\n'
     for i,page in enumerate(lesson['pages']):
@@ -195,28 +195,26 @@ def md_student(lesson):
             elif t=='table':s+=md_table(b['headers'],b['rows'])
             elif t=='answer_table':s+='**'+b['label']+'**\n\n'+md_table(b['headers'],[[(b['fixed'][r] if b.get('fixed') else '')]+['']*(len(b['headers'])-1) for r in range(b['rows'])])
             elif t=='diagram':s+='![Les deux chaînes fonctionnelles](documents/chaines-a-completer.svg)\n\n'
-            elif t=='sim':s+='Ouvrir [l’activité numérique](activite-eleve.html) pour utiliser le laboratoire ; sur papier, appliquer la règle décrite pour prévoir le résultat.\n\n'
+            elif t=='sim':s+='Ouvrir [le laboratoire](../eleves/sur-pc/ressources.html) pour les essais ; répondre sur la fiche papier.\n\n'
     return s
 
 def md_teacher(lesson):
     s=f"# {lesson['level']} - Fiche professeur\n\n## {lesson['title']}\n\n**Durée de la séance : 55 minutes.**\n\n"
     s+='**Objectif :** '+lesson['objective']+'\n\n**Prérequis :** '+lesson['prerequisites']+'\n\n**Programme :** '+lesson['programme']+'\n\n'
-    s+='## Support de réponse\n\nChoisir le papier OU le numérique pour les réponses, sans double saisie. Sur papier, utiliser les simulations sur PC et écrire dans la fiche. Sur PC, compléter les champs et télécharger le travail. Conserver la fiche papier dans le porte-vues.\n\n'
-    s+='## Préparation\n\nDéposer `activite-eleve.html` sur les PC ou dans un espace de distribution habituel. Le fichier peut être copié par clé USB ou dossier partagé et ouvert par double-clic. Un PC par élève ou par binôme suffit. Les documents ne demandent aucun téléchargement pendant la séance. Vérifier une fois que le navigateur autorise l’ouverture du fichier et le téléchargement des réponses. Prévoir le fichier PDF en solution de repli.\n\n'
-    s+='Les élèves téléchargent un fichier texte et le remettent par le canal habituel de la classe ; aucun envoi automatique ni compte n’est prévu. En binôme, alterner le clavier et demander deux billets de sortie distincts.\n\n'
+    s+='## Préparer les supports\n\nImprimer uniquement eleves/a-imprimer/fiche-eleve.pdf : un exemplaire par élève, en recto verso, retournement sur le bord long. Utiliser le lot indiqué dans le README de la séquence ; les adaptations remplacent la fiche ordinaire.\n\nCopier eleves/sur-pc/ressources.html sur les PC : un double-clic ouvre la page autonome. En 5e, le papier suffit ; l’écran est facultatif. En 4e et 3e, le PC sert aux essais et chacun écrit sur sa propre fiche. Alterner les manipulations.\n\nLes réponses, la synthèse corrigée ensemble et le bilan individuel restent sur papier. Ranger la fiche dans le porte-vues. Le guide et les corrigés sont réservés à la préparation et à la correction.\n\n'
     s+='## Déroulement\n\n'+md_table(['Temps','Étape','Conduite de séance'],lesson['timeline'])
     s+='## Critères de réussite\n\n'+''.join('- '+x+'\n' for x in lesson['success'])+'\n'
     s+='## Aides et points de vigilance\n\n'+''.join('- '+x+'\n' for x in lesson['aides'])+'\n'+lesson['vigilance']+'\n\n'
     s+='## Bilan et suite\n\n'+lesson['assessment']+'\n\nSuite possible : '+lesson['next']+'\n\n'
     s+='## Références\n\n'+''.join(f'- [{title}]({url})\n' for title,url in SOURCES)+'\n'
-    return s
+    return s.replace('En 5e, le papier suffit ; l’écran est facultatif. En 4e et 3e, le PC sert aux essais et chacun écrit sur sa propre fiche.', 'Le papier suffit ; l’écran est facultatif.' if lesson['level']=='5e' else 'Le PC sert aux essais ; chacun écrit sur sa propre fiche.')
 
 def md_correction(lesson):
-    illustration='![Portail corrigé](documents/portail-corrige.svg)\n\n' if lesson['level']=='3e' else ''
+    illustration='![Portail corrigé](portail-corrige.svg)\n\n' if lesson['level']=='3e' else ''
     return '# '+lesson['level']+' - Corrigé\n\n'+illustration+''.join('## '+label+'\n\n'+answer+'\n\n' for label,answer in lesson['correction'])+'## Évaluation formative\n\n'+lesson['assessment']+'\n'
 
 def guide_pdf(lesson,path):
-    story=[P(lesson['level'].upper()+'  |  GUIDE PROFESSEUR','meta'),P(lesson['title'],'title'),P('Objectif : '+lesson['objective']),P('Séance de 55 minutes. Deux élèves par PC.'),P('Préparation','h'),P('Télécharger activite-eleve.html depuis le dossier de cette séquence et le distribuer aux élèves. Le fichier s’ouvre dans un navigateur. Distribuer uniquement les supports élèves ; ce guide et S01-corrige.md contiennent les réponses.'),P('En binôme, alterner le clavier et demander un bilan individuel à chaque élève. Faire télécharger les réponses avant de fermer la page, puis vérifier leur remise par le canal habituel.'),P('Choisir le papier ou le numérique comme support de réponse. Sur papier, les PC servent aux simulations ; éviter toute double saisie.'),P('Les documents imprimés sont conservés dans le porte-vues. Ne pas dépasser deux feuilles recto verso par élève et par séance.'),P('Prérequis : '+lesson['prerequisites']),P('Compétences','h'),P(lesson['programme']),PageBreak(),P('Déroulement de la séance','title'),table(['Temps','Étape','Action du professeur'],lesson['timeline'],[.7,1.05,3.35]),Spacer(1,8),P('Aides et différenciation','h')]
+    story=[P(lesson['level'].upper()+'  |  GUIDE PROFESSEUR','meta'),P(lesson['title'],'title'),P('Objectif : '+lesson['objective']),P('Séance de 55 minutes. Deux élèves par PC.'),P('Préparation','h'),P('Imprimer eleves/a-imprimer/fiche-eleve.pdf : '+('quatre pages, deux feuilles recto verso' if lesson['level']=='3e' else 'deux pages, une feuille recto verso')+' par élève, bord long.'+(' Pour les élèves concernés, parcours-guide.pdf : une page recto simple, à la place de la fiche ordinaire.' if lesson['level']=='5e' else '')),P(('L’écran est facultatif : la fiche papier contient tous les documents. Pour agrandir une vue, ouvrir eleves/sur-pc/ressources.html.' if lesson['level']=='5e' else 'Copier eleves/sur-pc/ressources.html sur les PC et l’ouvrir par double-clic. Ce laboratoire fonctionne hors ligne. À deux sur un PC, alterner les manipulations.')),P('Toutes les réponses sont écrites sur la fiche papier. Corriger la synthèse ensemble puis faire compléter le bilan individuellement. Les guides et corrigés sont réservés au professeur.'),P('Les documents imprimés sont conservés dans le porte-vues. Ne pas dépasser deux feuilles recto verso par élève et par séance.'),P('Prérequis : '+lesson['prerequisites']),P('Compétences','h'),P(lesson['programme']),PageBreak(),P('Déroulement de la séance','title'),table(['Temps','Étape','Action du professeur'],lesson['timeline'],[.7,1.05,3.35]),Spacer(1,8),P('Aides et différenciation','h')]
     story += [P(x,'small') for x in lesson['aides']]
     story += [P('Point de vigilance','h'),P(lesson['vigilance'],'small'),P('Suite possible : '+lesson['next'],'small'),PageBreak(),P('Réponses et critères de réussite','title')]
     for label,answer in lesson['correction']:
@@ -233,54 +231,58 @@ def guide_pdf(lesson,path):
 
 def main():
     for lesson in LESSONS:
-        folder=ROOT/lesson['level']/lesson['slug'];folder.mkdir(parents=True,exist_ok=True)
-        for name,contents in [('activite-eleve.html',make_html(lesson)),('S01-eleve.md',md_student(lesson)),('S01-professeur.md',md_teacher(lesson)),('S01-corrige.md',md_correction(lesson))]:(folder/name).write_text(contents,encoding='utf-8')
-        if lesson['level'] in ('5e','4e'):
-            (folder/'documents').mkdir(exist_ok=True)
-            visual='objets' if lesson['level']=='5e' else 'eclairage'
-            (folder/'documents'/(visual+'.svg')).write_text(visual_svg(visual))
+        folder=ROOT/lesson['level']/lesson['slug']
+        paper=folder/'eleves'/'a-imprimer';pc=folder/'eleves'/'sur-pc';teacher=folder/'professeur';sources=folder/'sources';docs=folder/'documents'
+        for path in (paper,pc,teacher,sources,docs):path.mkdir(parents=True,exist_ok=True)
+        (pc/'ressources.html').write_text(make_html(lesson))
+        (sources/'S01-eleve.md').write_text(md_student(lesson).replace('](documents/','](../documents/'))
+        (teacher/'deroulement.md').write_text(md_teacher(lesson))
+        (teacher/'corrige.md').write_text(md_correction(lesson))
+        student_pdf(lesson,paper/'fiche-eleve.pdf');guide_pdf(lesson,teacher/'guide-professeur.pdf')
         if lesson['level']=='3e':
-            (folder/'documents').mkdir(exist_ok=True)
-            for corrected,filename in [(False,'portail-eleve.svg'),(True,'portail-corrige.svg')]:
-                (folder/'documents'/filename).write_text(portal_svg(corrected),encoding='utf-8')
-            (folder/'documents'/'chaines-a-completer.svg').write_text(diagram_svg(),encoding='utf-8')
-        name=f"{lesson['level']}-fiche-eleve.pdf";pdf=OUT/name;student_pdf(lesson,pdf)
-        (folder/'exports').mkdir(exist_ok=True);shutil.copyfile(pdf,folder/'exports'/name)
-        guide=folder/'exports'/'guide-professeur.pdf'
-        guide_pdf(lesson,guide)
-        folder.joinpath('README.md').write_text(f"""# {lesson['level']} - {lesson['title']}
-
-## Séquence : {lesson['title']}
+            (docs/'portail-eleve.svg').write_text(portal_svg(False))
+            (teacher/'portail-corrige.svg').write_text(portal_svg(True))
+            (docs/'chaines-a-completer.svg').write_text(diagram_svg())
+        else:
+            visual='objets' if lesson['level']=='5e' else 'eclairage'
+            (docs/(visual+'.svg')).write_text(visual_svg(visual))
+        pages=4 if lesson['level']=='3e' else 2
+        note='Deux feuilles recto verso' if pages==4 else 'Une feuille recto verso'
+        usage='Facultatif : vues agrandies des objets. Le papier suffit.' if lesson['level']=='5e' else 'Nécessaire pour les essais. Deux élèves par PC ; réponses individuelles sur papier.'
+        index=f"""# {lesson['level']} - {lesson['title']}
 
 {lesson['question']}
 
-**Objectif :** {lesson['objective']}
+## Préparer la séance
 
-| Séance | Durée | Supports élèves | Supports professeur |
-| --- | --- | --- | --- |
-| Séance 1 : étude et bilan | 55 minutes | [Activité numérique](activite-eleve.html) · [PDF élève](exports/{name}) · [Source modifiable](S01-eleve.md) | [Déroulement](S01-professeur.md) · [Corrigé](S01-corrige.md) · [Guide PDF](exports/guide-professeur.pdf) |
+| Usage | Fichier | Consigne |
+| --- | --- | --- |
+| **À imprimer et distribuer** | [Fiche élève](eleves/a-imprimer/fiche-eleve.pdf) | {pages} pages. {note} par élève ; bord long. |
+| **À ouvrir sur les PC** | [Ressources et laboratoire](eleves/sur-pc/ressources.html) | {usage} |
+| **Pour le professeur** | [Guide PDF](professeur/guide-professeur.pdf) · [Déroulement](professeur/deroulement.md) · [Corrigé](professeur/corrige.md) | Préparer et projeter lors de la correction. Ne pas distribuer. |
 
-Pour utiliser l'activité HTML, télécharger le fichier puis l'ouvrir dans un navigateur. Deux élèves par PC ; chacun répond au bilan individuel. Télécharger les réponses avant de fermer la page.
+Télécharger le fichier HTML puis l'ouvrir par double-clic ; GitHub affiche son code. Il contient toutes ses images et fonctionne hors ligne.
 
-Les PDF sont rangés dans `exports/` et les documents complémentaires dans `documents/` lorsqu'ils sont nécessaires.
+## Pendant la séance
 
-[Autres séquences du niveau](../README.md) · [Accueil](../../README.md)
-""",encoding='utf-8')
+1. Distribuer une fiche à chaque élève. Faire écrire nom et classe.
+2. Observer les documents. Utiliser le PC pour les essais indiqués sur la fiche ou pour agrandir une vue. Chaque élève répond uniquement sur sa fiche papier.
+3. Compléter et corriger la synthèse ensemble. Faire répondre seul au billet de sortie.
+4. Ranger la fiche dans le porte-vues : elle contient le travail et la trace du cours.
+
+Les fichiers dans `sources/` et `documents/` servent à modifier les supports ou à projeter une image isolée. Ils ne s'ajoutent pas au lot d'impression.
+"""
         if lesson['level']=='5e':
             adapted=guided_lesson(lesson)
-            (folder/'activite-guidee.html').write_text(make_html(adapted))
-            guided_student_pdf(adapted,folder/'exports'/'5e-parcours-guide.pdf')
-            (folder/'S01-guide-corrige.md').write_text(md_correction(adapted))
-            (folder/'S01-guide-eleve.md').write_text(md_student(adapted))
-            (folder/'documents'/'lampe.svg').write_text(visual_svg('lampe'))
-            index=folder/'README.md'
-            index.write_text(index.read_text()+'\n## Parcours très guidé\n\nPour les élèves en grande difficulté : choisir ce parcours à la place du parcours ordinaire.\n\n- [Activité numérique guidée](activite-guidee.html)\n- [Fiche guidée à imprimer](exports/5e-parcours-guide.pdf)\n- [Corrigé du parcours guidé](S01-guide-corrige.md)\n- [Vue des objets](documents/objets.svg)\n')
-        if lesson['level']=='4e':
-            index=folder/'README.md'
-            index.write_text(index.read_text()+'\n[Schéma de la commande de l’éclairage](documents/eclairage.svg)\n')
-        if lesson['level']=='3e':
-            index=folder/'README.md'
-            index.write_text(index.read_text()+'\n## Vues du portail\n\n- [Vue élève à légender](documents/portail-eleve.svg)\n- [Vue du portail et détails corrigés](documents/portail-corrige.svg) ; légende complète dans le guide professeur.\n\nLa fiche élève comprend quatre pages, soit deux feuilles recto verso. La vue est intégrée à l’activité HTML, utilisable sans fichier image séparé.\n')
-    print('Supports générés par niveau et par séquence, sans dates ni archives.')
+            guided_student_pdf(adapted,paper/'parcours-guide.pdf')
+            (pc/'observation-guidee.html').write_text(make_html(adapted))
+            (teacher/'corrige-guide.md').write_text(md_correction(adapted))
+            (sources/'S01-guide-eleve.md').write_text(md_student(adapted).replace('](documents/','](../documents/'))
+            (docs/'lampe.svg').write_text(visual_svg('lampe'))
+            index+='\n## Adaptation très guidée\n\nPour les deux élèves concernés, remplacer la fiche ordinaire par [le parcours guidé](eleves/a-imprimer/parcours-guide.pdf) : **une page, recto simple**. Lire les consignes avec eux et accepter les réponses orales avant leur transcription. Le PC est facultatif.\n\n[Corrigé adapté](professeur/corrige-guide.md) · [Vue de la lampe, facultative](eleves/sur-pc/observation-guidee.html)\n'
+        if lesson['level']=='3e':index+='\n## Correction et rythme\n\n[Portail corrigé à projeter](professeur/portail-corrige.svg). La question 7 et le défi sont facultatifs : préserver le bilan individuel.\n'
+        index+='\n[Autres séquences du niveau](../README.md) · [Accueil professeur](../../README.md)\n'
+        (folder/'README.md').write_text(index)
+    print('Papier pour les réponses ; numérique pour observer et expérimenter. Supports générés.')
 
 if __name__=='__main__':main()

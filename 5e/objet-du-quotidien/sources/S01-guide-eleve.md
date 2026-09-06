@@ -2,11 +2,11 @@
 
 À quoi sert une lampe de bureau ?
 
-**Durée : 55 minutes.** PC avec navigateur ; aucun compte ni accès Internet nécessaire après distribution du fichier.
+**Durée : 55 minutes.** Toutes les réponses se font sur la fiche papier. Le PC sert à consulter les documents et à faire les essais demandés.
 
 ## Partie 1
 
-![Illustration pédagogique](documents/lampe.svg)
+![Illustration pédagogique](../documents/lampe.svg)
 
 La lampe éclaire le bureau. Le socle, en acier, maintient la lampe debout. La coque, en plastique, protège les éléments. Le diffuseur, en plastique translucide, répartit la lumière.
 

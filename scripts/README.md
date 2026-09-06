@@ -4,15 +4,14 @@ Depuis la racine du dépôt : `python scripts/generer_supports.py`.
 
 Dépendances Python : `reportlab` et `pypdf`.
 
-- `contenus.py` : contenus pédagogiques des séquences.
-- `activites.py` : activités HTML et schémas.
-- `visuels.py` : vues des objets et schéma de commande de l’éclairage.
-- `parcours_guide.py` : contenu du parcours très guidé de 5e.
-- `portail.py` : vue vectorielle du portail et repères communs aux documents élèves et corrigés.
-- `generer_supports.py` : sources Markdown et exports PDF.
+- `contenus.py` : questions, documents, déroulements et corrigés.
+- `activites.py` : pages numériques de consultation et simulateurs ; aucune réponse élève à saisir.
+- `parcours_guide.py` : adaptation très guidée de 5e.
+- `portail.py` et `visuels.py` : illustrations vectorielles.
+- `generer_supports.py` : PDF, sources Markdown et index des séquences.
 
-Chaque séquence est générée dans le dossier de son niveau, sous son nom thématique. Son guide professeur et ses PDF élèves sont rangés dans son dossier `exports/`. Les PDF élèves intermédiaires sont produits dans `output/pdf/`, ignoré par Git.
+Les réponses élèves sont exclusivement sur papier. Les pages numériques renvoient aux questions de la fiche et proposent les documents ou essais nécessaires.
 
-Le script ne crée ni archive ni dossier temporel. Les titres, pieds de page, champs élèves et réponses exportées restent sans dates. Les métadonnées de création et de modification des PDF sont supprimées. Les adresses des sources officielles sont conservées intactes.
+Chaque séquence contient `eleves/a-imprimer/`, `eleves/sur-pc/`, `professeur/`, `sources/` et `documents/`. Les PDF finaux sont directement générés dans leur dossier d'usage. Modifier les sources avant de régénérer ; maintenir l'accueil professeur et les index de niveau en cohérence.
 
-La génération remplace les supports des séquences concernées : modifier les sources Python avant de régénérer. Les index de niveau se maintiennent directement en Markdown.
+Conserver les dates absentes des documents et des métadonnées PDF. Les URL des références officielles restent intactes. Aucun fichier ZIP.

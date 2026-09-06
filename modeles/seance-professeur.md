@@ -50,3 +50,7 @@ Réponse attendue : [réponse et critère de réussite].
 ## Après la séance
 
 [Acquis observés, obstacles, durée réelle et ajustements pour la suite.]
+
+## Répartition des supports
+
+Réponses, synthèse et bilan individuel sur la fiche papier conservée dans le porte-vues. PC pour observer et expérimenter. Indiquer le nombre de pages à imprimer et les questions nécessitant le PC ; éviter toute double saisie. Ranger les PDF élèves dans eleves/a-imprimer/, les ressources HTML dans eleves/sur-pc/ et les corrigés dans professeur/.

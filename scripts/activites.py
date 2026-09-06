@@ -25,30 +25,6 @@ table{width:100%;border-collapse:collapse;font-size:15px;margin:12px 0 22px}th,t
 @media print{body{background:white;font-size:11pt}main{max-width:none;margin:0;padding:0;border:0}.toolbar,button,.sim{display:none}textarea{border:0;border-bottom:1px solid #777;min-height:55px}.step{break-before:page}header{break-after:avoid}table{font-size:9pt}.exit{break-inside:avoid}}
 '''
 
-BASE_JS = r'''
-const root = document.querySelector('main');
-const fields = () => [...root.querySelectorAll('[data-answer]')];
-let dirty = false;
-root.addEventListener('input', e => {if(e.target.matches('[data-answer]')) dirty=true;});
-document.getElementById('paired').addEventListener('change',e=>{
- document.querySelectorAll('.extra-person').forEach(el=>el.hidden=!e.target.checked);
-});
-document.getElementById('export').addEventListener('click',()=>{
- const lines=[document.title,''];
- fields().forEach(el=>{
-  if(el.closest('.extra-person')?.hidden)return;
-  lines.push((el.dataset.answer||el.id)+' : '+(el.value.trim()||'[non renseigné]'),'');
- });
- const body=lines.join('\n');
- const blob=new Blob(['\ufeff'+body],{type:'text/plain;charset=utf-8'});
- const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;
- const name=document.getElementById('student').value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9_-]+/gi,'-').slice(0,50)||'eleve';
- a.download=LEVEL+'-seance1-'+name+'.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
- dirty=false;document.getElementById('saved').textContent='Téléchargement demandé. Vérifie le fichier dans tes téléchargements et remets-le au professeur.';
-});
-document.getElementById('print').addEventListener('click',()=>window.print());
-window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
-'''
 
 LIGHT_HTML = '''
 <section class="sim" aria-labelledby="light-title"><h2 id="light-title">Laboratoire : éclairage du couloir</h2>
@@ -117,55 +93,26 @@ def diagram_svg():
             boxes.append(f'<path d="M{left+width} {y+29} H{right-9}" stroke="{color}" stroke-width="2" fill="none" marker-end="url(#arrow-{row})"/>')
     return '<svg class="chain" viewBox="0 0 785 280" role="img" aria-label="Chaîne d’information : acquérir, traiter, communiquer. Un ordre va vers distribuer. Chaîne d’énergie : alimenter, distribuer, convertir, transmettre, puis action sur le portail." xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrow-0" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8Z" fill="#175b9a"/></marker><marker id="arrow-1" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8Z" fill="#b65b12"/></marker></defs><text x="10" y="20" font-size="16" fill="#175b9a">INFORMATION</text><text x="10" y="152" font-size="16" fill="#b65b12">ÉNERGIE</text>'+''.join(boxes)+'<path d="M620 90 V115 H290 V155" fill="none" stroke="#175b9a" stroke-width="2" marker-end="url(#arrow-0)"/><text x="400" y="108" font-size="16" fill="#175b9a">ordre</text><path d="M680 223 V244" fill="none" stroke="#b65b12" stroke-width="2" marker-end="url(#arrow-1)"/><text x="550" y="268" font-size="15" fill="#b65b12">Action : déplacement du portail</text></svg>'
 
-def field(identifier,label,lines=2):
-    return f'<label class="question" for="{esc(identifier)}">{esc(label)}</label><textarea id="{esc(identifier)}" data-answer="{esc(label)}" rows="{lines+1}"></textarea>'
-
-def block_html(b):
-    t=b['type']
-    if t=='visual': return '<figure class="lesson-visual">'+visual_svg(b['name'])+'</figure>'
-    if t=='p': return '<p>'+esc(b['text'])+'</p>'
-    if t=='h': return '<h2>'+esc(b['text'])+'</h2>'
-    if t=='q': return field(b['id'],b['label'],b['lines'])
-    if t=='choice': return f'<label class="question" for="{b["id"]}">{esc(b["label"])}</label><select id="{b["id"]}" data-answer="{esc(b["label"])}">'+''.join('<option>'+esc(o)+'</option>' for o in b['options'])+'</select>'
-    if t=='exit':
-        return '<section class="exit"><h2>Bilan individuel</h2>'+field(b['id']+'-a',b['label']+' (élève 1)',b['lines'])+'<div class="extra-person" hidden>'+field(b['id']+'-b',b['label']+' (élève 2)',b['lines'])+'</div></section>'
-    if t=='diagram': return diagram_svg()
-    if t=='sim': return LIGHT_HTML if b['name']=='light' else GATE_HTML
-    if t in ('table','answer_table'):
-        out=('<p><strong>'+esc(b['label'])+'</strong></p>') if t=='answer_table' else ''
-        out+='<div class="table-wrap"><table><thead><tr>'+''.join('<th scope="col">'+esc(h)+'</th>' for h in b['headers'])+'</tr></thead><tbody>'
-        if t=='table':
-            for row in b['rows']: out+='<tr>'+''.join('<td>'+esc(v)+'</td>' for v in row)+'</tr>'
-        else:
-            for r in range(b['rows']):
-                out+='<tr>'
-                for c,h in enumerate(b['headers']):
-                    if c==0 and b.get('fixed'): out+='<th scope="row">'+esc(b['fixed'][r])+'</th>'
-                    else:
-                        label=f'{b["label"]} | '+(b['fixed'][r] if b.get('fixed') else f'Ligne {r+1}')+' | '+h
-                        out+=f'<td><textarea rows="2" id="{b["id"]}-{r}-{c}" aria-label="{esc(label)}" data-answer="{esc(label)}"></textarea></td>'
-                out+='</tr>'
-        return out+'</tbody></table></div>'
-    raise ValueError(t)
+def resource_table(b):
+    return '<div class="table-wrap"><table><thead><tr>'+''.join('<th>'+esc(h)+'</th>' for h in b['headers'])+'</tr></thead><tbody>'+''.join('<tr>'+''.join('<td>'+esc(v)+'</td>' for v in row)+'</tr>' for row in b['rows'])+'</tbody></table></div>'
 
 def make_html(lesson):
-    content=''.join('<section class="step">'+''.join(block_html(b) for b in page)+'</section>' for page in lesson['pages'])
-    if lesson['level']=='3e':
-        svg=portal_svg(False,legend=False)
-        svg=svg[svg.index('<svg '):]
-        fields=''.join('<label>Repère '+n+' : nom du composant<input type="text" id="repere-'+n+'" data-answer="Repère '+n+' : nom du composant"></label>' for n,_,_ in COMPONENTS)
-        content='<section class="step"><h2>Observer et légender le portail</h2><p>Identifie les neuf repères à l’aide du tableau des composants ci-dessous. Le dessin est une vue pédagogique simplifiée, sans échelle. Le faisceau passe devant le vantail. La cible mobile rejoint le capteur fixe en fin de fermeture.</p><div class="portal-view">'+svg+'</div><div class="portal-labels">'+fields+'</div></section>'+content
-    section_links='<nav aria-label="Étapes de l’activité"><p><strong>Parcours :</strong> '+ ' · '.join('<a href="#etape-'+str(i+1)+'">Étape '+str(i+1)+'</a>' for i in range(content.count('<section class="step">')))+'</p></nav>'
-    counter=iter(range(1,20))
-    import re
-    content=re.sub(r'<section class="step">',lambda m:'<section class="step" id="etape-'+str(next(counter))+'">',content)
-    content=section_links+content
-    js=BASE_JS + (LIGHT_JS if lesson['level']=='4e' else GATE_JS if lesson['level']=='3e' else '')
-    return f'''<!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{esc(lesson['level'])} - {esc(lesson['title'])}</title><style>{CSS}</style></head>
-<body><main><header><div class="meta">TECHNOLOGIE · {esc(lesson['level'].upper())} · SÉANCE 1 · 55 MIN</div><h1>{esc(lesson['title'])}</h1><p>{esc(lesson['question'])}</p><p class="objective">Objectif : {esc(lesson['objective'])}</p>
-<div class="identity"><label for="student">Prénom et nom<input id="student" type="text" autocomplete="off" data-answer="Élève 1"></label><label for="classe">Classe<input id="classe" type="text" autocomplete="off" data-answer="Classe"></label></div>
-<p><label><input id="paired" type="checkbox"> Nous travaillons à deux sur ce PC</label></p><div class="extra-person" hidden><label for="student2">Prénom et nom du second élève<input id="student2" type="text" autocomplete="off" data-answer="Élève 2"></label></div>
-<p class="small">Le professeur choisit le support de réponse : papier ou PC. Sur PC, écris dans les cases ; sur papier, utilise le navigateur uniquement pour les simulations. Ne recopie pas deux fois les mêmes réponses. Télécharge-les avant de fermer la page ; rien n'est envoyé automatiquement au professeur. En binôme, alternez le clavier et répondez chacun au bilan individuel.</p></header>
-{content}<div class="toolbar"><button type="button" id="export">Télécharger mes réponses</button><button class="secondary" type="button" id="print">Imprimer mon travail</button></div><p id="saved" class="feedback" role="status"></p></main>
-<script>const LEVEL={json.dumps(lesson['level'])};{js}</script></body></html>'''
+    level=lesson['level'];guided=lesson.get('guided',False)
+    blocks=[b for page in lesson['pages'] for b in page]
+    intro='<p class="objective"><strong>Les réponses s’écrivent sur ta fiche papier.</strong> Cette page sert à observer et à faire des essais. Chaque élève garde sa propre fiche.</p>'
+    if level=='5e':
+        if guided:
+            content='<h2>Observe la lampe</h2>'+visual_svg('lampe')+'<p>Montre le socle, la coque et le diffuseur. Réponds ensuite aux questions 1 à 5 sur ta fiche papier.</p>'
+        else:
+            content='<h2>Choisis un objet sur ta fiche</h2>'+visual_svg('objets')+resource_table(next(b for b in blocks if b['type']=='table'))+'<p><strong>Retour à la fiche :</strong> réponds aux questions 1 à 5 pour l’objet choisi. La synthèse sera complétée avec le professeur.</p>'
+        intro+='<p>Les mêmes documents sont présents sur ta fiche : tu peux travailler entièrement sur papier. L’écran sert seulement à mieux observer.</p>'
+        js=''
+    elif level=='4e':
+        content='<nav><a href="#observer">Observer</a> · <a href="#essayer">Faire les essais</a></nav><section id="observer"><h2>Question 1 - Comprendre le système</h2>'+visual_svg('eclairage')+'<p>'+esc(lesson['pages'][0][0]['text'])+'</p>'+resource_table(next(b for b in blocks if b['type']=='table'))+'</section><section id="essayer"><h2>Questions 2 à 6 - Utiliser le laboratoire</h2><ol><li><strong>Question 2 :</strong> écris une prévision sur ta fiche, règle le cas demandé, puis note le résultat observé. Garde OU pour les cinq premiers essais.</li><li><strong>Questions 3 et 4 :</strong> explique une erreur sur ta fiche, corrige la règle et clique sur Appliquer. Recommence les cinq essais et complète la dernière colonne du tableau.</li><li><strong>Question 5 :</strong> teste exactement 30 avec une présence.</li><li><strong>Question 6 :</strong> garde ET et &lt;, passe le seuil à 50 et teste 40 avec présence. Remets ensuite 30 et clique sur Appliquer.</li></ol>'+LIGHT_HTML+'<p><strong>Fin des essais :</strong> complète la synthèse avec le professeur, puis réponds seul au billet de sortie sur ta fiche.</p></section>'
+        js=LIGHT_JS
+    else:
+        svg=portal_svg(False,legend=False);svg=svg[svg.index('<svg '):]
+        content='<nav><a href="#observer">Observer le portail</a> · <a href="#essayer">Tester la fermeture</a></nav><section id="observer"><h2>Pages 1 à 3 de ta fiche - Observer et comprendre</h2><div class="portal-view">'+svg+'</div>'+resource_table(next(b for b in blocks if b['type']=='table'))+'<p>Complète la légende et les questions 1 à 4 <strong>sur ta fiche</strong>. Pour les fonctions des deux chaînes, utilise le schéma de la page 3.</p></section><section id="essayer"><h2>Question 5 - Tester les quatre situations</h2><p>Règle les trois cases pour chaque ligne du tableau papier, puis note l’ordre obtenu. Un élève manipule les deux premiers cas, l’autre les deux suivants. Chacun complète sa propre fiche.</p>'+GATE_HTML+'<p><strong>Retour au papier :</strong> question 6, synthèse avec le professeur, puis bilan individuel. La question 7 et le défi sont facultatifs.</p></section>'
+        js=GATE_JS
+    return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(level)} - {esc(lesson['title'])} - Ressources sur PC</title><style>{CSS}
+main svg{{max-width:100%;height:auto}}nav{{padding:12px;background:#eef3f8}}nav a{{margin-right:18px}}section{{scroll-margin-top:15px}}</style></head><body><main><header><div class="meta">TECHNOLOGIE · {esc(level.upper())} · RESSOURCES SUR PC</div><h1>{esc(lesson['title'])}</h1>{intro}<p class="small">À deux sur un PC : alternez les manipulations. Les réponses et le bilan individuel restent sur vos fiches papier.</p></header>{content}</main><script>{js}</script></body></html>'''

@@ -30,3 +30,7 @@ Pour une réalisation, un schéma ou un programme, joindre un exemple de solutio
 ## Barème éventuel
 
 [Répartition des points uniquement si l'activité est notée ; expliciter les crédits partiels et vérifier le total.]
+
+## Répartition des supports
+
+Réponses, synthèse et bilan individuel sur la fiche papier conservée dans le porte-vues. PC pour observer et expérimenter. Indiquer le nombre de pages à imprimer et les questions nécessitant le PC ; éviter toute double saisie. Ranger les PDF élèves dans eleves/a-imprimer/, les ressources HTML dans eleves/sur-pc/ et les corrigés dans professeur/.

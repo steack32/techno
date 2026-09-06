@@ -1,59 +1,38 @@
-# Technologie au collège
+# Technologie - Accueil professeur
 
-Ressources pédagogiques classées **par niveau, puis par séquence**. Chaque séquence rassemble ses séances, activités numériques, fiches élèves, corrigés et guides professeur.
+**Les élèves répondent uniquement sur leur fiche papier.** Le PC sert à observer les documents et à réaliser les essais. La fiche corrigée, avec sa synthèse, reste dans le porte-vues.
 
-## Accès aux séquences
+## Préparer et lancer les séances
 
-| Niveau | Séquence | Ensemble du niveau |
-| --- | --- | --- |
-| 5e | [Un objet, un besoin, des solutions](5e/objet-du-quotidien/README.md) | [Toutes les séquences](5e/README.md) |
-| 4e | [Allumer seulement quand c'est utile](4e/eclairage-automatique/README.md) | [Toutes les séquences](4e/README.md) |
-| 3e | [Un portail, deux chaînes](3e/chaines-information-energie/README.md) | [Toutes les séquences](3e/README.md) |
+| Niveau et séquence | À imprimer pour les élèves | À ouvrir sur les PC | Pour préparer et corriger |
+| --- | --- | --- | --- |
+| [5e - Objet du quotidien](5e/objet-du-quotidien/README.md) | [Fiche ordinaire](5e/objet-du-quotidien/eleves/a-imprimer/fiche-eleve.pdf) : 2 pages, **1 feuille recto verso** | [Vues des objets](5e/objet-du-quotidien/eleves/sur-pc/ressources.html) : **facultatif**, le papier suffit | [Guide](5e/objet-du-quotidien/professeur/guide-professeur.pdf) · [Corrigé](5e/objet-du-quotidien/professeur/corrige.md) |
+| 5e - Adaptation très guidée | [Fiche guidée](5e/objet-du-quotidien/eleves/a-imprimer/parcours-guide.pdf) : **1 page recto**, à la place de la fiche ordinaire | [Vue de la lampe](5e/objet-du-quotidien/eleves/sur-pc/observation-guidee.html) : facultatif | [Corrigé adapté](5e/objet-du-quotidien/professeur/corrige-guide.md) |
+| [4e - Éclairage automatique](4e/eclairage-automatique/README.md) | [Fiche élève](4e/eclairage-automatique/eleves/a-imprimer/fiche-eleve.pdf) : 2 pages, **1 feuille recto verso** | [Laboratoire](4e/eclairage-automatique/eleves/sur-pc/ressources.html) : essais, questions 2 à 6 | [Guide](4e/eclairage-automatique/professeur/guide-professeur.pdf) · [Corrigé](4e/eclairage-automatique/professeur/corrige.md) |
+| [3e - Portail et deux chaînes](3e/chaines-information-energie/README.md) | [Fiche élève](3e/chaines-information-energie/eleves/a-imprimer/fiche-eleve.pdf) : 4 pages, **2 feuilles recto verso** | [Portail et laboratoire](3e/chaines-information-energie/eleves/sur-pc/ressources.html) : observation et essais, question 5 | [Guide](3e/chaines-information-energie/professeur/guide-professeur.pdf) · [Corrigé](3e/chaines-information-energie/professeur/corrige.md) · [Schéma corrigé](3e/chaines-information-energie/professeur/portail-corrige.svg) |
 
-## Organisation d'une séquence
+## Avant l'entrée des élèves
 
-Exemple : `5e/objet-du-quotidien/`.
+1. Imprimer un exemplaire de la fiche retenue par élève, recto verso avec retournement sur le **bord long**. Pour les deux élèves de 5e concernés, remplacer la fiche ordinaire par le parcours guidé, en recto simple.
+2. Si le PC est utilisé, télécharger le fichier HTML du niveau puis le copier sur les PC ou dans le dossier partagé des élèves. Un double-clic l'ouvre : toutes les images sont intégrées, aucun compte n'est nécessaire. GitHub affiche le code HTML ; il faut télécharger le fichier pour l'utiliser.
+3. Ouvrir le guide et le corrigé sur le poste professeur. Distribuer uniquement les fichiers élèves, sans le dossier professeur.
 
-| Fichier ou dossier | Rôle |
+## La règle à annoncer
+
+« Tu écris toutes tes réponses sur ta fiche. Le PC te sert à observer et à tester. À deux, vous alternez les manipulations ; chacun complète sa propre fiche. À la fin, tu ranges le travail corrigé dans ton porte-vues. »
+
+La synthèse se corrige collectivement. Le billet de sortie se complète individuellement. En 3e, la question 7 et le défi sont facultatifs pour préserver ce bilan.
+
+## Rangement identique dans chaque séquence
+
+| Dossier | Usage |
 | --- | --- |
-| `README.md` | Présentation de la séquence et accès à ses séances |
-| `S01-professeur.md` | Déroulement de la séance 1 |
-| `S01-eleve.md` | Support élève modifiable de la séance 1 |
-| `S01-corrige.md` | Corrigé de la séance 1 |
-| `activite-eleve.html` | Activité numérique autonome |
-| `exports/` | PDF élèves et guide professeur de la séquence |
-| `documents/` | Documents et schémas complémentaires, si nécessaires |
+| `eleves/a-imprimer/` | Seuls PDF à distribuer aux élèves |
+| `eleves/sur-pc/` | Pages d'observation et laboratoires, sans saisie de réponses |
+| `professeur/` | Guide, déroulement et corrigés ; projection possible lors de la correction |
+| `documents/` | Images élèves et schémas isolés, déjà intégrés aux supports |
+| `sources/` | Versions modifiables, sans impression supplémentaire |
 
-Ajouter les séances suivantes dans la même séquence avec les préfixes `S02`, `S03`, etc. Ces numéros identifient les séances à l'intérieur de la séquence, sans imposer de calendrier.
+Le classement reste **niveau → séquence → usage**. Pour ajouter une séance, conserver les mêmes usages et identifier ses fichiers par S02, S03, etc. Aucun classement par calendrier, aucune date sur les documents, aucun ZIP.
 
-## Ressources communes
-
-- [Modèle de séquence](modeles/sequence.md)
-- [Modèle de séance professeur](modeles/seance-professeur.md)
-- [Modèle de fiche élève](modeles/fiche-eleve.md)
-- [Modèle de corrigé](modeles/corrige.md)
-- [Modèle d'évaluation](modeles/evaluation.md)
-- [Références pédagogiques](ressources/README.md)
-- [Génération des supports](scripts/README.md)
-
-## Conditions d'utilisation
-
-Séances de 55 minutes ; deux élèves par PC ; Internet et impression disponibles. Les élèves ont déjà travaillé les réseaux, la programmation mBot et SketchUp ou Sweet Home 3D. Les documents imprimés sont conservés dans un porte-vues ; maximum deux feuilles recto verso par élève et par séance. Prévoir un parcours très guidé pour les deux élèves de 5e en grande difficulté.
-
-## Règles de rangement et de rédaction
-
-- Organiser les contenus exclusivement par niveau et par séquence, sans regroupement par semaine, mois ou année.
-- Conserver chaque document accessible individuellement ; aucun fichier ZIP.
-- Ne pas inscrire de dates dans les documents, leurs titres, leurs noms ou les réponses exportées. Ne pas ajouter de champ « date » à remplir.
-- Conserver les liens exacts vers les références officielles, même si leur adresse technique contient une année ; utiliser des intitulés sans date.
-- Vérifier les liens et les PDF après modification, et maintenir les sources de génération en cohérence.
-
-## Supports élèves et impression
-
-| Niveau | Parcours ordinaire | Adaptation |
-| --- | --- | --- |
-| 5e | 2 pages, soit une feuille recto verso | Parcours très guidé : 1 page, à utiliser à la place du parcours ordinaire |
-| 4e | 2 pages, soit une feuille recto verso | Aides dans le guide professeur |
-| 3e | 4 pages, soit deux feuilles recto verso | Q7 et défi facultatifs pour préserver le bilan individuel |
-
-Choisir un seul support de réponse : papier ou PC. Les simulations peuvent être utilisées avec une fiche papier. Sur PC, télécharger les réponses avant de fermer la page. Distribuer les activités et fiches élèves, en conservant les guides et corrigés pour la correction.
+[Modèles de préparation](modeles/sequence.md) · [Références pédagogiques](ressources/README.md) · [Génération des supports](scripts/README.md)

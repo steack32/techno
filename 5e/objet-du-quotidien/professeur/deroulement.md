@@ -10,26 +10,24 @@
 
 **Programme :** Compétences travaillées : étude des besoins et des usages ; description de la constitution d'un objet ; identification de matériaux et de contraintes.
 
-## Support de réponse
+## Préparer les supports
 
-Choisir le papier OU le numérique pour les réponses, sans double saisie. Sur papier, utiliser les simulations sur PC et écrire dans la fiche. Sur PC, compléter les champs et télécharger le travail. Conserver la fiche papier dans le porte-vues.
+Imprimer uniquement eleves/a-imprimer/fiche-eleve.pdf : un exemplaire par élève, en recto verso, retournement sur le bord long. Utiliser le lot indiqué dans le README de la séquence ; les adaptations remplacent la fiche ordinaire.
 
-## Préparation
+Copier eleves/sur-pc/ressources.html sur les PC : un double-clic ouvre la page autonome. Le papier suffit ; l’écran est facultatif. Alterner les manipulations.
 
-Déposer `activite-eleve.html` sur les PC ou dans un espace de distribution habituel. Le fichier peut être copié par clé USB ou dossier partagé et ouvert par double-clic. Un PC par élève ou par binôme suffit. Les documents ne demandent aucun téléchargement pendant la séance. Vérifier une fois que le navigateur autorise l’ouverture du fichier et le téléchargement des réponses. Prévoir le fichier PDF en solution de repli.
-
-Les élèves téléchargent un fichier texte et le remettent par le canal habituel de la classe ; aucun envoi automatique ni compte n’est prévu. En binôme, alterner le clavier et demander deux billets de sortie distincts.
+Les réponses, la synthèse corrigée ensemble et le bilan individuel restent sur papier. Ranger la fiche dans le porte-vues. Le guide et les corrigés sont réservés à la préparation et à la correction.
 
 ## Déroulement
 
 | Temps | Étape | Conduite de séance |
 | --- | --- | --- |
 | 0-5 min | Lancement | Demander : « Une selle est-elle un matériau ? À quoi sert un vélo ? » Faire distinguer besoin, composant et matériau. |
-| 5-10 min | Choix et lecture | Ouvrir l'activité 5e, choisir un des trois objets et lire sa fiche. Faire reformuler la production attendue. |
-| 10-28 min | Analyse | Répondre aux questions 1 à 3. En binôme, changer de secrétaire à mi-parcours. Questionner les élèves sur le rôle des pièces. |
+| 5-10 min | Choix et lecture | Distribuer la fiche papier, choisir un des trois objets et lire son document. Utiliser l’écran seulement pour agrandir une illustration. Faire reformuler la production attendue. |
+| 10-28 min | Analyse | Répondre aux questions 1 à 3. Les élèves peuvent échanger ; chacun écrit sur sa propre fiche. Questionner les élèves sur le rôle des pièces. |
 | 28-38 min | Conception | Traiter les contraintes et proposer une amélioration. Exiger une justification, pas seulement un goût personnel. |
 | 38-48 min | Mise en commun | Comparer deux choix d'objets ; compléter ensemble la synthèse. |
-| 48-55 min | Bilan individuel | Répondre au billet de sortie, puis télécharger les réponses. Avec un PC par binôme, chacun répond dans sa case personnelle. |
+| 48-55 min | Bilan individuel | Répondre au billet de sortie, puis ranger la fiche dans le porte-vues. Chacun répond seul sur sa propre fiche. |
 
 ## Critères de réussite
 
@@ -39,7 +37,7 @@ Les élèves téléchargent un fichier texte et le remettent par le canal habitu
 
 ## Aides et points de vigilance
 
-- Pour les deux élèves en grande difficulté : utiliser activite-guidee.html ou 5e-parcours-guide.pdf à la place de la fiche ordinaire. Une seule lampe, quatre choix guidés et un bilan à compléter ; lire les consignes avec eux et accepter une réponse orale. Corrigé dans S01-guide-corrige.md.
+- Pour les deux élèves en grande difficulté : utiliser la fiche eleves/a-imprimer/parcours-guide.pdf à la place de la fiche ordinaire. Une seule lampe, quatre choix guidés et un bilan à compléter ; lire les consignes avec eux et accepter une réponse orale. Corrigé dans professeur/corrige-guide.md.
 - Faire entourer un nom de pièce et souligner un nom de matériau dans la fiche.
 - Donner l'amorce : « La pièce ... sert à ... ; elle est fabriquée en ... ».
 - Pour la contrainte, faire relire la dernière phrase de la fiche choisie.

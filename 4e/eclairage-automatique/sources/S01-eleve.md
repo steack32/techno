@@ -2,13 +2,13 @@
 
 Comment commander un éclairage avec deux informations ?
 
-**Durée : 55 minutes.** PC avec navigateur ; aucun compte ni accès Internet nécessaire après distribution du fichier.
+**Durée : 55 minutes.** Toutes les réponses se font sur la fiche papier. Le PC sert à consulter les documents et à faire les essais demandés.
 
 ## Partie 1
 
 Dans un couloir, la lampe doit s'allumer seulement si une présence est détectée ET si le niveau de luminosité est strictement inférieur à 30. Sinon elle doit être éteinte. Le simulateur utilise un indice de luminosité de 0 à 100 : 0 signifie très sombre et 100 très lumineux. Cet indice est une donnée pédagogique, pas une mesure en lux.
 
-![Illustration pédagogique](documents/eclairage.svg)
+![Illustration pédagogique](../documents/eclairage.svg)
 
 Un capteur fournit une information ; la carte la traite ; un actionneur réalise une action. Une condition est une affirmation vraie ou fausse. Ce schéma représente la commande ; l’alimentation électrique n’est pas dessinée.
 
@@ -23,13 +23,13 @@ Un capteur fournit une information ; la carte la traite ; un actionneur réalise
 
 Réponse :
 
-Sur papier, déroule mentalement les conditions. Sur PC, règle chaque situation et relève l'état de la lampe. Une seule situation ne suffit pas à valider un programme.
+Écris d’abord ta prévision sur la fiche. Règle ensuite le simulateur et note sur le papier l’état observé de la lampe. Une seule situation ne suffit pas à valider un programme.
 
 ## Partie 2
 
 ### Tester, corriger et expliquer
 
-Ouvrir [l’activité numérique](activite-eleve.html) pour utiliser le laboratoire ; sur papier, appliquer la règle décrite pour prévoir le résultat.
+Ouvrir [le laboratoire](../eleves/sur-pc/ressources.html) pour les essais ; répondre sur la fiche papier.
 
 **2. Avec la règle initiale OU, prévois puis observe le résultat. Après correction, complète la dernière colonne.**
 

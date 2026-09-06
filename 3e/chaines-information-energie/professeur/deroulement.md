@@ -10,15 +10,13 @@
 
 **Programme :** Compétences travaillées : analyse du fonctionnement d’un objet, de ses entrées et sorties et de ses flux d’énergie et d’information. Vérifier le rattachement au programme applicable au niveau concerné.
 
-## Support de réponse
+## Préparer les supports
 
-Choisir le papier OU le numérique pour les réponses, sans double saisie. Sur papier, utiliser les simulations sur PC et écrire dans la fiche. Sur PC, compléter les champs et télécharger le travail. Conserver la fiche papier dans le porte-vues.
+Imprimer uniquement eleves/a-imprimer/fiche-eleve.pdf : un exemplaire par élève, en recto verso, retournement sur le bord long. Utiliser le lot indiqué dans le README de la séquence ; les adaptations remplacent la fiche ordinaire.
 
-## Préparation
+Copier eleves/sur-pc/ressources.html sur les PC : un double-clic ouvre la page autonome. Le PC sert aux essais ; chacun écrit sur sa propre fiche. Alterner les manipulations.
 
-Déposer `activite-eleve.html` sur les PC ou dans un espace de distribution habituel. Le fichier peut être copié par clé USB ou dossier partagé et ouvert par double-clic. Un PC par élève ou par binôme suffit. Les documents ne demandent aucun téléchargement pendant la séance. Vérifier une fois que le navigateur autorise l’ouverture du fichier et le téléchargement des réponses. Prévoir le fichier PDF en solution de repli.
-
-Les élèves téléchargent un fichier texte et le remettent par le canal habituel de la classe ; aucun envoi automatique ni compte n’est prévu. En binôme, alterner le clavier et demander deux billets de sortie distincts.
+Les réponses, la synthèse corrigée ensemble et le bilan individuel restent sur papier. Ranger la fiche dans le porte-vues. Le guide et les corrigés sont réservés à la préparation et à la correction.
 
 ## Déroulement
 
@@ -30,7 +28,7 @@ Les élèves téléchargent un fichier texte et le remettent par le canal habitu
 | 27-37 min | Essais sur PC | Tester les quatre situations, relever l'ordre et expliquer un arrêt. En binôme, changer de pilote après deux essais. |
 | 37-46 min | Diagnostic et synthèse | Traiter en priorité la panne Q6 et la synthèse. Réserver Q7 et le défi aux élèves en avance ; ne pas retarder le bilan individuel. |
 | 46-50 min | Correction ciblée | Reprendre le schéma complet et le trajet de l'ordre. Le schéma est fourni dans le guide professeur. |
-| 50-55 min | Bilan individuel | Traiter le billet de sortie, puis télécharger les réponses. |
+| 50-55 min | Bilan individuel | Traiter le billet de sortie, puis ranger la fiche dans le porte-vues. |
 
 ## Critères de réussite
 

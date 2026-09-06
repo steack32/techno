@@ -10,15 +10,13 @@
 
 **Programme :** Compétences travaillées : données provenant de capteurs, algorithme de commande, modification et mise au point d'un programme. Cette séance prépare un travail ultérieur dans un environnement de programmation par blocs.
 
-## Support de réponse
+## Préparer les supports
 
-Choisir le papier OU le numérique pour les réponses, sans double saisie. Sur papier, utiliser les simulations sur PC et écrire dans la fiche. Sur PC, compléter les champs et télécharger le travail. Conserver la fiche papier dans le porte-vues.
+Imprimer uniquement eleves/a-imprimer/fiche-eleve.pdf : un exemplaire par élève, en recto verso, retournement sur le bord long. Utiliser le lot indiqué dans le README de la séquence ; les adaptations remplacent la fiche ordinaire.
 
-## Préparation
+Copier eleves/sur-pc/ressources.html sur les PC : un double-clic ouvre la page autonome. Le PC sert aux essais ; chacun écrit sur sa propre fiche. Alterner les manipulations.
 
-Déposer `activite-eleve.html` sur les PC ou dans un espace de distribution habituel. Le fichier peut être copié par clé USB ou dossier partagé et ouvert par double-clic. Un PC par élève ou par binôme suffit. Les documents ne demandent aucun téléchargement pendant la séance. Vérifier une fois que le navigateur autorise l’ouverture du fichier et le téléchargement des réponses. Prévoir le fichier PDF en solution de repli.
-
-Les élèves téléchargent un fichier texte et le remettent par le canal habituel de la classe ; aucun envoi automatique ni compte n’est prévu. En binôme, alterner le clavier et demander deux billets de sortie distincts.
+Les réponses, la synthèse corrigée ensemble et le bilan individuel restent sur papier. Ranger la fiche dans le porte-vues. Le guide et les corrigés sont réservés à la préparation et à la correction.
 
 ## Déroulement
 
@@ -30,7 +28,7 @@ Les élèves téléchargent un fichier texte et le remettent par le canal habitu
 | 22-35 min | Corriger et tester | Modifier la règle, cliquer sur Appliquer, recommencer les cinq essais et compléter l'algorithme. |
 | 35-44 min | Justifier | Expliquer ET, étudier exactement 30 puis un seuil à 50. Garder le seuil à 30 pour le bilan. |
 | 44-50 min | Synthèse | Formaliser capteur, traitement, actionneur et condition ; faire justifier un cas limite. |
-| 50-55 min | Bilan individuel | Traiter le billet de sortie sans aide du partenaire puis télécharger le travail. |
+| 50-55 min | Bilan individuel | Traiter le billet de sortie sans aide du partenaire puis ranger la fiche dans le porte-vues. |
 
 ## Critères de réussite
 

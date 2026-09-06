@@ -1,24 +1,28 @@
 # 3e - Un portail, deux chaînes
 
-## Séquence : Un portail, deux chaînes
-
 Comment les chaînes d'information et d'énergie coopèrent-elles dans un portail automatique ?
 
-**Objectif :** Distinguer les deux chaînes, associer des composants à leurs fonctions et expliquer le lien entre ordre et action.
+## Préparer la séance
 
-| Séance | Durée | Supports élèves | Supports professeur |
-| --- | --- | --- | --- |
-| Séance 1 : étude et bilan | 55 minutes | [Activité numérique](activite-eleve.html) · [PDF élève](exports/3e-fiche-eleve.pdf) · [Source modifiable](S01-eleve.md) | [Déroulement](S01-professeur.md) · [Corrigé](S01-corrige.md) · [Guide PDF](exports/guide-professeur.pdf) |
+| Usage | Fichier | Consigne |
+| --- | --- | --- |
+| **À imprimer et distribuer** | [Fiche élève](eleves/a-imprimer/fiche-eleve.pdf) | 4 pages. Deux feuilles recto verso par élève ; bord long. |
+| **À ouvrir sur les PC** | [Ressources et laboratoire](eleves/sur-pc/ressources.html) | Nécessaire pour les essais. Deux élèves par PC ; réponses individuelles sur papier. |
+| **Pour le professeur** | [Guide PDF](professeur/guide-professeur.pdf) · [Déroulement](professeur/deroulement.md) · [Corrigé](professeur/corrige.md) | Préparer et projeter lors de la correction. Ne pas distribuer. |
 
-Pour utiliser l'activité HTML, télécharger le fichier puis l'ouvrir dans un navigateur. Deux élèves par PC ; chacun répond au bilan individuel. Télécharger les réponses avant de fermer la page.
+Télécharger le fichier HTML puis l'ouvrir par double-clic ; GitHub affiche son code. Il contient toutes ses images et fonctionne hors ligne.
 
-Les PDF sont rangés dans `exports/` et les documents complémentaires dans `documents/` lorsqu'ils sont nécessaires.
+## Pendant la séance
 
-[Autres séquences du niveau](../README.md) · [Accueil](../../README.md)
+1. Distribuer une fiche à chaque élève. Faire écrire nom et classe.
+2. Observer les documents. Utiliser le PC pour les essais indiqués sur la fiche ou pour agrandir une vue. Chaque élève répond uniquement sur sa fiche papier.
+3. Compléter et corriger la synthèse ensemble. Faire répondre seul au billet de sortie.
+4. Ranger la fiche dans le porte-vues : elle contient le travail et la trace du cours.
 
-## Vues du portail
+Les fichiers dans `sources/` et `documents/` servent à modifier les supports ou à projeter une image isolée. Ils ne s'ajoutent pas au lot d'impression.
 
-- [Vue élève à légender](documents/portail-eleve.svg)
-- [Vue du portail et détails corrigés](documents/portail-corrige.svg) ; légende complète dans le guide professeur.
+## Correction et rythme
 
-La fiche élève comprend quatre pages, soit deux feuilles recto verso. La vue est intégrée à l’activité HTML, utilisable sans fichier image séparé.
+[Portail corrigé à projeter](professeur/portail-corrige.svg). La question 7 et le défi sont facultatifs : préserver le bilan individuel.
+
+[Autres séquences du niveau](../README.md) · [Accueil professeur](../../README.md)
