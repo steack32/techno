@@ -3,3 +3,5 @@
 [hidden]{display:none!important}.tabs{scroll-margin-top:110px}
 
 .pronote-check{display:flex;align-items:center;gap:.5rem;white-space:nowrap;margin:.4rem 0}.pronote-check input{width:1.1rem;height:1.1rem;margin:0;flex:none}
+
+body:not([data-teacher]) main{max-width:850px}body:not([data-teacher]) .intro{margin:0 auto 24px}body:not([data-teacher]) .narrow{max-width:none;margin:24px 0}.identity-panel{max-width:660px}.start-button,#code-form button{width:100%}body:not([data-teacher]) .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}body:not([data-teacher]) .tabs button{padding:12px 8px}body:not([data-teacher]) .question{padding:26px}body:not([data-teacher]) .question legend{font-size:19px}body:not([data-teacher]) .option{min-height:48px}body:not([data-teacher]) h1{font-size:clamp(27px,4vw,36px)}@media(max-width:520px){body:not([data-teacher]) .question{padding:18px}body:not([data-teacher]) .tabs button{font-size:12px}}
