@@ -1,0 +1,93 @@
+import { DurableObject } from 'cloudflare:workers';
+const enc=new TextEncoder();
+// First-install window; permanently locked after the first successful private setup.
+const SETUP_DEADLINE=1789536901616;
+const now=()=>Date.now();
+const uid=()=>crypto.randomUUID().replaceAll('-','');
+const json=(value,status=200,headers={})=>Response.json(value,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...headers}});
+class Problem extends Error{constructor(status,message){super(message);this.status=status;}}
+const fail=(status,message)=>{throw new Problem(status,message)};
+const sha=async value=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',enc.encode(value))),b=>b.toString(16).padStart(2,'0')).join('');
+const field=(v,min=1,max=60)=>{if(typeof v!=='string'||v.trim().length<min||v.trim().length>max)fail(400,'Vérifiez les champs du formulaire.');return v.trim();};
+const norm=v=>v.normalize('NFD').replace(/\p{M}/gu,'').toUpperCase().replace(/\s+/g,' ').trim();
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=crypto.getRandomValues(new Uint32Array(1))[0]%(i+1);[a[i],a[j]]=[a[j],a[i]];}return a;};
+const competence=n=>n===5?'Vert +':n===4?'Vert':n>=2?'Jaune':'Rouge';
+function questions(bank){return [0,1,2,3].flatMap(skill=>shuffle(bank.bank.slice(skill*5,skill*5+5).map(variants=>{const [prompt,correct,wrong,explanation]=shuffle(variants)[0];const choices=shuffle([correct,...wrong]).map(label=>({id:uid(),label}));return {id:uid(),skill,prompt,choices,correct:choices.find(v=>v.label===correct).id,explanation};})));}
+function grade(a,bank){const scores=[0,0,0,0];for(const q of a.questions)if(a.answers[q.id]===q.correct)scores[q.skill]++;return {total:scores.reduce((a,b)=>a+b,0),skills:scores.map((score,i)=>({name:bank.skills[i],score,level:competence(score)}))};}
+const csvCell=v=>'"'+String(v??'').replace(/^[=+\-@\t\r]/,"'$&").replaceAll('"','""')+'"';
+
+export class EvaluationStore extends DurableObject{
+ constructor(ctx,env){super(ctx,env);this.sql=ctx.storage.sql;
+  this.sql.exec(`CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY,value TEXT NOT NULL); CREATE TABLE IF NOT EXISTS auth (token TEXT PRIMARY KEY,expires INTEGER NOT NULL); CREATE TABLE IF NOT EXISTS sessions (id TEXT PRIMARY KEY,code TEXT UNIQUE NOT NULL,data TEXT NOT NULL,created INTEGER NOT NULL); CREATE TABLE IF NOT EXISTS attempts (id TEXT PRIMARY KEY,token TEXT UNIQUE NOT NULL,session_id TEXT NOT NULL,data TEXT NOT NULL,created INTEGER NOT NULL); CREATE TABLE IF NOT EXISTS identities (session_id TEXT NOT NULL,identity TEXT NOT NULL,attempt_id TEXT NOT NULL,PRIMARY KEY(session_id,identity)); CREATE INDEX IF NOT EXISTS attempts_session ON attempts(session_id); CREATE TABLE IF NOT EXISTS throttle (key TEXT PRIMARY KEY,count INTEGER NOT NULL,until INTEGER NOT NULL);`);
+ }
+ one(sql,...args){return this.sql.exec(sql,...args).toArray()[0];}
+ getBanks(){const r=this.one('SELECT value FROM settings WHERE key=?','banks');if(!r)fail(503,'Le professeur doit d’abord ouvrir son espace pour préparer les évaluations.');return JSON.parse(r.value);}
+ session(id){const r=this.one('SELECT data FROM sessions WHERE id=?',id);if(!r)fail(404,'Séance introuvable.');return JSON.parse(r.data);}
+ putSession(s){this.sql.exec('UPDATE sessions SET data=? WHERE id=?',JSON.stringify(s),s.id);}
+ putAttempt(a){this.sql.exec('UPDATE attempts SET data=? WHERE id=?',JSON.stringify(a),a.id);}
+ expire(a){if(!a.finished&&now()>=a.deadline){a.finished=a.deadline;this.putAttempt(a);}return a;}
+ listAttempts(id){return this.sql.exec('SELECT data FROM attempts WHERE session_id=? ORDER BY created',id).toArray().map(r=>this.expire(JSON.parse(r.data)));}
+ student(req){const t=req.headers.get('authorization')?.replace(/^Bearer /,'');if(!t||!/^[a-f0-9]{64}$/.test(t))fail(401,'Rejoignez une séance ou demandez un lien de reprise au professeur.');const r=this.one('SELECT data FROM attempts WHERE token=?',t);if(!r)fail(401,'Copie non reconnue. Demandez au professeur un lien de reprise.');return this.expire(JSON.parse(r.data));}
+ teacher(req){const t=req.headers.get('cookie')?.match(/(?:^|; )techno_teacher=([a-f0-9]{64})(?:;|$)/)?.[1];const r=t&&this.one('SELECT expires FROM auth WHERE token=?',t);if(!r||r.expires<now())fail(401,'Connectez-vous à l’espace professeur.');return t;}
+ limited(key,limit,ms){const r=this.one('SELECT * FROM throttle WHERE key=?',key);if(!r||r.until<now()){this.sql.exec('DELETE FROM throttle WHERE until<?',now());this.sql.exec('INSERT OR REPLACE INTO throttle VALUES(?,1,?)',key,now()+ms);return;}if(r.count>=limit)fail(429,'Trop de tentatives. Patientez quelques minutes avant de réessayer.');this.sql.exec('UPDATE throttle SET count=count+1 WHERE key=?',key);}
+ safeAttempt(a,bank,s){const reveal=!!a.finished&&!!s.reveal;return {id:a.id,sessionId:s.id,sessionLabel:s.label,assessment:s.assessment,title:bank.title,mode:s.mode,students:a.students,classe:a.classe,started:a.started,deadline:a.deadline,finished:a.finished,revision:a.revision,answers:a.answers,serverTime:now(),open:s.open,reveal,questions:a.questions.map(({correct,explanation,...q})=>reveal?{...q,correct,explanation}:q),result:a.finished?grade(a,bank):null,skills:bank.skills};}
+ summary(s,banks){const as=this.listAttempts(s.id);return {...s,title:banks[s.assessment].title,count:as.length,finished:as.filter(a=>a.finished).length};}
+ create(b,banks){const assessment=field(b.assessment);const bank=banks[assessment];if(!bank)fail(400,'Évaluation inconnue.');const minutes=b.minutes??bank.minutes;if(!Number.isInteger(minutes)||minutes<5||minutes>90)fail(400,'Durée attendue : de 5 à 90 minutes.');const mode=b.mode??bank.mode;if(!['individual','pair'].includes(mode))fail(400,'Mode non valide.');let classe=typeof b.classe==='string'?field(b.classe,0,16):'';if(classe&&!norm(classe).startsWith(bank.level[0]))fail(400,'Vérifiez le niveau de la classe.');const s={id:uid(),code:uid().slice(0,10).toUpperCase(),assessment,label:field(b.label??bank.title,2,80),classe,minutes,mode,open:true,reveal:false,created:now()};this.sql.exec('INSERT INTO sessions VALUES(?,?,?,?)',s.id,s.code,JSON.stringify(s),s.created);return s;}
+ async requestBody(req){if(req.headers.get('sec-fetch-site')==='cross-site')fail(403,'Requête non autorisée.');const origin=req.headers.get('origin');if(origin&&origin!==new URL(req.url).origin)fail(403,'Requête non autorisée.');if(!req.headers.get('content-type')?.includes('application/json'))fail(415,'Format non accepté.');const maxBody=new URL(req.url).pathname.endsWith('/setup')?60000:20000;if(Number(req.headers.get('content-length')||0)>maxBody)fail(413,'Requête trop volumineuse.');const text=await req.text();if(text.length>maxBody)fail(413,'Requête trop volumineuse.');try{return JSON.parse(text)}catch{fail(400,'Formulaire non valide.');}}
+ async fetch(req){try{return await this.route(req)}catch(e){if(e instanceof Problem)return json({error:e.message},e.status);console.error('Evaluation request failed',e?.message);return json({error:'Service indisponible. Les réponses déjà enregistrées sont conservées. Réessayez.'},503);}}
+ async route(req){const url=new URL(req.url),path=url.pathname.replace('/api/evaluations','');
+  if(path==='/health')return json({ok:true,service:'evaluations',initialized:!!this.one('SELECT key FROM settings WHERE key=?','banks')});
+  if(req.method==='GET'&&path==='/session'){const code=field(url.searchParams.get('code'),5,20).replace(/[\s-]/g,'').toUpperCase();const r=this.one('SELECT data FROM sessions WHERE code=?',code);if(!r)fail(404,'Code de séance non reconnu.');const s=JSON.parse(r.data),bank=this.getBanks()[s.assessment];return json({title:bank.title,assessment:s.assessment,level:bank.level,mode:s.mode,minutes:s.minutes,classe:s.classe,open:s.open,label:s.label});}
+  if(req.method==='GET'&&path==='/state'){const a=this.student(req),s=this.session(a.sessionId);return json(this.safeAttempt(a,this.getBanks()[s.assessment],s));}
+  if(req.method==='GET'&&path.startsWith('/teacher')){this.teacher(req);const banks=this.getBanks();
+   if(path==='/teacher/export'){const ids=url.searchParams.get('session');const sessions=ids?[this.session(ids)]:this.sql.exec('SELECT data FROM sessions ORDER BY created').toArray().map(r=>JSON.parse(r.data));const lines=[['Évaluation','Séance','Classe','Prénom','Initiale du nom','Note /20','Statut','Compétence 1','Score C1 /5','Niveau C1','Compétence 2','Score C2 /5','Niveau C2','Compétence 3','Score C3 /5','Niveau C3','Compétence 4','Score C4 /5','Niveau C4','Copie','Début UTC','Rendu UTC']];for(const s of sessions)for(const a of this.listAttempts(s.id)){const g=a.finished?grade(a,banks[s.assessment]):null;for(const p of a.students)lines.push([banks[s.assessment].title,s.label,a.classe,p.first,p.initial,g?.total??'',a.finished?'Rendue':'En cours',...banks[s.assessment].skills.flatMap((name,i)=>[name,g?.skills[i].score??'',g?.skills[i].level??'']),a.id,new Date(a.started).toISOString(),a.finished?new Date(a.finished).toISOString():'']);}return new Response('\uFEFF'+lines.map(r=>r.map(csvCell).join(';')).join('\r\n'),{headers:{'Content-Type':'text/csv; charset=utf-8','Content-Disposition':`attachment; filename="notes-technologie${ids?'-'+this.session(ids).assessment:''}.csv"`,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});}
+   if(path==='/teacher/review'){const r=this.one('SELECT data FROM attempts WHERE id=?',field(url.searchParams.get('id')));if(!r)fail(404,'Copie introuvable.');const a=this.expire(JSON.parse(r.data)),s=this.session(a.sessionId);if(!a.finished)fail(409,'La copie n’est pas encore rendue.');return json(this.safeAttempt(a,banks[s.assessment],{...s,reveal:true}));}
+   const id=url.searchParams.get('session');if(id){const s=this.session(id);return json({session:this.summary(s,banks),attempts:this.listAttempts(id).map(a=>({id:a.id,students:a.students,classe:a.classe,started:a.started,deadline:a.deadline,finished:a.finished,answered:Object.keys(a.answers).length,blur:a.blur,result:a.finished?grade(a,banks[s.assessment]):null}))});}
+   return json({assessments:Object.entries(banks).map(([id,{bank,...info}])=>({id,...info})),sessions:this.sql.exec('SELECT data FROM sessions ORDER BY created DESC').toArray().map(r=>this.summary(JSON.parse(r.data),banks))});
+  }
+  if(req.method!=='POST')fail(404,'Page introuvable.');const b=await this.requestBody(req);
+  if(path==='/setup'){
+   if(now()>SETUP_DEADLINE||this.one('SELECT key FROM settings WHERE key=?','passwordHash'))fail(410,'Initialisation fermée.');
+   const password=field(b.password,24,100);const banks=b.banks;
+   if(!banks||Object.keys(banks).sort().join(',')!=='savon,trottinettes')fail(400,'Banques non valides.');
+   for(const bank of Object.values(banks)){if(!Array.isArray(bank.bank)||bank.bank.length!==20||!Array.isArray(bank.skills)||bank.skills.length!==4)fail(400,'Banque incomplète.');for(const variants of bank.bank){if(!Array.isArray(variants)||!variants.length)fail(400,'Question non valide.');for(const q of variants)if(!Array.isArray(q)||q.length!==4||typeof q[0]!=='string'||typeof q[1]!=='string'||!Array.isArray(q[2])||q[2].length!==3||new Set([q[1],...q[2]]).size!==4||typeof q[3]!=='string')fail(400,'Question non valide.');}}
+   const passwordHash=await sha('login:'+password);
+   this.ctx.storage.transactionSync(()=>{if(this.one('SELECT key FROM settings WHERE key=?','passwordHash'))fail(410,'Initialisation fermée.');this.sql.exec('INSERT OR REPLACE INTO settings VALUES(?,?)','banks',JSON.stringify(banks));this.sql.exec('INSERT INTO settings VALUES(?,?)','passwordHash',passwordHash);});
+   return json({ok:true});
+  }
+  if(path==='/teacher/login'){
+   const ip=req.headers.get('cf-connecting-ip')||'local';this.limited('login:'+ip,12,300000);const password=field(b.password,10,100);const expected=this.one('SELECT value FROM settings WHERE key=?','passwordHash');if(!expected)fail(503,'Le service est en cours de préparation.');if(await sha('login:'+password)!==expected.value)fail(401,'Mot de passe incorrect.');
+   const banks=this.getBanks();
+   if(!this.one('SELECT id FROM sessions LIMIT 1')){this.create({assessment:'savon',label:'3e · Mission Savon'},banks);this.create({assessment:'trottinettes',label:'4e · Contrôle trottinettes'},banks);}
+   this.sql.exec('DELETE FROM auth WHERE expires<?',now());const t=uid()+uid();this.sql.exec('INSERT INTO auth VALUES(?,?)',t,now()+12*3600000);return json({ok:true},200,{'Set-Cookie':`techno_teacher=${t}; HttpOnly; SameSite=Strict; Path=/api/evaluations/teacher; Max-Age=43200${url.protocol==='https:'?'; Secure':''}`});
+  }
+  if(path==='/teacher/logout'){const t=this.teacher(req);this.sql.exec('DELETE FROM auth WHERE token=?',t);return json({ok:true},200,{'Set-Cookie':'techno_teacher=; HttpOnly; SameSite=Strict; Path=/api/evaluations/teacher; Max-Age=0'});}
+  if(path.startsWith('/teacher')){this.teacher(req);const banks=this.getBanks();
+   if(path==='/teacher/create')return json(this.create(b,banks));
+   if(path==='/teacher/resume'){const r=this.one('SELECT data FROM attempts WHERE id=?',field(b.id));if(!r)fail(404,'Copie introuvable.');const a=JSON.parse(r.data),token=uid()+uid();this.sql.exec('UPDATE attempts SET token=? WHERE id=?',token,a.id);return json({token});}
+   if(path==='/teacher/extend'){const r=this.one('SELECT data FROM attempts WHERE id=?',field(b.id));if(!r)fail(404,'Copie introuvable.');const a=this.expire(JSON.parse(r.data));if(a.finished)fail(409,'La copie est déjà rendue.');if(!Number.isInteger(b.minutes)||b.minutes<1||b.minutes>30)fail(400,'Ajoutez de 1 à 30 minutes.');a.deadline+=b.minutes*60000;this.putAttempt(a);return json({ok:true});}
+   const s=this.session(field(b.session));if(path==='/teacher/close'){s.open=false;this.putSession(s);for(const a of this.listAttempts(s.id))if(!a.finished){a.finished=Math.min(now(),a.deadline);this.putAttempt(a);}return json({ok:true});}
+   if(path==='/teacher/reveal'){if(s.open)fail(409,'Clôturez la séance avant de publier le corrigé.');s.reveal=true;this.putSession(s);return json({ok:true});}
+   fail(400,'Action inconnue.');
+  }
+  if(path==='/join'){
+   this.limited('join:'+(req.headers.get('cf-connecting-ip')||'local'),180,60000);
+   const code=field(b.code,5,20).replace(/[\s-]/g,'').toUpperCase(),r=this.one('SELECT data FROM sessions WHERE code=?',code);if(!r)fail(404,'Code de séance non reconnu.');const s=JSON.parse(r.data),bank=this.getBanks()[s.assessment];if(!s.open)fail(409,'Cette séance est clôturée.');
+   const classe=field(b.classe,2,16);if(!/^[\p{L}\p{N} .-]+$/u.test(classe)||!norm(classe).startsWith(bank.level[0]))fail(400,'Indiquez votre classe complète, par exemple '+bank.level[0]+'02.');if(s.classe&&norm(classe)!==norm(s.classe))fail(400,'Cette séance est réservée à la classe '+s.classe+'.');
+   if(!Array.isArray(b.students)||b.students.length!==(s.mode==='pair'?2:1))fail(400,'Renseignez tous les élèves.');const students=b.students.map(p=>{const first=field(p.first,2,40),initial=field(p.initial,1,2).replace(/\.$/,'').toUpperCase();if(!/^[\p{L} '-]+$/u.test(first)||!/^\p{L}$/u.test(initial))fail(400,'Saisissez un prénom et une seule lettre pour le nom.');return {first,initial};});
+   const identities=students.map(p=>norm(classe+'|'+p.first+'|'+p.initial));if(new Set(identities).size!==identities.length)fail(400,'Les deux élèves doivent être différents.');for(const identity of identities)if(this.one('SELECT attempt_id FROM identities WHERE session_id=? AND identity=?',s.id,identity))fail(409,'Une copie existe déjà avec cette identité. Utilisez la reprise sur ce poste ou demandez au professeur un lien de reprise. En cas d’homonymie, le professeur précisera un prénom distinctif.');
+   if(this.listAttempts(s.id).length>=250)fail(409,'La séance a atteint sa capacité.');
+   const id=uid(),token=uid()+uid(),a={id,sessionId:s.id,students,classe,questions:questions(bank),answers:{},started:now(),deadline:now()+s.minutes*60000,finished:null,revision:0,blur:0};this.ctx.storage.transactionSync(()=>{this.sql.exec('INSERT INTO attempts VALUES(?,?,?,?,?)',id,token,s.id,JSON.stringify(a),a.started);for(const identity of identities)this.sql.exec('INSERT INTO identities VALUES(?,?,?)',s.id,identity,id);});return json({token,attempt:this.safeAttempt(a,bank,s)});
+  }
+  const a=this.student(req),s=this.session(a.sessionId),bank=this.getBanks()[s.assessment];
+  if(path==='/blur'){if(!a.finished){a.blur=Math.min(999,a.blur+1);this.putAttempt(a);}return json({ok:true});}
+  if(path==='/save'||path==='/finish'){
+   if(a.finished||!s.open)return json(this.safeAttempt(a,bank,s));if(b.revision!==a.revision)fail(409,'La copie a été modifiée dans un autre onglet. Rechargez pour reprendre la dernière sauvegarde.');
+   if(path==='/save'){if(!b.answers||typeof b.answers!=='object'||Array.isArray(b.answers)||Object.keys(b.answers).length>20)fail(400,'Réponses non valides.');const clean={};for(const [id,value]of Object.entries(b.answers)){const q=a.questions.find(q=>q.id===id);if(!q||typeof value!=='string'||!q.choices.some(c=>c.id===value))fail(400,'Réponse non valide.');clean[id]=value;}a.answers=clean;a.revision++;}
+   else a.finished=Math.min(now(),a.deadline);
+   this.putAttempt(a);return json(this.safeAttempt(a,bank,s));
+  }
+  fail(400,'Action inconnue.');
+ }
+}
+export default{async fetch(req,env){const url=new URL(req.url);if(url.pathname.startsWith('/api/evaluations/'))return env.EVALUATIONS.getByName('college-v1').fetch(req);return env.ASSETS.fetch(req);}};
