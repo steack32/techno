@@ -28,7 +28,9 @@ for (const file of files) {
   copyFileSync(resolve(root, file), dest);
 }
 const cards = lessons.map(l => `<article><span class="level">${l.level}</span><h2>${l.title}</h2><p>${l.text}</p><a class="button" href="/${l.folder}/eleves/sur-pc/ressources.html">Ouvrir l’activité <span aria-hidden="true">→</span></a><a class="sheet" href="/${l.folder}/eleves/a-imprimer/fiche-eleve.pdf">Fiche élève · PDF</a>${l.guided ? `<details><summary>Parcours guidé</summary><a class="sheet" href="/${l.folder}/eleves/sur-pc/observation-guidee.html">Activité accompagnée</a><a class="sheet" href="/${l.folder}/eleves/a-imprimer/parcours-guide.pdf">Fiche accompagnée · PDF</a></details>` : ''}</article>`).join('\n');
-writeFileSync(resolve(out, 'index.html'), template.replace('<!-- LESSONS -->', cards));
+const sequenceCard = `<article><span class="level">3e</span><h2>Le smartphone : évolution et choix responsables</h2><p>Une séquence en quatre séances : observer, comprendre le cycle de vie, choisir et faire le bilan.</p><a class="button" href="/3e/veille-technologique/">Ouvrir la séquence <span aria-hidden="true">→</span></a></article>`;
+writeFileSync(resolve(out, 'index.html'), template.replace('<!-- LESSONS -->', cards + sequenceCard));
+cpSync(resolve(root, 'site/3e'), resolve(out, '3e'), { recursive: true });
 cpSync(resolve(root, 'site/evaluations'), resolve(out, 'evaluations'), { recursive: true });
 cpSync(resolve(root, 'site/professeur'), resolve(out, 'professeur'), { recursive: true });
 writeFileSync(resolve(out, '404.html'), '<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Page introuvable</title><main><h1>Page introuvable</h1><p>Cette ressource n’est pas disponible.</p><a href="/">Revenir aux activités</a></main></html>');

@@ -1,3 +1,4 @@
+import { resourceTables, uploadResource, listResources, serveResource } from './resources.js';
 import { DurableObject } from 'cloudflare:workers';
 const enc=new TextEncoder();
 // First-install window; permanently locked after the first successful private setup.
@@ -20,7 +21,7 @@ function grade(a,bank){const scores=[0,0];for(const q of a.questions)if(a.answer
 const csvCell=v=>'"'+String(v??'').replace(/^[=+\-@\t\r]/,"'$&").replaceAll('"','""')+'"';
 
 export class EvaluationStore extends DurableObject{
- constructor(ctx,env){super(ctx,env);this.sql=ctx.storage.sql;
+ constructor(ctx,env){super(ctx,env);this.sql=ctx.storage.sql;resourceTables(this.sql);
   this.sql.exec(`CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY,value TEXT NOT NULL); CREATE TABLE IF NOT EXISTS auth (token TEXT PRIMARY KEY,expires INTEGER NOT NULL); CREATE TABLE IF NOT EXISTS sessions (id TEXT PRIMARY KEY,code TEXT UNIQUE NOT NULL,data TEXT NOT NULL,created INTEGER NOT NULL); CREATE TABLE IF NOT EXISTS attempts (id TEXT PRIMARY KEY,token TEXT UNIQUE NOT NULL,session_id TEXT NOT NULL,data TEXT NOT NULL,created INTEGER NOT NULL); CREATE TABLE IF NOT EXISTS identities (session_id TEXT NOT NULL,identity TEXT NOT NULL,attempt_id TEXT NOT NULL,PRIMARY KEY(session_id,identity)); CREATE INDEX IF NOT EXISTS attempts_session ON attempts(session_id); CREATE TABLE IF NOT EXISTS throttle (key TEXT PRIMARY KEY,count INTEGER NOT NULL,until INTEGER NOT NULL);`);
  }
  one(sql,...args){return this.sql.exec(sql,...args).toArray()[0];}
@@ -36,9 +37,11 @@ export class EvaluationStore extends DurableObject{
  safeAttempt(a,bank,s){const reveal=!!a.finished&&!!s.reveal;return {id:a.id,sessionId:s.id,sessionLabel:s.label,assessment:s.assessment,title:bank.title,mode:s.mode,students:a.students,classe:a.classe,started:a.started,deadline:a.deadline,finished:a.finished,revision:a.revision,answers:a.answers,serverTime:now(),open:s.open,reveal,questions:a.questions.map(({correct,explanation,...q})=>reveal?{...q,correct,explanation}:q),result:a.finished?grade(a,bank):null,skills:bank.skills,competencies:skillNames(bank)};}
  summary(s,banks){const as=this.listAttempts(s.id);return {...s,title:banks[s.assessment].title,competencies:skillNames(banks[s.assessment]),classes:[...new Set(as.map(a=>classKey(a.classe)))].sort((a,b)=>a.localeCompare(b,'fr',{numeric:true})),count:as.length,finished:as.filter(a=>a.finished).length};}
  create(b,banks){const assessment=field(b.assessment);const bank=banks[assessment];if(!bank)fail(400,'Évaluation inconnue.');const minutes=b.minutes??bank.minutes;if(!Number.isInteger(minutes)||minutes<5||minutes>90)fail(400,'Durée attendue : de 5 à 90 minutes.');const mode=b.mode??bank.mode;if(!['individual','pair'].includes(mode))fail(400,'Mode non valide.');let classe=typeof b.classe==='string'?field(b.classe,0,16):'';if(classe&&!norm(classe).startsWith(bank.level[0]))fail(400,'Vérifiez le niveau de la classe.');const s={id:uid(),code:uid().slice(0,10).toUpperCase(),assessment,label:field(b.label??bank.title,2,80),classe,minutes,mode,open:true,reveal:false,created:now()};this.sql.exec('INSERT INTO sessions VALUES(?,?,?,?)',s.id,s.code,JSON.stringify(s),s.created);return s;}
- async requestBody(req){if(req.headers.get('sec-fetch-site')==='cross-site')fail(403,'Requête non autorisée.');const origin=req.headers.get('origin');if(origin&&origin!==new URL(req.url).origin)fail(403,'Requête non autorisée.');if(!req.headers.get('content-type')?.includes('application/json'))fail(415,'Format non accepté.');const maxBody=new URL(req.url).pathname.endsWith('/setup')?60000:20000;if(Number(req.headers.get('content-length')||0)>maxBody)fail(413,'Requête trop volumineuse.');const text=await req.text();if(text.length>maxBody)fail(413,'Requête trop volumineuse.');try{return JSON.parse(text)}catch{fail(400,'Formulaire non valide.');}}
+ async requestBody(req){if(req.headers.get('sec-fetch-site')==='cross-site')fail(403,'Requête non autorisée.');const origin=req.headers.get('origin');if(origin&&origin!==new URL(req.url).origin)fail(403,'Requête non autorisée.');if(!req.headers.get('content-type')?.includes('application/json'))fail(415,'Format non accepté.');const maxBody=new URL(req.url).pathname.endsWith('/teacher/resources')?12000000:new URL(req.url).pathname.endsWith('/setup')?60000:20000;if(Number(req.headers.get('content-length')||0)>maxBody)fail(413,'Requête trop volumineuse.');const text=await req.text();if(text.length>maxBody)fail(413,'Requête trop volumineuse.');try{return JSON.parse(text)}catch{fail(400,'Formulaire non valide.');}}
  async fetch(req){try{return await this.route(req)}catch(e){if(e instanceof Problem)return json({error:e.message},e.status);console.error('Evaluation request failed',e?.message);return json({error:'Service indisponible. Les réponses déjà enregistrées sont conservées. Réessayez.'},503);}}
  async route(req){const url=new URL(req.url),path=url.pathname.replace('/api/evaluations','');
+  if(['GET','HEAD'].includes(req.method)&&path.startsWith('/resources/'))return serveResource(this.sql,req,path.slice('/resources/'.length),false);
+  if(['GET','HEAD'].includes(req.method)&&path.startsWith('/teacher/resources')){this.teacher(req);return path==='/teacher/resources'?listResources(this.sql):serveResource(this.sql,req,path.slice('/teacher/resources/'.length),true);}
   if(path==='/health')return json({ok:true,service:'evaluations',initialized:!!this.one('SELECT key FROM settings WHERE key=?','banks')});
   if(req.method==='GET'&&path==='/session'){const code=field(url.searchParams.get('code'),5,20).replace(/[\s-]/g,'').toUpperCase();const r=this.one('SELECT data FROM sessions WHERE code=?',code);if(!r)fail(404,'Code de séance non reconnu.');const s=JSON.parse(r.data),bank=this.getBanks()[s.assessment];return json({title:bank.title,assessment:s.assessment,level:bank.level,mode:s.mode,minutes:s.minutes,classe:s.classe,open:s.open,label:s.label});}
   if(req.method==='GET'&&path==='/state'){const a=this.student(req),s=this.session(a.sessionId);return json(this.safeAttempt(a,this.getBanks()[s.assessment],s));}
@@ -49,6 +52,7 @@ export class EvaluationStore extends DurableObject{
    return json({assessments:Object.entries(banks).map(([id,{bank,...info}])=>({id,...info,competencies:skillNames(info)})),sessions:this.sql.exec('SELECT data FROM sessions ORDER BY created DESC').toArray().map(r=>this.summary(JSON.parse(r.data),banks))});
   }
   if(req.method!=='POST')fail(404,'Page introuvable.');const b=await this.requestBody(req);
+  if(path==='/teacher/resources'){this.teacher(req);return uploadResource(this.sql,this.ctx,b);}
   if(path==='/setup'){
    if(now()>SETUP_DEADLINE||this.one('SELECT key FROM settings WHERE key=?','passwordHash'))fail(410,'Initialisation fermée.');
    const password=field(b.password,24,100);const banks=b.banks;
