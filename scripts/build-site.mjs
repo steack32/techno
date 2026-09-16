@@ -1,38 +1,32 @@
-import { copyFileSync, cpSync, mkdirSync, rmSync, writeFileSync, readFileSync, statSync } from 'node:fs';
-import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const out = resolve(root, 'dist');
-// Explicit student-only allowlist. Never copy the repository root or teacher folders.
-const lessons = [
-  { level: '5e', title: 'Un objet du quotidien', folder: '5e/objet-du-quotidien', text: 'Observer un objet et comprendre à quel besoin il répond.', guided: true },
-  { level: '4e', title: 'Un éclairage automatique', folder: '4e/eclairage-automatique', text: 'Explorer les capteurs et les règles de commande.' },
-  { level: '3e', title: 'Un portail, deux chaînes', folder: '3e/chaines-information-energie', text: 'Suivre les informations et les transferts d’énergie.' }
-];
-const files = lessons.flatMap(l => [
-  `${l.folder}/eleves/sur-pc/ressources.html`,
-  `${l.folder}/eleves/a-imprimer/fiche-eleve.pdf`,
-  ...(l.guided ? [`${l.folder}/eleves/sur-pc/observation-guidee.html`, `${l.folder}/eleves/a-imprimer/parcours-guide.pdf`] : [])
-]);
-// Fail before cleaning the previous build if any source is missing.
-for (const file of files) {
-  if (!statSync(resolve(root, file)).isFile()) throw new Error(`Fichier manquant : ${file}`);
+import {copyFileSync,cpSync,mkdirSync,rmSync,writeFileSync,readFileSync,statSync} from 'node:fs';
+import {dirname,resolve} from 'node:path';
+import {fileURLToPath} from 'node:url';
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..'),out=resolve(root,'dist');
+const catalog=JSON.parse(readFileSync(resolve(root,'site/catalogue.json'),'utf8'));
+const levels=['5eme','4eme','3eme'];
+const label=level=>level[0]+'ème';
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const path=l=>`/${l.level}/${l.slug}/`;
+const files=l=>['eleves/sur-pc/ressources.html','eleves/a-imprimer/fiche-eleve.pdf',...(l.guided?['eleves/sur-pc/observation-guidee.html','eleves/a-imprimer/parcours-guide.pdf']:[])];
+// Only the explicitly listed pupil resources are published; teacher files stay private.
+const seen=new Set();for(const l of catalog){if(!levels.includes(l.level)||!/^[a-z0-9-]+$/.test(l.slug)||seen.has(path(l)))throw Error('Entrée de catalogue incorrecte');seen.add(path(l));for(const f of l.source?files(l).map(f=>l.source+'/'+f):[l.page])if(!statSync(resolve(root,f)).isFile())throw Error('Source manquante : '+f);}
+const nav=`<nav class="site-nav" aria-label="Navigation principale"><a class="site-brand" href="/">Mon espace techno</a><div class="site-links"><details class="level-menu"><summary>Niveaux</summary><div>${levels.map(l=>`<a href="/${l}/">${label(l)}</a>`).join('')}</div></details><a href="/evaluations/">Contrôles</a></div></nav>`;
+const footer='<footer class="portal-footer">Espace élèves · Technologie<br><a href="/professeur/">Espace professeur</a></footer>';
+const crumbs=l=>`<nav class="breadcrumbs" aria-label="Fil d’Ariane"><a href="/">Accueil</a> / <a href="/${l.level}/">${label(l.level)}</a> / <span>${esc(l.title)}</span></nav>`;
+const page=(title,body)=>`<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)} · Technologie</title><link rel="stylesheet" href="/navigation.css"></head><body class="portal">${nav}<main>${body}</main>${footer}</body></html>`;
+const write=(file,body)=>{const p=resolve(out,file);mkdirSync(dirname(p),{recursive:true});writeFileSync(p,body);};
+const enhance=(html,l)=>html.replace('</head>','<link rel="stylesheet" href="/navigation.css"></head>').replace(/<body([^>]*)>/,`<body$1>${nav}`).replace(/<main([^>]*)>/,`<main$1>${crumbs(l)}`).replaceAll('href="/3e/','href="/3eme/').replaceAll('href="/4e/','href="/4eme/').replaceAll('href="/5e/','href="/5eme/');
+rmSync(out,{recursive:true,force:true});mkdirSync(out,{recursive:true});
+for(const file of ['navigation.css','catalogue.js'])copyFileSync(resolve(root,'site',file),resolve(out,file));
+write('index.html',page('Mon espace techno',`<span class="portal-tag">Les cours de technologie</span><h1>Choisis ton niveau</h1><p>Retrouve tes séquences, puis ouvre la séance indiquée par ton professeur.</p><section class="portal-grid" aria-label="Niveaux">${levels.map(level=>`<article class="portal-card"><span class="portal-tag">Mes cours</span><h2>${label(level)}</h2><p>${catalog.filter(l=>l.level===level).length} séquence${catalog.filter(l=>l.level===level).length>1?'s':''} disponible${catalog.filter(l=>l.level===level).length>1?'s':''}</p><a class="portal-button" href="/${level}/">Voir les séquences →</a></article>`).join('')}</section><aside class="portal-note"><strong>Tu as un contrôle ?</strong><p>Prépare le code donné par ton professeur.</p><a href="/evaluations/">Commencer un contrôle →</a></aside>`));
+for(const level of levels){const lessons=catalog.filter(l=>l.level===level);write(level+'/index.html',page('Séquences de '+label(level),`<nav class="breadcrumbs" aria-label="Fil d’Ariane"><a href="/">Accueil</a> / ${label(level)}</nav><span class="portal-tag">Mes cours de technologie</span><h1>Les séquences de ${label(level)}</h1><p>Choisis la séquence travaillée en classe.</p><div class="portal-search"><label for="sequence-search">Rechercher une séquence</label><input id="sequence-search" type="search" placeholder="Un titre, un thème…"></div><p id="search-status" role="status" aria-live="polite">${lessons.length} séquence${lessons.length>1?'s':''} disponible${lessons.length>1?'s':''}</p><section class="portal-grid" aria-label="Séquences">${lessons.map((l,i)=>`<article class="portal-card" data-sequence><span class="portal-tag">Séquence ${i+1} · ${l.count||1} séance${l.count>1?'s':''}</span><h2>${esc(l.title)}</h2><p>${esc(l.description)}</p><a class="portal-button" href="${path(l)}">Ouvrir la séquence →</a></article>`).join('')}</section><script src="/catalogue.js" defer></script>`));}
+for(const l of catalog){const dest=l.level+'/'+l.slug;
+ if(l.page){let html=readFileSync(resolve(root,l.page),'utf8').replace(/<header class="top">[\s\S]*?<\/header>/,'');html=html.replace('href="/">Toutes les séquences','href="/'+l.level+'/">Toutes les séquences');write(dest+'/index.html',enhance(html,l));}
+ else{for(const file of files(l)){const source=resolve(root,l.source,file),target=dest+'/'+file;if(file.endsWith('.html'))write(target,enhance(readFileSync(source,'utf8'),l));else{mkdirSync(dirname(resolve(out,target)),{recursive:true});copyFileSync(source,resolve(out,target));}}
+ write(dest+'/index.html',page(l.title,`${crumbs(l)}<span class="portal-tag">${label(l.level)} · Séquence</span><h1>${esc(l.title)}</h1><p>${esc(l.description)}</p><section class="portal-card"><span class="portal-tag">Séance 1 · 55 minutes</span><h2>${esc(l.session)}</h2><p>Travaille en binôme sur ordinateur. Conserve la fiche dans ton porte-vues.</p><p><a class="portal-button" href="${path(l)}eleves/sur-pc/ressources.html">Ouvrir l’activité →</a></p><p><a href="${path(l)}eleves/a-imprimer/fiche-eleve.pdf">Fiche élève à imprimer · PDF</a></p>${l.guided?`<details><summary>Parcours accompagné</summary><p><a href="${path(l)}eleves/sur-pc/observation-guidee.html">Ouvrir l’activité guidée</a></p><p><a href="${path(l)}eleves/a-imprimer/parcours-guide.pdf">Fiche accompagnée · PDF</a></p></details>`:''}</section>`));}
 }
-const template = readFileSync(resolve(root, 'site/index.html'), 'utf8');
-rmSync(out, { recursive: true, force: true });
-mkdirSync(out, { recursive: true });
-for (const file of files) {
-  const dest = resolve(out, file);
-  mkdirSync(dirname(dest), { recursive: true });
-  copyFileSync(resolve(root, file), dest);
-}
-const cards = lessons.map(l => `<article><span class="level">${l.level}</span><h2>${l.title}</h2><p>${l.text}</p><a class="button" href="/${l.folder}/eleves/sur-pc/ressources.html">Ouvrir l’activité <span aria-hidden="true">→</span></a><a class="sheet" href="/${l.folder}/eleves/a-imprimer/fiche-eleve.pdf">Fiche élève · PDF</a>${l.guided ? `<details><summary>Parcours guidé</summary><a class="sheet" href="/${l.folder}/eleves/sur-pc/observation-guidee.html">Activité accompagnée</a><a class="sheet" href="/${l.folder}/eleves/a-imprimer/parcours-guide.pdf">Fiche accompagnée · PDF</a></details>` : ''}</article>`).join('\n');
-const sequenceCard = `<article><span class="level">3e</span><h2>Le smartphone : évolution et choix responsables</h2><p>Une séquence en quatre séances : observer, comprendre le cycle de vie, choisir et faire le bilan.</p><a class="button" href="/3e/veille-technologique/">Ouvrir la séquence <span aria-hidden="true">→</span></a></article>`;
-writeFileSync(resolve(out, 'index.html'), template.replace('<!-- LESSONS -->', cards + sequenceCard));
-cpSync(resolve(root, 'site/3e'), resolve(out, '3e'), { recursive: true });
-cpSync(resolve(root, 'site/evaluations'), resolve(out, 'evaluations'), { recursive: true });
-cpSync(resolve(root, 'site/professeur'), resolve(out, 'professeur'), { recursive: true });
-writeFileSync(resolve(out, '404.html'), '<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Page introuvable</title><main><h1>Page introuvable</h1><p>Cette ressource n’est pas disponible.</p><a href="/">Revenir aux activités</a></main></html>');
-writeFileSync(resolve(out, '_headers'), '/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n');
-console.log(`Site prêt : ${files.length} ressources élèves ; aucun dossier professeur publié.`);
+for(const dir of ['evaluations','professeur'])cpSync(resolve(root,'site',dir),resolve(out,dir),{recursive:true});
+write('404.html',page('Page introuvable','<h1>Page introuvable</h1><p>Retrouve les ressources depuis ton niveau.</p><a class="portal-button" href="/">Revenir à l’accueil</a>'));
+write('_redirects',levels.map(l=>`/${l[0]}e /${l}/ 301\n/${l[0]}e/* /${l}/:splat 301`).join('\n')+'\n');
+write('_headers','/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n');
+console.log(`Site prêt : ${levels.length} niveaux, ${catalog.length} séquences ; ressources professeur exclues.`);

@@ -1,0 +1,6 @@
+[
+  {"level":"5eme","slug":"objet-du-quotidien","title":"Un objet du quotidien","description":"Observer un objet et comprendre à quel besoin il répond.","source":"5e/objet-du-quotidien","session":"Observer et décrire un objet","guided":true},
+  {"level":"4eme","slug":"eclairage-automatique","title":"Un éclairage automatique","description":"Explorer les capteurs et les règles de commande.","source":"4e/eclairage-automatique","session":"Comprendre un éclairage automatique"},
+  {"level":"3eme","slug":"veille-technologique","title":"Le smartphone : évolution et choix responsables","description":"Évolution du téléphone, cycle de vie, choix durable et bilan.","page":"site/3eme/veille-technologique/index.html","count":4},
+  {"level":"3eme","slug":"chaines-information-energie","title":"Un portail, deux chaînes","description":"Suivre les informations et les transferts d’énergie.","source":"3e/chaines-information-energie","session":"Identifier les chaînes d’information et d’énergie"}
+]
