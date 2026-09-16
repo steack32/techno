@@ -1,0 +1,10 @@
+{
+  "name": "techno",
+  "compatibility_date": "2026-09-16",
+  "workers_dev": true,
+  "build": { "command": "node scripts/build-site.mjs" },
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}
