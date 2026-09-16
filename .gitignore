@@ -2,6 +2,9 @@ __pycache__/
 *.pyc
 tmp/
 output/
+dist/
+.wrangler/
+node_modules/
 
 # Documents accessibles individuellement, sans archives ZIP
 *.[zZ][iI][pP]
