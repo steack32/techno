@@ -1,3 +1,4 @@
+const RETIRED_RESOURCES=new Set(["01-evolution-telephone-fiche-eleve.pdf","01-evolution-telephone-fiche-eleve.docx","01-evolution-telephone-cartes.pdf","01-evolution-telephone-cartes.docx","02-cycle-vie-smartphone-video.mp4","02-cycle-vie-smartphone-fiche-eleve.pdf","02-cycle-vie-smartphone-fiche-eleve.docx","02-cycle-vie-smartphone-qcm-video.pdf","02-cycle-vie-smartphone-qcm-video.docx","03-choisir-smartphone-durable-fiche-eleve.pdf","03-choisir-smartphone-durable-fiche-eleve.docx"]);
 const TYPES=new Set(['application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','video/mp4','image/jpeg','image/png']);
 const respond=(v,status=200)=>Response.json(v,{status,headers:{'Cache-Control':'no-store'}});
 export function resourceTables(sql){sql.exec('CREATE TABLE IF NOT EXISTS resource_files (slug TEXT PRIMARY KEY, meta TEXT NOT NULL); CREATE TABLE IF NOT EXISTS resource_parts (slug TEXT NOT NULL, n INTEGER NOT NULL, data TEXT NOT NULL, PRIMARY KEY(slug,n));');}
@@ -12,6 +13,7 @@ export async function uploadResource(sql,ctx,b){
 }
 export function listResources(sql){return respond({resources:sql.exec('SELECT meta FROM resource_files ORDER BY slug').toArray().map(r=>JSON.parse(r.meta))});}
 export function serveResource(sql,req,slug,teacher){
+ if(RETIRED_RESOURCES.has(slug))return respond({error:'Ressource introuvable.'},404);
  const row=sql.exec('SELECT meta FROM resource_files WHERE slug=?',slug).toArray()[0];if(!row)return respond({error:'Ressource introuvable.'},404);
  const m=JSON.parse(row.meta);if(!m.public&&!teacher)return respond({error:'Ressource introuvable.'},404);
  let start=0,end=m.size-1,status=200;const range=req.headers.get('range');
