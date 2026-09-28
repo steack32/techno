@@ -11,6 +11,6 @@ Cinq séances de 55 minutes, adaptées des fiches élèves Word. Les élèves co
 - Sauvegarde JSON exportable/importable, impression des réponses et cache temporaire par onglet. En cas d’échec réseau, le statut signale clairement que le serveur n’a pas enregistré. Les révisions préviennent l’écrasement depuis deux postes.
 - Les coups de pouce affichent des consignes complémentaires ; les réponses restent conservées lors du changement.
 
-Les huit schémas proviennent de la séquence pédagogique. Les cinq photographies sont reproduites sans recadrage, redimensionnées et encodées en WebP ; auteurs, sources Wikimedia Commons et licences sont affichés sous chaque photographie dans `content.js`.
+Le premier schéma de la séance 1 est l’image de pont à haubans fournie par le professeur. Les sept autres schémas proviennent de la séquence pédagogique. Les cinq photographies sont reproduites sans recadrage, redimensionnées et encodées en WebP ; auteurs, sources Wikimedia Commons et licences sont affichés sous chaque photographie dans `content.js`.
 
 Vérification serveur : `node tests/ponts.test.mjs`. Construction : `node scripts/build-site.mjs`.
