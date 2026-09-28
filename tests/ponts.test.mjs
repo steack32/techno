@@ -1,0 +1,28 @@
+import assert from 'node:assert/strict';
+import {DatabaseSync} from 'node:sqlite';
+import {initPonts,pontsRoute} from '../worker/ponts.js';
+const db=new DatabaseSync(':memory:');
+const sql={exec(query,...args){if(!args.length&&query.startsWith('CREATE')){db.exec(query);return{toArray:()=>[]}}const st=db.prepare(query);return{toArray:()=>st.all(...args)}}};
+// The production API executes SQL eagerly, including mutations.
+sql.exec=(query,...args)=>{if(!args.length&&query.startsWith('CREATE')){db.exec(query);return{toArray:()=>[]}}const st=db.prepare(query);const rows=st.all(...args);return{toArray:()=>rows}};
+initPonts(sql);
+const store={sql,one:(s,...a)=>sql.exec(s,...a).toArray()[0],teacher(req){if(req.headers.get('cookie')!=='test=teacher')throw Error('Unauthorized')},limited(){}};
+const call=(path,{body,token,teacher,origin}={})=>pontsRoute(store,new Request('https://example.test/api/evaluations'+path,{method:body===undefined?'GET':'POST',headers:{...(body===undefined?{}:{'content-type':'application/json'}),...(token?{authorization:'Bearer '+token}:{}),...(teacher?{cookie:'test=teacher'}:{}),...(origin?{origin}:{})},body:body===undefined?undefined:JSON.stringify(body)}),path);
+let r=await call('/ponts/create',{body:{}});assert.equal(r.status,201);const {token,workbook}=await r.json();assert.match(token,/^[A-F0-9]{32}$/);
+assert.equal((await call('/ponts/state')).status,401);
+assert.equal((await call('/ponts/state',{token:'F'.repeat(32)})).status,401);
+let payload={revision:0,answers:{s1_need:'Franchir la rivière',s4_e1_why:'Test réussi'},lesson:4,guided:true};
+r=await call('/ponts/save',{body:payload,token});assert.equal(r.status,200);assert.equal((await r.json()).revision,1);
+r=await call('/ponts/state',{token});assert.equal((await r.json()).answers.s1_need,'Franchir la rivière');
+assert.equal((await call('/ponts/save',{body:payload,token})).status,409);
+assert.equal((await call('/ponts/save',{body:{...payload,revision:1,answers:{s1_need:'a'.repeat(2501)}},token})).status,400);
+assert.equal((await call('/ponts/save',{body:{...payload,revision:1},token,origin:'https://evil.test'})).status,403);
+r=await call('/ponts/submit',{body:{...payload,revision:1},token});assert.equal(r.status,200);assert.ok((await r.json()).submitted);
+await assert.rejects(()=>call('/teacher/ponts'),/Unauthorized/);
+r=await call('/teacher/ponts',{teacher:true});const summary=await r.json();assert.equal(summary.workbooks.length,1);assert.ok(!JSON.stringify(summary).includes(token));assert.ok(!JSON.stringify(summary).includes('Franchir'));
+r=await pontsRoute(store,new Request('https://example.test/api/evaluations/teacher/ponts/review?id='+workbook.id,{headers:{cookie:'test=teacher'}}),'/teacher/ponts/review');assert.equal((await r.json()).answers.s1_need,'Franchir la rivière');
+r=await call('/ponts/save',{body:{...payload,revision:2},token});assert.equal((await r.json()).submitted,null);
+assert.equal((await call('/teacher/ponts/delete',{teacher:true,body:{id:workbook.id}})).status,400);
+assert.equal((await call('/teacher/ponts/delete',{teacher:true,body:{id:workbook.id,confirm:true}})).status,200);
+assert.equal((await call('/ponts/state',{token})).status,401);
+console.log('PASS: reprise, sauvegarde, conflits, limites, origine, transmission, protection professeur, suppression');

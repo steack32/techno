@@ -1,5 +1,31 @@
 [
   {
+    "level": "5eme",
+    "slug": "ponts",
+    "title": "Les ponts",
+    "description": "Observer les structures, construire un pont dans Bridge Designer 2016 et améliorer sa résistance et son coût. Un carnet interactif à compléter et à retrouver avec son code.",
+    "count": 5,
+    "page": "site/5eme/ponts/index.html",
+    "assets": [
+      "content.js",
+      "app.js",
+      "style.css",
+      "assets/anatomie.svg",
+      "assets/familles.svg",
+      "assets/efforts.svg",
+      "assets/triangles.svg",
+      "assets/plan.svg",
+      "assets/sections.svg",
+      "assets/lecture_test.svg",
+      "assets/eval_efforts.svg",
+      "assets/suspension.webp",
+      "assets/beam.webp",
+      "assets/arch.webp",
+      "assets/cable.webp",
+      "assets/truss.webp"
+    ]
+  },
+  {
     "level": "4eme",
     "slug": "eclairage-automatique",
     "title": "Un éclairage automatique",

@@ -1,3 +1,4 @@
+import { initPonts, pontsRoute } from './ponts.js';
 import { resourceTables, uploadResource, listResources, serveResource } from './resources.js';
 import { DurableObject } from 'cloudflare:workers';
 const enc=new TextEncoder();
@@ -21,7 +22,7 @@ function grade(a,bank){const scores=[0,0];for(const q of a.questions)if(a.answer
 const csvCell=v=>'"'+String(v??'').replace(/^[=+\-@\t\r]/,"'$&").replaceAll('"','""')+'"';
 
 export class EvaluationStore extends DurableObject{
- constructor(ctx,env){super(ctx,env);this.sql=ctx.storage.sql;resourceTables(this.sql);
+ constructor(ctx,env){super(ctx,env);this.sql=ctx.storage.sql;resourceTables(this.sql);initPonts(this.sql);
   this.sql.exec(`CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY,value TEXT NOT NULL); CREATE TABLE IF NOT EXISTS auth (token TEXT PRIMARY KEY,expires INTEGER NOT NULL); CREATE TABLE IF NOT EXISTS sessions (id TEXT PRIMARY KEY,code TEXT UNIQUE NOT NULL,data TEXT NOT NULL,created INTEGER NOT NULL); CREATE TABLE IF NOT EXISTS attempts (id TEXT PRIMARY KEY,token TEXT UNIQUE NOT NULL,session_id TEXT NOT NULL,data TEXT NOT NULL,created INTEGER NOT NULL); CREATE TABLE IF NOT EXISTS identities (session_id TEXT NOT NULL,identity TEXT NOT NULL,attempt_id TEXT NOT NULL,PRIMARY KEY(session_id,identity)); CREATE INDEX IF NOT EXISTS attempts_session ON attempts(session_id); CREATE TABLE IF NOT EXISTS throttle (key TEXT PRIMARY KEY,count INTEGER NOT NULL,until INTEGER NOT NULL);`);
  }
  one(sql,...args){return this.sql.exec(sql,...args).toArray()[0];}
@@ -40,6 +41,7 @@ export class EvaluationStore extends DurableObject{
  async requestBody(req){if(req.headers.get('sec-fetch-site')==='cross-site')fail(403,'Requête non autorisée.');const origin=req.headers.get('origin');if(origin&&origin!==new URL(req.url).origin)fail(403,'Requête non autorisée.');if(!req.headers.get('content-type')?.includes('application/json'))fail(415,'Format non accepté.');const maxBody=new URL(req.url).pathname.endsWith('/teacher/resources')?12000000:new URL(req.url).pathname.endsWith('/setup')?60000:20000;if(Number(req.headers.get('content-length')||0)>maxBody)fail(413,'Requête trop volumineuse.');const text=await req.text();if(text.length>maxBody)fail(413,'Requête trop volumineuse.');try{return JSON.parse(text)}catch{fail(400,'Formulaire non valide.');}}
  async fetch(req){try{return await this.route(req)}catch(e){if(e instanceof Problem)return json({error:e.message},e.status);console.error('Evaluation request failed',e?.message);return json({error:'Service indisponible. Les réponses déjà enregistrées sont conservées. Réessayez.'},503);}}
  async route(req){const url=new URL(req.url),path=url.pathname.replace('/api/evaluations','');
+  if(path.startsWith('/ponts/')||path==='/teacher/ponts'||path.startsWith('/teacher/ponts/'))return pontsRoute(this,req,path);
   if(['GET','HEAD'].includes(req.method)&&path.startsWith('/resources/'))return serveResource(this.sql,req,path.slice('/resources/'.length),false);
   if(['GET','HEAD'].includes(req.method)&&path.startsWith('/teacher/resources')){this.teacher(req);return path==='/teacher/resources'?listResources(this.sql):serveResource(this.sql,req,path.slice('/teacher/resources/'.length),true);}
   if(path==='/health')return json({ok:true,service:'evaluations',initialized:!!this.one('SELECT key FROM settings WHERE key=?','banks')});
