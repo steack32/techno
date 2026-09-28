@@ -37,7 +37,7 @@ export async function pontsRoute(store,req,path){
   if(store.one('SELECT count(*) AS n FROM ponts_workbooks').n>=5000)return reply({error:'Le professeur doit archiver des copies avant de continuer.'},409);
   const token=crypto.randomUUID().replaceAll('-','').toUpperCase();
   const id='P-'+crypto.randomUUID().replaceAll('-','').slice(0,12).toUpperCase();
-  const d={id,created:Date.now(),updated:Date.now(),submitted:null,revision:0,answers:{},lesson:1,guided:false};
+  const d={id,created:Date.now(),updated:Date.now(),submitted:null,revision:0,answers:{},lesson:1,guided:b?.guided===true};
   store.sql.exec('INSERT INTO ponts_workbooks VALUES(?,?,?,?)',id,token,JSON.stringify(d),d.updated);return reply({token,workbook:d},201);
  }
  const token=req.headers.get('authorization')?.replace(/^Bearer /,'');
@@ -48,6 +48,7 @@ export async function pontsRoute(store,req,path){
  if((path==='/ponts/save'||path==='/ponts/submit')&&req.method==='POST'){
   if(b?.revision!==d.revision)return reply({error:'Cette copie a changé sur un autre onglet ou poste. Télécharge ta sauvegarde, puis quitte et reprends avec ton code.'},409);
   let clean;try{clean=validateWorkbook(b)}catch(e){return reply({error:e.message},400)}
+  if(clean.guided!==d.guided)return reply({error:'Ce carnet appartient à un autre parcours.'},400);
   Object.assign(d,clean,{revision:d.revision+1,updated:Date.now(),submitted:path.endsWith('/submit')?Date.now():null});
   store.sql.exec('UPDATE ponts_workbooks SET data=?,updated=? WHERE id=?',JSON.stringify(d),d.updated,d.id);return reply(d);
  }

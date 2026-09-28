@@ -11,7 +11,7 @@ const call=(path,{body,token,teacher,origin}={})=>pontsRoute(store,new Request('
 let r=await call('/ponts/create',{body:{}});assert.equal(r.status,201);const {token,workbook}=await r.json();assert.match(token,/^[A-F0-9]{32}$/);
 assert.equal((await call('/ponts/state')).status,401);
 assert.equal((await call('/ponts/state',{token:'F'.repeat(32)})).status,401);
-let payload={revision:0,answers:{s1_need:'Franchir la rivière',s4_e1_why:'Test réussi'},lesson:4,guided:true};
+let payload={revision:0,answers:{s1_need:'Franchir la rivière',s4_e1_why:'Test réussi'},lesson:4,guided:false};
 r=await call('/ponts/save',{body:payload,token});assert.equal(r.status,200);assert.equal((await r.json()).revision,1);
 r=await call('/ponts/state',{token});assert.equal((await r.json()).answers.s1_need,'Franchir la rivière');
 assert.equal((await call('/ponts/save',{body:payload,token})).status,409);
@@ -25,4 +25,8 @@ r=await call('/ponts/save',{body:{...payload,revision:2},token});assert.equal((a
 assert.equal((await call('/teacher/ponts/delete',{teacher:true,body:{id:workbook.id}})).status,400);
 assert.equal((await call('/teacher/ponts/delete',{teacher:true,body:{id:workbook.id,confirm:true}})).status,200);
 assert.equal((await call('/ponts/state',{token})).status,401);
+const guidedCreate=await call('/ponts/create',{body:{guided:true}});assert.equal(guidedCreate.status,201);
+const guidedToken=(await guidedCreate.json()).token;
+assert.equal((await call('/ponts/save',{token:guidedToken,body:{revision:0,answers:{s1_use:'Franchir un obstacle'},lesson:1,guided:true}})).status,200);
+assert.equal((await call('/ponts/save',{token:guidedToken,body:{revision:1,answers:{},lesson:1,guided:false}})).status,400);
 console.log('PASS: reprise, sauvegarde, conflits, limites, origine, transmission, protection professeur, suppression');
