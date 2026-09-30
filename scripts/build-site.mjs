@@ -27,7 +27,7 @@ for(const l of catalog){const dest=l.level+'/'+l.slug;
  else write(dest+'/index.html',page(l.title,`${crumbs(l)}<span class="portal-tag">${label(l.level)} · Séquence</span><h1>${esc(l.title)}</h1><p>${esc(l.description)}</p><section class="portal-card"><span class="portal-tag">Séance 1 · 55 minutes</span><h2>${esc(l.session)}</h2><p>Travaille en binôme sur ordinateur. Conserve la fiche dans ton porte-vues.</p><p><a class="portal-button" href="${path(l)}eleves/sur-pc/ressources.html">Ouvrir l’activité →</a></p><p><a href="${path(l)}eleves/a-imprimer/fiche-eleve.pdf">Fiche élève à imprimer · PDF</a></p>${l.guided?`<details><summary>Parcours accompagné</summary><p><a href="${path(l)}eleves/sur-pc/observation-guidee.html">Ouvrir l’activité guidée</a></p><p><a href="${path(l)}eleves/a-imprimer/parcours-guide.pdf">Fiche accompagnée · PDF</a></p></details>`:''}</section>`));}
 }
 mkdirSync(resolve(out,'5eme/ponts-guides'),{recursive:true});
-copyFileSync(resolve(root,'site/5eme/ponts-guides/index.html'),resolve(out,'5eme/ponts-guides/index.html'));
+write('5eme/ponts-guides/index.html',enhance(readFileSync(resolve(root,'site/5eme/ponts-guides/index.html'),'utf8'),{level:'5eme',title:'Les ponts · Parcours guidé'}));
 copyFileSync(resolve(root,'site/5eme/ponts/guided-content.js'),resolve(out,'5eme/ponts/guided-content.js'));
 for(const dir of ['evaluations','professeur'])cpSync(resolve(root,'site',dir),resolve(out,dir),{recursive:true});
 write('404.html',page('Page introuvable','<h1>Page introuvable</h1><p>Retrouve les ressources depuis ton niveau.</p><a class="portal-button" href="/">Revenir à l’accueil</a>'));
