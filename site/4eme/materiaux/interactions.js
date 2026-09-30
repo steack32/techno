@@ -18,10 +18,12 @@ export function setupInteractions({read,write,notice}){
   lab.querySelector('[data-reset]').onclick=()=>{for(const el of controls)el.value=String({material:'bois',span:80,thickness:number===4?10:15,shape:'plein',load:10}[el.dataset.setting]);render()};
   lab.querySelector('[data-record]').onclick=()=>{
    const {p,result}=render();const text=`${materials[p.material].name} ; portée ${p.span} cm ; hauteur ${p.thickness} mm ; section ${p.shape==='plein'?'pleine':'creuse'} ; charge ${p.load} kg ; flèche ${f(result.deflection)} mm ; masse ${f(result.mass)} kg.${!result.valid?' Modèle hors domaine des petites déformations.':''}`;
-   const key=number===4?'s4_solution':[1,2,3].map(i=>'s3_trial'+i).find(id=>!read(id));
-   if(!key){notice('Tes trois essais sont remplis. Efface le champ de l’essai à remplacer avant d’en enregistrer un nouveau.');return;}
-   if(number===4&&read(key)&&!confirm('Remplacer la solution enregistrée par ce réglage ?'))return;
-   write(key,text);lab.querySelector('[data-record-status]').textContent=number===4?'Solution copiée dans ton carnet.':'Essai copié dans le champ '+key.slice(-1)+'.';
+   const slot=number===3?Number(lab.querySelector('#trial-slot').value):0;
+   const key=number===4?'s4_solution':'s3_trial'+slot;
+   if(number===3){const expected={material:'bois',span:slot===3?40:80,thickness:slot===2?30:15,shape:'plein',load:10};if(Object.entries(expected).some(([k,v])=>String(p[k])!==String(v))){lab.querySelector('[data-record-status]').textContent='Réglages à corriger pour cet essai : bois, section pleine, portée '+expected.span+' cm, hauteur '+expected.thickness+' mm, charge 10 kg.';return;}}
+   if(number===4&&!result.pass){lab.querySelector('[data-record-status]').textContent='Ajuste les réglages : les quatre contraintes doivent être respectées avant de conserver la solution.';return;}
+      if(read(key)&&!confirm('Remplacer cet enregistrement par le résultat actuel ?'))return;
+   if(!write(key,text))return;lab.querySelector('[data-record-status]').textContent=number===4?'Solution copiée dans ton carnet.':'Essai '+['A','B','C'][slot-1]+' enregistré. Choisis le prochain essai dans la liste.';
   };render();
  }
  const descriptions={Traction:'Deux actions tirent la pièce : elle s’allonge.',Compression:'Deux actions poussent sur la pièce : elle se raccourcit. Une pièce élancée peut aussi flamber.',Flexion:'La charge courbe la pièce entre ses appuis.',Torsion:'Deux actions de rotation opposées tordent la pièce.'};

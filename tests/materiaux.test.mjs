@@ -11,7 +11,7 @@ const call=(path,{body,token,teacher,origin}={})=>materiauxRoute(store,new Reque
 let r=await call('/materiaux/create',{body:{}});assert.equal(r.status,201);const {token,workbook}=await r.json();assert.match(token,/^[A-F0-9]{32}$/);
 assert.equal((await call('/materiaux/state')).status,401);
 assert.equal((await call('/materiaux/state',{token:'F'.repeat(32)})).status,401);
-let payload={revision:0,answers:{s1_need:'Franchir la rivière',s4_e1_why:'Test réussi'},lesson:4,guided:false};
+let payload={revision:0,answers:{s1_idea_v2:'Augmenter l’épaisseur de la planche',s1_need:'Franchir la rivière',s4_e1_why:'Test réussi'},lesson:4,guided:false};
 r=await call('/materiaux/save',{body:payload,token});assert.equal(r.status,200);assert.equal((await r.json()).revision,1);
 r=await call('/materiaux/state',{token});assert.equal((await r.json()).answers.s1_need,'Franchir la rivière');
 assert.equal((await call('/materiaux/save',{body:payload,token})).status,409);

@@ -1,6 +1,14 @@
 # Technologie - Accueil professeur
 
-**Les élèves répondent uniquement sur leur fiche papier.** Le PC sert à observer les documents et à réaliser les essais. La fiche corrigée, avec sa synthèse, reste dans le porte-vues.
+**Sur le site publié, les réponses sont structurées : QCM, associations et valeurs numériques, avec correction immédiate et nouvel essai.** Les ponts (normal et guidé) et les matériaux utilisent les carnets sauvegardés. L’éclairage et les deux séances sur les chaînes proposent des entraînements mémorisés dans l’onglet, sans transmission au professeur. Les PDF publiés reprennent les mêmes questions fermées.
+
+Les anciennes réponses des carnets sont conservées en lecture seule. Les relevés externes Bridge Designer sont déclaratifs ; seuls les connaissances et calculs peuvent être vérifiés par le site. Aucun paramétrage supplémentaire n’est nécessaire.
+
+Pour le contenu publié, modifier `site/objective-questions.js` et `site/digital-activities.js`. Régénérer les trois fiches fermées avec `scripts/generate-objective-pdfs.py` (Python avec ReportLab et pypdf), puis construire avec `node scripts/build-site.mjs`. Les scripts historiques ci-dessous produisent des supports papier antérieurs : ne pas les relancer pour remplacer les pages publiées.
+
+## Supports papier historiques du dépôt
+
+Les indications suivantes concernent les anciens supports, dont certains ne sont pas publiés sur le site.
 
 ## Préparer et lancer les séances
 
