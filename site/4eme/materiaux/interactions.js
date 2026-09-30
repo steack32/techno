@@ -15,7 +15,7 @@ export function setupInteractions({read,write,notice}){
    return {p,result};
   };
   for(const el of controls)el.onchange=render;
-  lab.querySelector('[data-reset]').onclick=()=>{for(const el of controls)el.value=String({material:'bois',span:80,thickness:15,shape:'plein',load:10}[el.dataset.setting]);render()};
+  lab.querySelector('[data-reset]').onclick=()=>{for(const el of controls)el.value=String({material:'bois',span:80,thickness:number===4?10:15,shape:'plein',load:10}[el.dataset.setting]);render()};
   lab.querySelector('[data-record]').onclick=()=>{
    const {p,result}=render();const text=`${materials[p.material].name} ; portée ${p.span} cm ; hauteur ${p.thickness} mm ; section ${p.shape==='plein'?'pleine':'creuse'} ; charge ${p.load} kg ; flèche ${f(result.deflection)} mm ; masse ${f(result.mass)} kg.${!result.valid?' Modèle hors domaine des petites déformations.':''}`;
    const key=number===4?'s4_solution':[1,2,3].map(i=>'s3_trial'+i).find(id=>!read(id));
