@@ -34,6 +34,22 @@
     "session": "Comprendre un éclairage automatique"
   },
   {
+    "level": "4eme",
+    "slug": "materiaux",
+    "title": "Matériaux et résistance",
+    "description": "Choisir un matériau, comprendre les efforts et concevoir une étagère légère grâce aux animations et au simulateur.",
+    "count": 4,
+    "page": "site/4eme/materiaux/index.html",
+    "assets": [
+      "content.js",
+      "app.js",
+      "model.js",
+      "interactions.js",
+      "style.css",
+      "synthese-materiaux.pdf"
+    ]
+  },
+  {
     "level": "3eme",
     "slug": "chaines-information-energie",
     "title": "Un portail, deux chaînes",
