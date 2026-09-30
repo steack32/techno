@@ -1,6 +1,6 @@
 // Independent workbook storage; no migration of the existing evaluation tables.
 const reply=(v,status=200)=>Response.json(v,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
-export function initPonts(sql){sql.exec('CREATE TABLE IF NOT EXISTS ponts_workbooks (id TEXT PRIMARY KEY, token TEXT UNIQUE NOT NULL, data TEXT NOT NULL, updated INTEGER NOT NULL)');}
+export function initPonts(sql){sql.exec('CREATE TABLE IF NOT EXISTS ponts_classes (id TEXT PRIMARY KEY, classe TEXT NOT NULL)');sql.exec('CREATE TABLE IF NOT EXISTS ponts_access (classe TEXT PRIMARY KEY, through INTEGER NOT NULL)');sql.exec('CREATE TABLE IF NOT EXISTS ponts_workbooks (id TEXT PRIMARY KEY, token TEXT UNIQUE NOT NULL, data TEXT NOT NULL, updated INTEGER NOT NULL)');}
 export function validateWorkbook(value){
  if(!value||typeof value!=='object'||Array.isArray(value)||!value.answers||typeof value.answers!=='object'||Array.isArray(value.answers))throw Error('Réponses non valides.');
  const entries=Object.entries(value.answers);
@@ -8,6 +8,9 @@ export function validateWorkbook(value){
  if(!Number.isInteger(value.lesson)||value.lesson<1||value.lesson>5||typeof value.guided!=='boolean')throw Error('Séance non valide.');
  return {answers:Object.fromEntries(entries),lesson:value.lesson,guided:value.guided};
 }
+const className=value=>typeof value==='string'&&/^[A-Za-z0-9À-ÿ ()_-]{0,30}$/.test(value.trim())?value.trim().toUpperCase():null;
+const access=(store,id)=>{const classe=store.one('SELECT classe FROM ponts_classes WHERE id=?',id)?.classe||'';return store.one('SELECT through FROM ponts_access WHERE classe=?',classe)?.through??5;};
+const pupil=(store,d)=>({...d,openThrough:access(store,d.id)});
 export async function pontsRoute(store,req,path){
  const teacher=path.startsWith('/teacher/ponts');
  if(teacher)store.teacher(req);
@@ -21,13 +24,21 @@ export async function pontsRoute(store,req,path){
   try{b=JSON.parse(raw)}catch{return reply({error:'Formulaire non valide.'},400)}
  }
  if(teacher){
+  if(path==='/teacher/ponts/access'&&req.method==='POST'){
+   const classe=className(b?.classe);if(classe===null||!Number.isInteger(b?.through)||b.through<1||b.through>5)return reply({error:'Classe ou séance non valide.'},400);
+   store.sql.exec('INSERT OR REPLACE INTO ponts_access VALUES(?,?)',classe,b.through);return reply({ok:true});
+  }
   if(path==='/teacher/ponts'&&req.method==='GET'){
    const rows=store.sql.exec('SELECT data FROM ponts_workbooks ORDER BY updated DESC LIMIT 5000').toArray();
-   return reply({workbooks:rows.map(r=>{const d=JSON.parse(r.data);return {id:d.id,created:d.created,updated:d.updated,submitted:d.submitted,lesson:d.lesson,guided:d.guided,answered:Object.values(d.answers).filter(v=>v.trim()).length}})});
+   return reply({access:store.sql.exec('SELECT classe,through FROM ponts_access ORDER BY classe').toArray(),workbooks:rows.map(r=>{const d=JSON.parse(r.data);return {classe:store.one('SELECT classe FROM ponts_classes WHERE id=?',d.id)?.classe||'',id:d.id,created:d.created,updated:d.updated,submitted:d.submitted,lesson:d.lesson,guided:d.guided,answered:Object.values(d.answers).filter(v=>v.trim()).length}})});
   }
   const id=req.method==='GET'?new URL(req.url).searchParams.get('id'):b?.id;
   if(typeof id!=='string'||!/^P-[A-F0-9]{12}$/.test(id))return reply({error:'Copie non valide.'},400);
   const r=store.one('SELECT data FROM ponts_workbooks WHERE id=?',id);if(!r)return reply({error:'Copie introuvable.'},404);
+  if(path==='/teacher/ponts/class'&&req.method==='POST'){
+   const classe=className(b?.classe);if(classe===null)return reply({error:'Classe non valide (30 caractères maximum).'},400);
+   store.sql.exec('INSERT OR REPLACE INTO ponts_classes VALUES(?,?)',id,classe);return reply({ok:true});
+  }
   if(path==='/teacher/ponts/review'&&req.method==='GET')return reply(JSON.parse(r.data));
   if(path==='/teacher/ponts/delete'&&req.method==='POST'&&b.confirm===true){store.sql.exec('DELETE FROM ponts_workbooks WHERE id=?',id);return reply({ok:true});}
   return reply({error:'Action inconnue.'},400);
@@ -38,19 +49,25 @@ export async function pontsRoute(store,req,path){
   const token=crypto.randomUUID().replaceAll('-','').toUpperCase();
   const id='P-'+crypto.randomUUID().replaceAll('-','').slice(0,12).toUpperCase();
   const d={id,created:Date.now(),updated:Date.now(),submitted:null,revision:0,answers:{},lesson:1,guided:b?.guided===true};
-  store.sql.exec('INSERT INTO ponts_workbooks VALUES(?,?,?,?)',id,token,JSON.stringify(d),d.updated);return reply({token,workbook:d},201);
+  store.sql.exec('INSERT INTO ponts_workbooks VALUES(?,?,?,?)',id,token,JSON.stringify(d),d.updated);return reply({token,workbook:pupil(store,d)},201);
  }
  const token=req.headers.get('authorization')?.replace(/^Bearer /,'');
  if(!token||! /^[A-F0-9]{32}$/.test(token))return reply({error:'Code de reprise non valide.'},401);
  const row=store.one('SELECT data FROM ponts_workbooks WHERE token=?',token);if(!row)return reply({error:'Code inconnu ou copie supprimée.'},401);
  const d=JSON.parse(row.data);
- if(path==='/ponts/state'&&req.method==='GET')return reply(d);
+ if(path==='/ponts/access'&&req.method==='GET')return reply({openThrough:access(store,d.id)});
+ if(path==='/ponts/state'&&req.method==='GET')return reply(pupil(store,d));
  if((path==='/ponts/save'||path==='/ponts/submit')&&req.method==='POST'){
   if(b?.revision!==d.revision)return reply({error:'Cette copie a changé sur un autre onglet ou poste. Télécharge ta sauvegarde, puis quitte et reprends avec ton code.'},409);
   let clean;try{clean=validateWorkbook(b)}catch(e){return reply({error:e.message},400)}
   if(clean.guided!==d.guided)return reply({error:'Ce carnet appartient à un autre parcours.'},400);
+  const through=access(store,d.id);
+  for(const key of new Set([...Object.keys(d.answers),...Object.keys(clean.answers)])){
+   if(Number(key[1])>through&&(clean.answers[key]||'')!==(d.answers[key]||''))return reply({error:'Cette séance n’est pas encore ouverte par le professeur.'},403);
+  }
+  clean.lesson=Math.min(clean.lesson,through);
   Object.assign(d,clean,{revision:d.revision+1,updated:Date.now(),submitted:path.endsWith('/submit')?Date.now():null});
-  store.sql.exec('UPDATE ponts_workbooks SET data=?,updated=? WHERE id=?',JSON.stringify(d),d.updated,d.id);return reply(d);
+  store.sql.exec('UPDATE ponts_workbooks SET data=?,updated=? WHERE id=?',JSON.stringify(d),d.updated,d.id);return reply(pupil(store,d));
  }
  return reply({error:'Page introuvable.'},404);
 }
