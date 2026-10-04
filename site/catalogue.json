@@ -69,5 +69,21 @@
         "pdf": "eleves/a-imprimer/seance2-portail-automatique.pdf"
       }
     ]
+  },
+  {
+    "level": "4eme",
+    "slug": "codage-information",
+    "title": "Des bits aux images",
+    "description": "Compter en binaire, décoder des messages et dessiner avec des pixels. Trois séances interactives corrigées.",
+    "count": 3,
+    "page": "site/4eme/codage-information/index.html"
+  },
+  {
+    "level": "3eme",
+    "slug": "codage-information",
+    "title": "Coder, transmettre, afficher",
+    "description": "Choisir un codage, construire une trame et explorer les couleurs RVB et l’hexadécimal. Trois séances interactives corrigées.",
+    "count": 3,
+    "page": "site/3eme/codage-information/index.html"
   }
 ]

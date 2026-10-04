@@ -29,7 +29,7 @@ for(const l of catalog){const dest=l.level+'/'+l.slug;
 mkdirSync(resolve(out,'5eme/ponts-guides'),{recursive:true});
 write('5eme/ponts-guides/index.html',enhance(readFileSync(resolve(root,'site/5eme/ponts-guides/index.html'),'utf8'),{level:'5eme',title:'Les ponts · Parcours guidé'}));
 copyFileSync(resolve(root,'site/5eme/ponts/guided-content.js'),resolve(out,'5eme/ponts/guided-content.js'));
-for(const dir of ['evaluations','professeur'])cpSync(resolve(root,'site',dir),resolve(out,dir),{recursive:true});
+for(const dir of ['codage','evaluations','professeur'])cpSync(resolve(root,'site',dir),resolve(out,dir),{recursive:true});
 write('404.html',page('Page introuvable','<h1>Page introuvable</h1><p>Retrouve les ressources depuis ton niveau.</p><a class="portal-button" href="/">Revenir à l’accueil</a>'));
 write('_redirects',levels.map(l=>`/${l[0]}e /${l}/ 301\n/${l[0]}e/* /${l}/:splat 301`).join('\n')+'\n');
 write('_headers','/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n');
