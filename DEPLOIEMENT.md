@@ -6,7 +6,7 @@ Le Worker `techno` publie les ressources élèves et deux évaluations :
 - `/professeur/` : connexion professeur, séances, copies et export CSV ;
 - `/api/evaluations/health` : état technique sans données personnelles.
 
-Le contrôle de 4e reprend le document « Comment choisir ma trottinette électrique ? » fourni par le professeur. Il comporte 20 questions, vaut 20 points et dure 25 minutes par défaut. Mission Savon reprend les 20 questions et variantes de l’évaluation de 3e existante ; elle dure 40 minutes par défaut et se fait en binôme.
+Le contrôle de 4e reprend le document « Comment choisir ma trottinette électrique ? » fourni par le professeur. Il comporte 20 questions, vaut 20 points et dure 25 minutes par défaut. Mission Savon reprend les 20 questions et variantes de l’évaluation de 3e existante ; elle dure 40 minutes par défaut et se fait en binôme. Le contrôle de 5e « Choisir une trottinette électrique » comporte aussi 20 questions, dure 25 minutes par défaut et se fait individuellement. Il n’a pas de note sur 20 : deux compétences, chacune sur 10 bonnes réponses. 10 = Vert + ; 8 ou 9 = Vert ; 4 à 7 = Jaune ; 0 à 3 = Rouge. Après déploiement, la banque est ajoutée au stockage privé au premier accès, sans effacer les copies déjà enregistrées. Elle apparaît ensuite dans « Créer une séance ».
 
 ## Fonctionnement
 
