@@ -37,3 +37,20 @@ Les questions et choix sont mélangés. Les variantes existantes de Mission Savo
 ## Vérifications
 
 `node scripts/build-site.mjs` construit les ressources. `npx wrangler deploy --dry-run` vérifie le déploiement sans publier. Tester dans un environnement local distinct les scores, reprises, export, droits professeur et conservation des réponses. Ne pas publier les identifiants de test ni des notes fictives comme des résultats réels.
+
+## Contrôle Python (niveaux 1 à 5 de Py-rates)
+
+Créer une séance dans `/professeur/`, choisir Python 4e ou Python 3e, renseigner la classe puis « Créer et ouvrir ». La classe est obligatoire : chaque séance dispose d’un code aléatoire distinct. Durée proposée : 20 minutes, passage individuel imposé. L’élève rejoint `/evaluations/`. Fermer la séance rend les copies en cours ; le corrigé ne s’ouvre que sur une action séparée du professeur. Attendre le passage de toutes les classes avant cette ouverture.
+
+Dix questions identiques pour les deux niveaux : cinq de lecture (ordre, boucle et indentation, variable, if/else, if/elif/else), cinq de complément/correction (range, bloc indenté, variable en argument, ==, elif). Commandes françaises vérifiées dans l’aide de Py-rates : avancer, gauche, droite, sauter, sauter_haut, sauter_hauteur, lire_nombre, mesurer_hauteur. Les questions et les choix sont mélangés ; l’indentation reste visible.
+
+Deux compétences du programme de technologie cycle 4, BO du 29 février 2024 :
+- Comprendre et modifier un programme associé à une fonctionnalité d’un objet ou d’un système technique.
+- Concevoir, écrire, tester et mettre au point un programme.
+
+Source : https://www.education.gouv.fr/sites/default/files/ensel802_annexe.pdf
+Le QCM fournit des indicateurs de lecture, complément et correction ; il ne valide pas à lui seul la conception et l’exécution autonome d’un programme.
+
+Chaque compétence porte sur cinq questions : 0–1 bonne réponse = maîtrise insuffisante (1), 2–3 = maîtrise fragile (2), 4 = maîtrise satisfaisante (3), 5 = très bonne maîtrise (4). En 3e, deux points par bonne réponse, total sur 20. En 4e, affichage des niveaux uniquement ; les points intermédiaires restent un outil de calcul et la colonne note /20 de l’export est vide. Les anciennes évaluations conservent leur barème.
+
+Les codes et copies restent dans le stockage serveur, jamais dans les fichiers publics. Le dépôt GitHub est public et contient les banques source : l’accès par code protège la passation et les copies, mais ne garantit pas le secret des sujets envers une personne qui consulte le dépôt.
