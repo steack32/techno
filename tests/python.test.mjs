@@ -13,6 +13,9 @@ const password='test-only-password-for-python';
 const hash=Buffer.from(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('login:'+password))).toString('hex');
 sql.exec('INSERT INTO settings VALUES(?,?)','passwordHash',hash);
 sql.exec('INSERT INTO settings VALUES(?,?)','banks',JSON.stringify({legacy:{...python3e,title:'Existing assessment'}}));
+const oldPython=JSON.parse(JSON.stringify(python3e).replaceAll('for _ in range(', 'for i in range('));
+delete oldPython.version;
+sql.exec('UPDATE settings SET value=? WHERE key=?',JSON.stringify({legacy:{...python3e,title:'Existing assessment'},python3e:oldPython,python4e:{...oldPython,level:'4e',scoring:'competencies'}}),'banks');
 // Existing sessions prevent historical first-install defaults from being created.
 sql.exec('INSERT INTO sessions VALUES(?,?,?,?)','legacy','LEGACYCODE',JSON.stringify({id:'legacy',assessment:'legacy',label:'Existing',mode:'individual',open:false}),0);
 let cookie='';
@@ -53,4 +56,11 @@ for(const [assessment,classe] of [['python3e','301'],['python4e','401']]){
 }
 assert.notEqual(codes[0],codes[1]);
 assert.ok(store.getBanks().legacy);
+assert.equal(store.getBanks().python3e.version,python3e.version);
+assert.doesNotMatch(JSON.stringify(store.getBanks().python3e),/for i in range/);
+const saved={finished:null,questions:[{id:'q',prompt:'for i in range(3):',choices:[{id:'c',label:'for i in range(5):'}],correct:'c'}]};
+const displayed=store.safeAttempt(saved,python3e,{assessment:'python3e'});
+assert.equal(displayed.questions[0].prompt,'for _ in range(3):');
+assert.deepEqual(displayed.questions[0].choices,[{id:'c',label:'for _ in range(5):'}]);
+assert.equal(saved.questions[0].prompt,'for i in range(3):');
 console.log('PASS Python: 10 questions FR, two levels, codes/classes, authentication, save/revision, scores/mastery, CSV, closing/reveal, existing data retained');
