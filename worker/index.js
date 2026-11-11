@@ -1,4 +1,4 @@
-import {ponts5e} from './ponts-qcm.js';
+import {ponts5e,ponts5eAdapte} from './ponts-qcm.js';
 import {python4e,python3e,pythonLoopNotation} from './python.js';
 import {initMateriaux,materiauxRoute} from './materiaux.js';
 import { initPonts, pontsRoute } from './ponts.js';
@@ -32,7 +32,7 @@ export class EvaluationStore extends DurableObject{
   this.sql.exec(`CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY,value TEXT NOT NULL); CREATE TABLE IF NOT EXISTS auth (token TEXT PRIMARY KEY,expires INTEGER NOT NULL); CREATE TABLE IF NOT EXISTS sessions (id TEXT PRIMARY KEY,code TEXT UNIQUE NOT NULL,data TEXT NOT NULL,created INTEGER NOT NULL); CREATE TABLE IF NOT EXISTS attempts (id TEXT PRIMARY KEY,token TEXT UNIQUE NOT NULL,session_id TEXT NOT NULL,data TEXT NOT NULL,created INTEGER NOT NULL); CREATE TABLE IF NOT EXISTS identities (session_id TEXT NOT NULL,identity TEXT NOT NULL,attempt_id TEXT NOT NULL,PRIMARY KEY(session_id,identity)); CREATE INDEX IF NOT EXISTS attempts_session ON attempts(session_id); CREATE TABLE IF NOT EXISTS throttle (key TEXT PRIMARY KEY,count INTEGER NOT NULL,until INTEGER NOT NULL);`);
  }
  one(sql,...args){return this.sql.exec(sql,...args).toArray()[0];}
- getBanks(){const r=this.one('SELECT value FROM settings WHERE key=?','banks');if(!r)fail(503,'Le professeur doit d’abord ouvrir son espace pour préparer les évaluations.');const banks=JSON.parse(r.value);if(!banks.trottinette5e){banks.trottinette5e=trottinette5e;this.sql.exec('UPDATE settings SET value=? WHERE key=?',JSON.stringify(banks),'banks');}for(const [id,bank] of Object.entries({python4e,python3e,ponts5e})){if(banks[id]?.version!==bank.version){banks[id]=bank;this.sql.exec('UPDATE settings SET value=? WHERE key=?',JSON.stringify(banks),'banks');}}return banks;}
+ getBanks(){const r=this.one('SELECT value FROM settings WHERE key=?','banks');if(!r)fail(503,'Le professeur doit d’abord ouvrir son espace pour préparer les évaluations.');const banks=JSON.parse(r.value);if(!banks.trottinette5e){banks.trottinette5e=trottinette5e;this.sql.exec('UPDATE settings SET value=? WHERE key=?',JSON.stringify(banks),'banks');}for(const [id,bank] of Object.entries({python4e,python3e,ponts5e,ponts5eAdapte})){if(banks[id]?.version!==bank.version){banks[id]=bank;this.sql.exec('UPDATE settings SET value=? WHERE key=?',JSON.stringify(banks),'banks');}}return banks;}
  session(id){const r=this.one('SELECT data FROM sessions WHERE id=?',id);if(!r)fail(404,'Séance introuvable.');return JSON.parse(r.data);}
  putSession(s){this.sql.exec('UPDATE sessions SET data=? WHERE id=?',JSON.stringify(s),s.id);}
  putAttempt(a){this.sql.exec('UPDATE attempts SET data=? WHERE id=?',JSON.stringify(a),a.id);}
@@ -51,7 +51,7 @@ export class EvaluationStore extends DurableObject{
   if(path.startsWith('/ponts/')||path==='/teacher/ponts'||path.startsWith('/teacher/ponts/'))return pontsRoute(this,req,path);
   if(['GET','HEAD'].includes(req.method)&&path.startsWith('/resources/'))return serveResource(this.sql,req,path.slice('/resources/'.length),false);
   if(['GET','HEAD'].includes(req.method)&&path.startsWith('/teacher/resources')){this.teacher(req);return path==='/teacher/resources'?listResources(this.sql):serveResource(this.sql,req,path.slice('/teacher/resources/'.length),true);}
-  if(path==='/health')return json({ok:true,service:'evaluations',version:'ponts5e-v1',initialized:!!this.one('SELECT key FROM settings WHERE key=?','banks')});
+  if(path==='/health')return json({ok:true,service:'evaluations',version:'ponts5e-v2-adapte',initialized:!!this.one('SELECT key FROM settings WHERE key=?','banks')});
   if(req.method==='GET'&&path==='/session'){const code=field(url.searchParams.get('code'),5,20).replace(/[\s-]/g,'').toUpperCase();const r=this.one('SELECT data FROM sessions WHERE code=?',code);if(!r)fail(404,'Code de séance non reconnu.');const s=JSON.parse(r.data),bank=this.getBanks()[s.assessment];return json({title:bank.title,assessment:s.assessment,level:bank.level,mode:s.mode,minutes:s.minutes,classe:s.classe,open:s.open,label:s.label,scoring:bank.scoring||'points',pointsPerQuestion:bank.pointsPerQuestion||1,questionCount:bank.bank.length});}
   if(req.method==='GET'&&path==='/state'){const a=this.student(req),s=this.session(a.sessionId);return json(this.safeAttempt(a,this.getBanks()[s.assessment],s));}
   if(req.method==='GET'&&path.startsWith('/teacher')){this.teacher(req);const banks=this.getBanks();

@@ -59,8 +59,14 @@ Les codes et copies restent dans le stockage serveur, jamais dans les fichiers p
 
 Dans l’espace professeur, créer une séance « 5e · Les ponts · QCM », renseigner la classe, puis distribuer son code. Passage individuel, 25 minutes par défaut, 20 questions et note sur 20 (1 point par bonne réponse, 0 sinon). Cinq parties de quatre questions : vocabulaire, familles, efforts/déformations, stabilité et Bridge Designer. Les questions sont mélangées au sein de chaque partie, et les quatre choix sont mélangés. Chaque question est autonome.
 
-Dix schémas SVG sans réponses et un tableau d’essais sont affichés dans les questions concernées et dans le corrigé. Le corrigé n’est envoyé qu’après clôture et ouverture explicite par le professeur. La nouvelle banque est ajoutée automatiquement sans migration des copies ou séances existantes.
+Quatre photos réelles (crédits et licences accessibles sous chaque image), cinq schémas SVG sans réponses et un tableau d’essais sont affichés dans les questions concernées et dans le corrigé. Le corrigé n’est envoyé qu’après clôture et ouverture explicite par le professeur. La nouvelle banque est ajoutée automatiquement sans migration des copies ou séances existantes.
 
 Pour conserver le suivi C1/C2 du site, deux indicateurs pédagogiques regroupent chacun 10 questions : éléments/familles/traction/compression, puis déformations/stabilité/essais. Leurs intitulés ne sont pas présentés comme des compétences officielles du programme. Le score global reste sur 20.
 
 Vérifications : `node --test tests/*.test.mjs`, puis `node scripts/build-site.mjs`. `tests/ponts-qcm.test.mjs` couvre les cinq parties, les médias, les scores, la reprise, les accès, l’export CSV et le corrigé différé.
+
+### Parcours adapté — ponts 5e
+
+Choisir « Les ponts · Parcours adapté » dans l’espace professeur et créer une séance séparée pour les élèves concernés. 10 questions, deux par thème, avec 2 ou 3 réponses proposées. Une seule bonne réponse, 2 points chacune, total /20, sans pénalité. Durée par défaut : 25 minutes. Les deux indicateurs sont calculés sur 10 chacun (5 questions par indicateur). Les codes, copies, exports et corrigés restent propres à chaque séance.
+
+Le QCM principal v2 remplace le flambement par une question sur le poids propre et les charges. Les anciennes copies conservent leurs questions et leurs illustrations.

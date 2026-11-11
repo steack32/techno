@@ -8,6 +8,6 @@ body:not([data-teacher]) main{max-width:850px}body:not([data-teacher]) .intro{ma
 
 .python-code{white-space:pre;overflow-x:auto;font:16px/1.65 Consolas,monospace;background:#f1f5f9;color:#142538;border:1px solid #ccd8e5;border-radius:8px;padding:14px;margin:12px 0;tab-size:4;text-align:left}.option .python-code{margin:0}.badge{white-space:normal}
 
-.question-figure{margin:18px 0;background:#f3f6fa;border:1px solid #dbe5ee;border-radius:14px;padding:12px;text-align:center}.question-figure img{display:block;width:100%;max-width:640px;height:auto;margin:auto}.question-figure figcaption{font-size:.9rem;color:#41566b;margin-top:8px}.question-table{margin:18px 0}.question-table caption{text-align:left;font-weight:700;padding:8px 0}
+.question-figure{margin:18px 0;background:#f3f6fa;border:1px solid #dbe5ee;border-radius:14px;padding:12px;text-align:center}.question-figure img{display:block;width:100%;max-width:640px;height:auto;max-height:480px;object-fit:contain;margin:auto}.question-figure figcaption{font-size:.9rem;color:#41566b;margin-top:8px}.question-table{margin:18px 0}.question-table caption{text-align:left;font-weight:700;padding:8px 0}
 
-@media(min-width:641px){.tabs.ponts-tabs{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media(min-width:641px){body:not([data-teacher]) .tabs.ponts-tabs{grid-template-columns:repeat(5,minmax(0,1fr))}}
