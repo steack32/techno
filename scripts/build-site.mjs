@@ -1,5 +1,6 @@
 import {copyFileSync,cpSync,mkdirSync,rmSync,writeFileSync,readFileSync,statSync} from 'node:fs';
 import {dirname,resolve} from 'node:path';
+import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..'),out=resolve(root,'dist');
 const catalog=JSON.parse(readFileSync(resolve(root,'site/catalogue.json'),'utf8'));
@@ -30,6 +31,18 @@ mkdirSync(resolve(out,'5eme/ponts-guides'),{recursive:true});
 write('5eme/ponts-guides/index.html',enhance(readFileSync(resolve(root,'site/5eme/ponts-guides/index.html'),'utf8'),{level:'5eme',title:'Les ponts · Parcours guidé'}));
 copyFileSync(resolve(root,'site/5eme/ponts/guided-content.js'),resolve(out,'5eme/ponts/guided-content.js'));
 for(const dir of ['codage','evaluations','professeur'])cpSync(resolve(root,'site',dir),resolve(out,dir),{recursive:true});
+// Give each evaluation UI release its own URL: an older cached renderer only
+// accepts SVG diagrams and silently omits the newer bridge photographs.
+for(const asset of ['app.js','style.css']){
+ const contents=readFileSync(resolve(out,'evaluations',asset));
+ const version=createHash('sha256').update(contents).digest('hex').slice(0,16);
+ const dot=asset.lastIndexOf('.'),versioned=asset.slice(0,dot)+'.'+version+asset.slice(dot);
+ copyFileSync(resolve(out,'evaluations',asset),resolve(out,'evaluations',versioned));
+ for(const entry of ['evaluations/index.html','professeur/index.html']){
+  const file=resolve(out,entry);
+  writeFileSync(file,readFileSync(file,'utf8').replaceAll('/evaluations/'+asset,'/evaluations/'+versioned));
+ }
+}
 write('404.html',page('Page introuvable','<h1>Page introuvable</h1><p>Retrouve les ressources depuis ton niveau.</p><a class="portal-button" href="/">Revenir à l’accueil</a>'));
 write('_redirects',levels.map(l=>`/${l[0]}e /${l}/ 301\n/${l[0]}e/* /${l}/:splat 301`).join('\n')+'\n');
 write('_headers','/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n');
