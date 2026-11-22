@@ -1,0 +1,13 @@
+<section class="arcade" data-page="professeur">
+  <nav class="breadcrumbs" aria-label="Fil d’Ariane"><a href="/professeur/">Espace professeur</a> / Mini-jeux</nav>
+  <header class="arcade-heading"><div><h1>Mini-jeux des binômes</h1><p>Retrouvez les auteurs d’un jeu et gérez les publications de vos classes.</p></div><a href="/mini-jeux/" class="arcade-button secondary">Voir la galerie élèves</a></header>
+  <div id="prof-acces" class="arcade-empty" hidden><p>Connectez-vous à l’espace professeur pour retrouver les binômes.</p><a href="/professeur/" class="arcade-button primary">Ouvrir l’espace professeur</a></div>
+  <div id="prof-outils" class="arcade-admin" hidden><strong id="etat-depot"></strong><button id="basculer-depot" type="button" class="arcade-button secondary"></button></div>
+  <div class="arcade-tools"><label for="classe-filtre">Filtrer par classe</label><select id="classe-filtre"><option value="">Toutes les classes</option></select></div>
+  <p id="list-message" class="arcade-message" role="status">Chargement des jeux…</p>
+  <div id="liste" class="arcade-grid" aria-label="Jeux et binômes"></div>
+  <div id="vide" class="arcade-empty" hidden><h2>Aucun jeu publié</h2><p>Les dépôts des élèves apparaîtront ici.</p></div>
+  <button type="button" id="suite" class="arcade-button secondary" hidden>Afficher la suite</button>
+  <button type="button" id="reessayer" class="arcade-button secondary" hidden>Réessayer</button>
+  <noscript>Activez JavaScript pour gérer les jeux.</noscript>
+</section>

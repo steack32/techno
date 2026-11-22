@@ -1,0 +1,14 @@
+<section class="arcade gamer" data-page="jouer">
+  <nav class="breadcrumbs" aria-label="Fil d’Ariane"><a href="/mini-jeux/">Galerie des mini-jeux</a> / Jouer</nav>
+  <header class="arcade-heading"><div><h1 id="jeu-titre">Jouer au mini-jeu</h1><p id="jeu-classe"></p></div></header>
+  <p id="jeu-message" class="arcade-message" role="status">Chargement du jeu…</p>
+  <div id="jeu-cadre" class="arcade-screen" hidden>
+    <div class="arcade-screen-tools"><span>Clique dans le jeu pour utiliser le clavier.</span><div class="arcade-actions">
+      <button id="relancer" type="button" class="arcade-button secondary">Relancer</button>
+      <button id="plein-ecran" type="button" class="arcade-button secondary" hidden>Plein écran</button>
+    </div></div>
+    <iframe id="jeu" title="Zone de jeu" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
+  </div>
+  <p><a href="/mini-jeux/">Retour à la galerie</a></p>
+  <noscript>Active JavaScript pour jouer.</noscript>
+</section>

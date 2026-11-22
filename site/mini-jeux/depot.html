@@ -1,0 +1,31 @@
+<section class="arcade narrow" data-page="depot">
+  <nav class="breadcrumbs" aria-label="Fil d’Ariane"><a href="/">Accueil</a> / <a href="/mini-jeux/">Mini-jeux</a> / Dépôt</nav>
+  <header class="arcade-heading"><div><h1>Déposer notre mini-jeu</h1><p>Une fois publié, votre jeu sera jouable dans la galerie de la classe.</p></div></header>
+  <form id="depot-form" class="arcade-panel">
+    <fieldset id="depot-champs"><legend>Votre binôme</legend>
+      <div class="arcade-identite">
+        <label>Classe<input id="classe" name="classe" required maxlength="16" placeholder="Ex. 301" autocomplete="off"></label>
+        <label>Premier prénom<input name="firstA" required maxlength="40" autocomplete="off"></label>
+        <label>Deuxième prénom<input name="firstB" required maxlength="40" autocomplete="off"></label>
+      </div>
+      <p class="arcade-help">Les deux prénoms sont réservés au professeur. Laissez-les en dehors du titre et du code.</p>
+      <div class="arcade-source">
+        <label for="titre">Titre du jeu <span>(facultatif)</span></label>
+        <input id="titre" name="title" maxlength="80" autocomplete="off" aria-describedby="aide-titre">
+        <p id="aide-titre" class="arcade-help">Si vous laissez ce champ vide, la galerie reprend le titre du fichier HTML.</p>
+        <label for="file">Choisir un fichier HTML</label>
+        <input type="file" id="file" accept=".html,.htm,text/html" aria-describedby="aide-code">
+        <label for="code">Ou coller le code HTML</label>
+        <textarea id="code" name="html" required rows="10" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="aide-code" placeholder="<!DOCTYPE html>"></textarea>
+        <p id="aide-code" class="arcade-help">Un seul fichier de 512 Kio maximum. Les images, le son et les scripts doivent être inclus dans le fichier pour que le jeu fonctionne en ligne.</p>
+      </div>
+      <button type="submit" class="arcade-button primary">Publier dans la galerie</button>
+    </fieldset>
+    <p id="depot-message" class="arcade-message" role="status"></p>
+  </form>
+  <section id="recu" class="arcade-panel arcade-success" tabindex="-1" hidden>
+    <h2>Votre jeu est publié !</h2><p id="recu-titre"></p>
+    <div class="arcade-actions"><a id="recu-jouer" class="arcade-button primary">Jouer maintenant</a><a href="/mini-jeux/" class="arcade-button secondary">Voir la galerie</a></div>
+  </section>
+  <noscript>Active JavaScript pour publier un jeu.</noscript>
+</section>

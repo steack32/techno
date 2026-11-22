@@ -1,5 +1,13 @@
 # Évaluations de technologie sur Cloudflare
 
+## Galerie des mini-jeux
+
+Les binômes publient un fichier HTML autonome (512 Kio maximum) depuis `/mini-jeux/deposer/`. La galerie `/mini-jeux/` donne à chaque jeu un lien permanent et permet de filtrer par classe. Le dépôt est ouvert par défaut.
+
+Dans `/professeur/mini-jeux/`, la session professeur existante permet de retrouver les deux prénoms, de retirer une publication et de fermer ou rouvrir les dépôts. Fermer les dépôts laisse la galerie accessible. Le retrait supprime le code et les prénoms associés à cette publication.
+
+La table SQLite `arcade_games` est créée automatiquement dans le Durable Object existant. Les listes publiques ne renvoient que le titre, la classe, la date et l’identifiant. Le HTML des jeux est servi dans un cadre isolé, avec une politique de sécurité transmise par le serveur. Les ressources externes sont bloquées. Les élèves doivent intégrer les images, les sons et les scripts dans leur fichier.
+
 Le Worker `techno` publie les ressources élèves et deux évaluations :
 
 - `/evaluations/` : accès élèves par code de séance ;

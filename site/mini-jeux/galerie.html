@@ -1,0 +1,16 @@
+<section class="arcade" data-page="galerie">
+  <nav class="breadcrumbs" aria-label="Fil d’Ariane"><a href="/">Accueil</a> / Mini-jeux</nav>
+  <header class="arcade-heading">
+    <div><h1>Galerie des mini-jeux</h1><p>Découvre les jeux créés en technologie et lance une partie.</p></div>
+    <a href="/mini-jeux/deposer/" class="arcade-button primary">Déposer un jeu</a>
+  </header>
+  <div class="arcade-tools"><label for="classe-filtre">Filtrer par classe</label>
+    <select id="classe-filtre"><option value="">Toutes les classes</option></select>
+  </div>
+  <p id="list-message" class="arcade-message" role="status">Chargement des jeux…</p>
+  <div id="liste" class="arcade-grid" aria-label="Jeux publiés"></div>
+  <div id="vide" class="arcade-empty" hidden><h2>La galerie attend son premier jeu</h2><p>Quand un binôme publie sa création, elle apparaît ici.</p><a href="/mini-jeux/deposer/">Déposer le premier jeu</a></div>
+  <button type="button" id="suite" class="arcade-button secondary" hidden>Afficher la suite</button>
+  <button type="button" id="reessayer" class="arcade-button secondary" hidden>Réessayer</button>
+  <noscript>Active JavaScript pour voir les jeux.</noscript>
+</section>
