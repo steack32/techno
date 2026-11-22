@@ -2,7 +2,14 @@ const API = '/api/mini-jeux';
 const ADMIN = '/api/evaluations/teacher/mini-jeux';
 const MAX_CODE = 512 * 1024;
 const byId = id => document.getElementById(id);
-const playLink = id => '/mini-jeux/jouer/?id=' + encodeURIComponent(id);
+function playLink(id, classe) {
+  const query = new URLSearchParams({id});
+  if (classe) query.set('classe', classe);
+  return '/mini-jeux/jouer/?' + query;
+}
+function galleryLink(classe) {
+  return classe ? '/mini-jeux/?' + new URLSearchParams({classe}) : '/mini-jeux/';
+}
 const element = (tag, className, text) => {
   const item = document.createElement(tag);
   if (className) item.className = className;
@@ -46,6 +53,9 @@ function gallery(teacher) {
       byId('prof-outils').hidden = false;
       byId('etat-depot').textContent = open ? 'Les élèves peuvent publier leurs jeux.' : 'Les dépôts sont fermés. Les jeux restent jouables.';
       byId('basculer-depot').textContent = open ? 'Fermer les dépôts' : 'Rouvrir les dépôts';
+    } else {
+      byId('depot-ferme')?.toggleAttribute('hidden',open);
+      for (const link of document.querySelectorAll('[data-depot-link]')) link.hidden = !open;
     }
   }
   function card(game) {
@@ -53,7 +63,7 @@ function gallery(teacher) {
     article.append(element('p', 'arcade-class', 'Classe ' + game.classe), element('h2', '', game.title));
     if (teacher) article.append(element('p', 'arcade-auteurs', game.firstA + ' et ' + game.firstB));
     const actions = element('div','arcade-actions'), play = element('a','arcade-button primary','Jouer');
-    play.href = playLink(game.id);
+    play.href = playLink(game.id,activeClass);
     play.setAttribute('aria-label', 'Jouer à ' + game.title);
     actions.append(play);
     if (teacher) {
@@ -147,14 +157,25 @@ function submission() {
   let requestId = crypto.randomUUID(), reading = 0, closed = false;
   form.addEventListener('input', () => { requestId = crypto.randomUUID(); });
   const submit = form.querySelector('button[type=submit]');
-  code.addEventListener('input', () => { reading++; code.setCustomValidity(''); submit.disabled = false; });
+  code.addEventListener('input', () => {
+    reading++;
+    file.value = '';
+    code.setCustomValidity('');
+    submit.disabled = false;
+    message(note,'');
+  });
+  function rejectFile(reason) {
+    file.value = '';
+    const help = reason + ' Choisis un autre fichier ou colle le code à publier.';
+    code.setCustomValidity(help);
+    message(note,help,true);
+  }
   file.addEventListener('change', async () => {
     const chosen = file.files[0], attempt = ++reading;
     if (!chosen) { submit.disabled = false; return; }
     if (chosen.size > MAX_CODE) {
-      file.value = '';
+      rejectFile('Ce fichier dépasse 512 Kio.');
       submit.disabled = false;
-      message(note,'Choisis un fichier de 512 Kio maximum.',true);
       return;
     }
     submit.disabled = true;
@@ -165,7 +186,7 @@ function submission() {
       code.setCustomValidity('');
       requestId = crypto.randomUUID();
       message(note,'Le code du fichier a été copié dans le formulaire.');
-    } catch { if (attempt === reading) message(note,'Le fichier ne peut pas être lu. Tu peux coller son code.',true); }
+    } catch { if (attempt === reading) rejectFile('Ce fichier ne peut pas être lu.'); }
     finally { if (attempt === reading) submit.disabled = false; }
   });
   api(API + '/depot').then(state => {
@@ -187,7 +208,8 @@ function submission() {
     try {
       const game = await api(API,payload);
       byId('recu-titre').textContent = game.title + ' · Classe ' + game.classe;
-      byId('recu-jouer').href = playLink(game.id);
+      byId('recu-jouer').href = playLink(game.id,game.classe);
+      byId('recu').querySelector('a.secondary').href = galleryLink(game.classe);
       form.reset(); form.hidden = true;
       const receipt = byId('recu');
       receipt.hidden = false; receipt.focus();
@@ -199,7 +221,11 @@ function submission() {
 }
 
 async function player() {
-  const id = new URLSearchParams(location.search).get('id'), note = byId('jeu-message');
+  const query = new URLSearchParams(location.search);
+  const id = query.get('id'), note = byId('jeu-message');
+  for (const link of document.querySelectorAll('[data-retour-galerie]')) {
+    link.href = galleryLink(query.get('classe'));
+  }
   if (!id || !/^[0-9a-f-]{36}$/i.test(id)) { message(note,'Ce lien de jeu est incomplet. Choisis un jeu dans la galerie.',true); return; }
   try {
     const game = await api(API + '/' + encodeURIComponent(id));

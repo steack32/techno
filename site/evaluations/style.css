@@ -11,3 +11,11 @@ body:not([data-teacher]) main{max-width:850px}body:not([data-teacher]) .intro{ma
 .question-figure{margin:18px 0;background:#f3f6fa;border:1px solid #dbe5ee;border-radius:14px;padding:12px;text-align:center}.question-figure img{display:block;width:100%;max-width:640px;height:auto;max-height:480px;object-fit:contain;margin:auto}.question-figure figcaption{font-size:.9rem;color:#41566b;margin-top:8px}.question-table{margin:18px 0}.question-table caption{text-align:left;font-weight:700;padding:8px 0}
 
 @media(min-width:641px){body:not([data-teacher]) .tabs.ponts-tabs{grid-template-columns:repeat(5,minmax(0,1fr))}}
+
+body[data-teacher] .top { flex-wrap: wrap; }
+.top nav { display: flex; flex-wrap: wrap; gap: .25rem 1.2rem; }
+.top nav a { display: inline-flex; align-items: center; min-height: 44px; }
+@media (max-width: 720px) {
+  body[data-teacher] .top { align-items: flex-start; gap: .45rem; }
+  .top nav { width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .15rem .85rem; }
+}
